@@ -1,4 +1,4 @@
-function addAndSubstract(arr) {
+function addAndSubtract(arr) {
   let arrSum = 0;
   let myArrSum = 0;
   let myArr = [];
@@ -23,4 +23,4 @@ function addAndSubstract(arr) {
   console.log(arrSum);
   console.log(myArrSum);
 }
-addAndSubstract([-5, 11, 3, 0, 2]);
+addAndSubtract([-5, 11, 3, 0, 2]);

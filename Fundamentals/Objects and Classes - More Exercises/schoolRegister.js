@@ -4,18 +4,18 @@ function sortRegister(arr) {
 	for (const line of arr) {
 		const tokens = line.split(', ');
 		const studentName = tokens[0].split(' ').pop();
-		const stundentGrade = Number(tokens[1].split('').pop());
+		const studentGrade = Number(tokens[1].split('').pop());
 		const graduatedWithAverage = Number(tokens[2].split(' ').pop());
 
 		if (graduatedWithAverage >= 3) {
-			if (!register.hasOwnProperty(stundentGrade)) {
-				register[stundentGrade] = {
+			if (!register.hasOwnProperty(studentGrade)) {
+				register[studentGrade] = {
 					name: [studentName],
 					average: [graduatedWithAverage],
 				};
 			} else {
-				register[stundentGrade].name.push(studentName);
-				register[stundentGrade].average.push(graduatedWithAverage);
+				register[studentGrade].name.push(studentName);
+				register[studentGrade].average.push(graduatedWithAverage);
 			}
 		}
 	}

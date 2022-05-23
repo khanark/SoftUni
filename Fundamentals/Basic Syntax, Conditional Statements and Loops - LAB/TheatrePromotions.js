@@ -1,6 +1,5 @@
 function calculatePrice(period, age) {
   let price = 0;
-  let printLine = '';
   switch (period) {
     case 'Weekday':
       if (age >= 0 && age <= 18) {

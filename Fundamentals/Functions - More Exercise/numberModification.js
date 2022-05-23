@@ -1,4 +1,4 @@
-function modificateNumber(number) {
+function modificationNumber(number) {
   let num = number.toString();
   let sum = 0;
   const append = n => (num += n);
@@ -13,7 +13,7 @@ function modificateNumber(number) {
       sum = 0;
     }
   }
-  
+
   console.log(num);
 }
-modificateNumber(5835);
+modificationNumber(5835);

@@ -19,10 +19,10 @@ function killTheBunny(arr) {
       for (let col = 0; col < myArr[row].length; col++)
         if (row === bunnyRow && col === bunnyCol) {
           let explosionDamage = myArr[row][col];
-          let initialBombDiapazon = Math.max(0, row - 1);
-          let bombDiapazonLength = row + 1;
+          let initialBombDiapason = Math.max(0, row - 1);
+          let bombDiapasonLength = row + 1;
 
-          for (let i = initialBombDiapazon; i <= bombDiapazonLength; i++) {
+          for (let i = initialBombDiapason; i <= bombDiapasonLength; i++) {
             if (myArr[i] === undefined) {
               break;
             }

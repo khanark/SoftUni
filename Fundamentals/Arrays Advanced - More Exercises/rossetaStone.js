@@ -1,4 +1,4 @@
-function rosseta(arr) {
+function rosetta(arr) {
   const linesNumber = Number(arr.shift());
   const template = arr.splice(0, linesNumber).map(el => el.split(' ').map(Number));
   const encodedMatrix = arr.map(row => row.split(' ').map(Number));
@@ -15,7 +15,7 @@ function rosseta(arr) {
   }
   console.log(result);
 }
-rosseta([
+rosetta([
   "1",
 "1 3 13",
 "12 22 14 13 25 0 4 24 23",
