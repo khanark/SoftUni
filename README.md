@@ -1,2 +1,2 @@
-# SoftUni-Fundamentals-Problems
-Fundamentals - May - 2022 
+# Software Academy - SoftUni
+-- part from my educational program
