@@ -1,7 +1,6 @@
-function sortNumbers(numbers) {
-  let sorted = numbers.sort((a, b) => b - a);
-  for (let i = 0; i < sorted.length; i++) {
-    console.log(sorted[i]);
-  }
+function sortNumbers(n1, n2, n3) {
+	const arr = [n1, n2, n3];
+	const sorted = arr.sort((a, b) => b - a);
+	sorted.forEach(el => console.log(el));
 }
-sortNumbers([-2, 1, 3]);
+sortNumbers(-2, 1, 3);
