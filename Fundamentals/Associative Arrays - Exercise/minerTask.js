@@ -1,18 +1,18 @@
 function collect(arr) {
 	// create collection
-	let resouces = {};
+	let resources = {};
 	// parse the input using for loop for the stepping feature
 	for (let pair = 0; pair < arr.length; pair += 2) {
 		const name = arr[pair];
 		const value = Number(arr[pair + 1]);
-		if (!resouces.hasOwnProperty(name)) {
-			resouces[name] = value;
+		if (!resources.hasOwnProperty(name)) {
+			resources[name] = value;
 		} else {
-			resouces[name] += value;
+			resources[name] += value;
 		}
 	}
 	// print the output
-	const result = Object.entries(resouces);
+	const result = Object.entries(resources);
 	result.forEach(([key, value]) => console.log(`${key} -> ${value}`));
 }
 collect(['Gold', '155', 'Silver', '10', 'Copper', '17']);
