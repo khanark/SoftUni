@@ -4,8 +4,8 @@ function gladiator(arr) {
 	let lastSkillName = '';
 	// parse the input (gladiator nad technique are strings, skills are numbers)
 	while (arr[0] !== 'Ave Cesar') {
+		if (arr[0].includes(' vs ')) break;
 		let line = arr.shift();
-		if (line.includes(' vs ')) break;
 		const [gladiator, skillName, skillPower] = line.split(' -> ');
 
 		if (!gladiators.hasOwnProperty(gladiator)) {
@@ -53,13 +53,16 @@ function gladiator(arr) {
 	const result = Object.entries(gladiators).sort(function (a, b) {
 		let firstGlad = Array.from(a[1].values()).reduce((a, b) => a + b);
 		let secondGlad = Array.from(b[1].values()).reduce((a, b) => a + b);
-		return secondGlad - firstGlad;
+	if (secondGlad - firstGlad == 0) {
+		return a[0].localeCompare(b[0])
+	} else {
+		return secondGlad - firstGlad
+	}
 	});
-
 	for (const [gladiator, values] of result) {
 		const totalPoints = Array.from(values.values()).reduce((a, b) => a + b);
 		const sorted = Array.from(values.entries()).sort((a, b) => {
-			if (b[1] - a[1] === 0) {
+			if (b[1] - a[1] == 0) {
 				return a[0].localeCompare(b[0]);
 			} else {
 				return b[1] - a[1];
