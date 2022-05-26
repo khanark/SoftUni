@@ -74,7 +74,7 @@ function gladiator(arr) {
 		}
 	}
 }
-//TODO: Fix the problem, Judge givess you 60/100
+//TODO: Fix the problem, Judge gives you 70/100
 // gladiator([
 // 	'Peter -> BattleCry -> 400',
 // 	'Alex -> PowerPunch -> 300',
