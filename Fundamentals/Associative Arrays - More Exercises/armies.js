@@ -55,13 +55,11 @@ function storeArmyInfo(arr) {
 	// print the output
 	for (const array of result) {
 		const [leader, armyInfo] = array;
-		let totalArmyCount = 0
-		if ( Array.from(armyInfo.values()) == 0){
-			totalArmyCount = 0
+		let totalArmyCount = 0;
+		if (Array.from(armyInfo.values()) == 0) {
+			totalArmyCount = 0;
 		} else {
-			totalArmyCount = Array.from(armyInfo.values()).reduce(
-				(a, b) => a + b
-			);
+			totalArmyCount = Array.from(armyInfo.values()).reduce((a, b) => a + b);
 		}
 		// const totalArmyCount = Array.from(armyInfo.values()).reduce(
 		// 	(a, b) => a + b
@@ -72,7 +70,7 @@ function storeArmyInfo(arr) {
 			console.log(`>>> ${army} - ${count}`);
 		}
 	}
-	// TODO: NEEDS FIX 
+	// TODO: NEEDS FIX
 }
 storeArmyInfo([
 	'K arrives',
