@@ -1,24 +1,19 @@
-function calcSpice(startingYield) {
-  let days = 0;
-  let totalSpice = 0;
-  
-  while (startingYield > 0) {
-    let spices = startingYield;
-    days++;
-    if (spices >= 26) {
-    spices -= 26;
-    }
-    startingYield -= 10;
-    totalSpice += spices;
-    if (startingYield < 100) {
-      if (totalSpice >= 26) {
-      totalSpice -= 26;
-      }
-      break;
-    }
-  }
+function calcSpice(num) {
+	let currentYield = num;
+	let extractedSpice = 0;
+	let days = 0;
 
-  console.log(days);
-  console.log(totalSpice);
+	while (currentYield >= 100) {
+		extractedSpice += currentYield - 26;
+		currentYield -= 10;
+		days++;
+	}
+
+	if (extractedSpice >= 26) {
+		extractedSpice -= 26;
+	}
+
+	console.log(days);
+	console.log(extractedSpice);
 }
-calcSpice(50);
+calcSpice(111);
