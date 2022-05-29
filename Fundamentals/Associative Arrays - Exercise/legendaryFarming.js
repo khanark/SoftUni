@@ -56,10 +56,10 @@ function farm(arr) {
 	}
 	// print the output
 	let keyMaterial = {
-    "fragments" : 0,
-    "motes": 0,
-    "shards": 0
-  };
+		fragments: 0,
+		motes: 0,
+		shards: 0,
+	};
 	let junkMaterial = new Map();
 	for (const [material, quantity] of farm) {
 		if (
@@ -72,16 +72,20 @@ function farm(arr) {
 			junkMaterial.set(material, quantity);
 		}
 	}
-	const sortedKeyMats = Object.entries(keyMaterial).sort((a,b) => {
-    return b[1] - a[1] == 0  ? a[0].localeCompare(b[0]) : b[1] - a[1]
-  })
-	const sortedJunkMats = Array.from(junkMaterial).sort((a,b) => a[0].localeCompare(b[0]))
-  
-  for (const [key, value] of sortedKeyMats){
-    console.log(`${key}: ${value}`);
-  }
-  for (const [key, value] of sortedJunkMats){
-    console.log(`${key}: ${value}`);
-  }
+	const sortedKeyMats = Object.entries(keyMaterial).sort((a, b) => {
+		return b[1] - a[1] == 0 ? a[0].localeCompare(b[0]) : b[1] - a[1];
+	});
+	const sortedJunkMats = Array.from(junkMaterial).sort((a, b) =>
+		a[0].localeCompare(b[0])
+	);
+
+	for (const [key, value] of sortedKeyMats) {
+		console.log(`${key}: ${value}`);
+	}
+	for (const [key, value] of sortedJunkMats) {
+		console.log(`${key}: ${value}`);
+	}
 }
-farm('123 silver 6 shards 8 shards 5 motes 9 fangs 75 motes 103 MOTES 8 Shards 86 Motes 7 stones 19 silver');
+farm(
+	'123 silver 6 shards 8 shards 5 motes 9 fangs 75 motes 103 MOTES 8 Shards 86 Motes 7 stones 19 silver'
+);
