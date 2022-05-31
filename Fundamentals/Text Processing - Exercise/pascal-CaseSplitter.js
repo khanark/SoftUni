@@ -5,6 +5,7 @@ function splitString(string) {
 
 	// looping through all the characters in the string
 	for (let i = 1; i < string.length; i++) {
+
 		// checking if the current character is lower or upper case
 		if (string[i].toUpperCase() !== string[i]) {
 			currentWord = currentWord.concat(string[i]);
@@ -14,6 +15,8 @@ function splitString(string) {
 		}
 	}
 	words.push(currentWord);
+
+	// printing the output
 	console.log(words.join(', '));
 }
 splitString('SplitMeIfYouCanHaHaYouCantOrYouCan');
