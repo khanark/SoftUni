@@ -15,6 +15,3 @@ function merge(arr1, arr2) {
   console.log(myArr.join(' - '));
 }
 merge(['13', '12312', '5', '77', '4'], ['22', '333', '5', '122', '44']);
-
-let x = '5.57';
-console.log(parseInt(x));
