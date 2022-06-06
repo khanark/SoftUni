@@ -1,15 +1,21 @@
 function decryptMessage(messages) {
-	const numberOfMessages = messages.shift();
-	const letters = ['s', 't', 'a', 'r'];
+	// create collection
 	let planets = { attacked: [], destroyed: [] };
+
+	// take the counter
+	const numberOfMessages = messages.shift();
 	let lines = 0;
 
+	// parse the input
 	while (lines < numberOfMessages) {
 		let line = messages.shift();
+
+    // create regex pattern
 		const pattern =
-			/.*@(?<planetName>[A-Za-z]+).*:(?<planetPopulation>\d+).*!(?<attackType>[AD])!.*->(?<soldierCount>\d+)/g;
+			/@(?<planetName>[A-Za-z]+)[^@\-!:>]*?:(?<planetPopulation>\d+)[^@\-!:>]*?!(?<attackType>[AD])![^@\-!:>]*?->(?<soldierCount>\d+)/g;
 		lines++;
 
+    // take the encryptionKey value
 		const encryptionKey = line.match(/[star]/gi).length;
 		line = line.split('').map(letter => letter.charCodeAt(0) - encryptionKey);
 		line = line.map(code => String.fromCharCode(code)).join('');
@@ -31,18 +37,16 @@ function decryptMessage(messages) {
 		}
 	}
 
+  // sort the result
 	planets.attacked.sort((a, b) => a.localeCompare(b));
 	planets.destroyed.sort((a, b) => a.localeCompare(b));
 
+  // print the output
 	console.log(`Attacked planets: ${planets.attacked.length}`);
-	for (const planet of planets.attacked) {
-		console.log(`-> ${planet}`);
-	}
+	planets.attacked.forEach(planet => console.log(planet))
 
 	console.log(`Destroyed planets: ${planets.destroyed.length}`);
-	for (const planet of planets.destroyed) {
-		console.log(`-> ${planet}`);
-	}
+	planets.destroyed.forEach(planet => console.log(planet))
 }
 decryptMessage([
 	'2',
