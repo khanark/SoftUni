@@ -1,11 +1,11 @@
 function race(arr) {
-    // create participants array
+	// create participants array
 	const participants = arr.shift();
 
-    // create collection
+	// create collection
 	let winners = {};
 
-    // parse the input
+	// parse the input
 	for (const line of arr) {
 		if (line === 'end of race') {
 			break;
@@ -25,7 +25,7 @@ function race(arr) {
 	}
 	const sorted = Object.entries(winners).sort((a, b) => b[1] - a[1]);
 
-    // print the output
+	// print the output
 	console.log(`1st place: ${sorted[0][0]}`);
 	console.log(`2nd place: ${sorted[1][0]}`);
 	console.log(`3rd place: ${sorted[2][0]}`);
