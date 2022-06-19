@@ -31,7 +31,7 @@ function renderKey(arr) {
 		}
 	}
 
-  // create functions for different case scenarios
+	// create functions for different case scenarios
 	function contains(string, substring) {
 		if (string.includes(substring)) {
 			console.log(`${string} contains ${substring}`);
@@ -51,7 +51,7 @@ function renderKey(arr) {
 	function slice(string, substring) {
 		return (string = string.replace(substring, ''));
 	}
-  
+
 	// print the output
 	console.log(`Your activation key is: ${activationKey}`);
 }
