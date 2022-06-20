@@ -9,7 +9,7 @@ function sail(input) {
 			targetedCities[city] = {
 				population: Number(population),
 				treasury: Number(gold),
-			};
+			}; 
 		} else {
 			targetedCities[city].population += Number(population);
 			targetedCities[city].treasury += Number(gold);
