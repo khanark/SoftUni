@@ -1,12 +1,15 @@
 function trackBattle(arr) {
-	let statusPirateShip = arr.shift().split('>').map(Number);
+	// create init variables
+	const statusPirateShip = arr.shift().split('>').map(Number);
 	const statusWarShip = arr.shift().split('>').map(Number);
 	const maxHealthSection = Number(arr.shift());
 
+	//loop the input
 	while (arr[0] !== 'Retire') {
 		let [command, ...rest] = arr.shift().split(' ');
 		rest = rest.map(Number);
 
+		// implement logic behind exact command
 		if (command == 'Fire') {
 			const index = rest[0];
 			const dmg = rest[1];
@@ -14,6 +17,8 @@ function trackBattle(arr) {
 			if (index >= 0 && index < statusWarShip.length) {
 				const health = (statusWarShip[index] -= dmg);
 				if (health <= 0) {
+
+					//return if false
 					console.log('You won! The enemy ship has sunken.');
 					return;
 				}
@@ -36,6 +41,8 @@ function trackBattle(arr) {
         }
 				if (statusPirateShip.some(n => n <= 0)) {
 					console.log('You lost! The pirate ship has sunken.');
+
+					// return if false
 					return;
 				}
 			}
@@ -54,6 +61,8 @@ function trackBattle(arr) {
 			console.log(`${sectionsToRepair} sections need repair.`);
 		}
 	}
+
+	// print the output
 	const pirateShipSum = statusPirateShip.reduce((a, b) => a + b);
 	const warShipSum = statusWarShip.reduce((a, b) => a + b);
 	console.log(`Pirate ship status: ${pirateShipSum}`);
