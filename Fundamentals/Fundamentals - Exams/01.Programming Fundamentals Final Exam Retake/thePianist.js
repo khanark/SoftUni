@@ -35,7 +35,7 @@ function thePianist(arr) {
 					console.log(`Successfully removed ${piece}!`);
 				} else {
 					console.log(
-						'Invalid operation! {piece} does not exist in the collection.'
+						`Invalid operation! ${piece} does not exist in the collection.`
 					);
 				}
 				break;
@@ -46,7 +46,7 @@ function thePianist(arr) {
 					console.log(`Changed the key of ${piece} to ${composer}!`);
 				} else {
 					console.log(
-						'Invalid operation! {piece} does not exist in the collection.'
+						`Invalid operation! ${piece} does not exist in the collection.`
 					);
 				}
 		}
