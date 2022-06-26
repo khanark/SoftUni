@@ -22,7 +22,6 @@ function returnOddEven(number) {
     }
     return sum;
   };
-  console.log(evenSum(num));
-  console.log(oddSum(num));
+  console.log(`Odd sum = ${oddSum(num)}, Even sum = ${evenSum(num)}`);
 }
 returnOddEven(1000453);
