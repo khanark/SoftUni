@@ -1,6 +1,8 @@
 function storeJSONdata(arr) {
+    // create collection of array to store the heroes
 	const collection = [];
 
+    // parse the input and create a hero object
 	for (const line of arr) {
 		let [name, level, items] = line.split(' / ');
 		level = Number(level);
@@ -10,6 +12,7 @@ function storeJSONdata(arr) {
 		collection.push(hero);
 	}
 
+    // print the output
 	console.log(JSON.stringify(collection));
 }
 storeJSONdata([
