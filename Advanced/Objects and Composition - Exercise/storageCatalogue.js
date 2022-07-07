@@ -1,8 +1,8 @@
 function createCatalogue(arr) {
-    // create collection
+	// create collection
 	const products = {};
 
-    // parse the input
+	// parse the input
 	for (const line of arr) {
 		const [product, price] = line.split(' : ');
 		const letter = product[0];
@@ -14,17 +14,21 @@ function createCatalogue(arr) {
 		}
 	}
 
-    // sort the initial values
+	// sort the initial values
 	const sortedByInitial = Object.entries(products).sort((a, b) =>
 		a[0].localeCompare(b[0])
 	);
 
-    // print the output
+	// print the output
 	for (const [initial, obj] of sortedByInitial) {
-		const sortedProducts = Object.values(obj).sort((a,b) => a.product.localeCompare(b.product));
+		const sortedProducts = Object.values(obj).sort((a, b) =>
+			a.product.localeCompare(b.product)
+		);
 
 		console.log(initial);
-        sortedProducts.forEach(obj => console.log(`  ${obj.product}: ${obj.price}`))
+		sortedProducts.forEach(obj =>
+			console.log(`  ${obj.product}: ${obj.price}`)
+		);
 	}
 }
 createCatalogue([
