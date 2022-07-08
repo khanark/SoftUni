@@ -5,7 +5,7 @@ function solve() {
 	const result = document.getElementById('result');
 
 	// parse the string to lower case
-	string = string.toLowerCase()
+	string = string.toLowerCase();
 
 	// change the casing according to the user input
 	if (convention == 'Camel Case') {
