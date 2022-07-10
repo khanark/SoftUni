@@ -1,6 +1,20 @@
 function solve() {
 	document.querySelector('#btnSend').addEventListener('click', onClick);
 
+	const calcAverageSalary = arr => {
+		return (
+			arr.workers
+				.map(el => el.split(' ')[1])
+				.reduce((a, b) => Number(a) + Number(b)) / arr.workers.length
+		);
+	};
+
+	const getTheHighestSalary = arr => {
+		return (arr.bestSalary = Math.max(
+			...arr.workers.map(el => el.split(' ')[1])
+		));
+	};
+
 	function onClick() {
 		const input = JSON.parse(
 			document.getElementsByTagName('textarea')[0].value
@@ -30,31 +44,30 @@ function solve() {
 			}
 
 			// calculate the best salary
-			restaurants[restaurantName].bestSalary = Math.max(
-				...restaurants[restaurantName].workers.map(
-					el => el.split(' ')[1]
-				)
+			restaurants[restaurantName].bestSalary = getTheHighestSalary(
+				restaurants[restaurantName]
 			);
+
 			// calculate the average salary // income
-			restaurants[restaurantName].averageSalary =
-				restaurants[restaurantName].workers
-					.map(el => el.split(' ')[1])
-					.reduce((a, b) => Number(a) + Number(b)) /
-				restaurants[restaurantName].workers.length;
+			restaurants[restaurantName].averageSalary = calcAverageSalary(
+				restaurants[restaurantName]
+			);
 		}
+
 		// get the best restaurant
 		const best = Object.entries(restaurants).sort(
 			(a, b) => b[1].averageSalary - a[1].averageSalary
 		)[0];
 		const [name, obj] = best;
+		const { bestSalary, averageSalary, workers } = obj;
 
 		// render the best restaurant
-		bestRestaurant.textContent = `Name: ${name} Average Salary: ${obj.averageSalary.toFixed(
+		bestRestaurant.textContent = `Name: ${name} Average Salary: ${averageSalary.toFixed(
 			2
-		)} Best Salary: ${obj.bestSalary.toFixed(2)}`;
+		)} Best Salary: ${bestSalary.toFixed(2)}`;
 
 		// render the workers
-		const sortedBySalaries = obj.workers
+		const sortedBySalaries = workers
 			.map(el => el.split(' '))
 			.sort((a, b) => b[1] - a[1]);
 
