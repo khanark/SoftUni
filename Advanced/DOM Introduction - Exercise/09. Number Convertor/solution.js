@@ -7,11 +7,9 @@ function solve() {
 
 	const optionToAppend = document.createElement('option');
 	menu.appendChild(optionToAppend);
-	const firstOptionTag = document.querySelector('#selectMenuTo > option');
-	const secondOptionTag = document.querySelector(
-		'#selectMenuTo option:nth-child(2)'
-	);
-
+	const firstOptionTag = menu.firstChild;
+	const secondOptionTag = menu.lastChild;
+	console.log(firstOptionTag);
 	// creating first tag
 	firstOptionTag.setAttribute('value', 'binary');
 	firstOptionTag.textContent = 'Binary';
@@ -23,9 +21,7 @@ function solve() {
 
 	btn.addEventListener('click', () => {
 		const inputNumber = Number(input.value);
-		const options = Array.from(
-			document.querySelectorAll('#selectMenuTo option')
-		);
+		const options = Array.from(menu.children);
 		const selectedOption = options.filter(el => el.selected)[0].value;
 		switch (selectedOption) {
 			case 'hexadecimal':
