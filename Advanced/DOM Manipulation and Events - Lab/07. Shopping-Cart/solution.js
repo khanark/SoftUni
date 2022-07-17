@@ -1,12 +1,15 @@
 /* eslint-disable no-undef */
 function solve() {
+	// DOM elements
 	const div = document.querySelector('.shopping-cart');
 	const output = document.querySelector('textarea');
 	const checkOut = document.querySelector('.checkout');
 	const items = { products: new Set(), totalPrice: 0 };
 
+	// setting eventListener to the div element
 	div.addEventListener('click', onClick);
 
+	// creating callback function
 	function onClick(ev) {
 		if (
 			ev.target.tagName == 'BUTTON' &&
@@ -25,6 +28,8 @@ function solve() {
 			items.totalPrice += Number(price);
 		}
 	}
+
+	// creating eventListener to the checkout button
 	checkOut.addEventListener(
 		'click',
 		(f = e => {
