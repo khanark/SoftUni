@@ -7,8 +7,10 @@ function solve() {
 
 	const optionToAppend = document.createElement('option');
 	menu.appendChild(optionToAppend);
-	const firstOptionTag = menu.firstChild;
-	const secondOptionTag = menu.lastChild;
+	const firstOptionTag = document.querySelector('#selectMenuTo > option');
+	const secondOptionTag = document.querySelector(
+		'#selectMenuTo option:nth-child(2)'
+	);
 	console.log(firstOptionTag);
 	// creating first tag
 	firstOptionTag.setAttribute('value', 'binary');
