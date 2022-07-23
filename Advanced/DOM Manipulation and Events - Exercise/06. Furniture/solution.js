@@ -39,7 +39,7 @@ function solve() {
             decFactor += factor;
         });
 
-        output.textContent += `Bought furniture: ${productNames.join(', ')}\n`;
+        output.textContent = `Bought furniture: ${productNames.join(', ')}\n`;
         output.textContent += `Total price: ${totalPrice.toFixed(2)}\n`;
         output.textContent += `Average decoration factor: ${
             decFactor / productNames.length
