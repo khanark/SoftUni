@@ -6,17 +6,13 @@ function solve(data, criteria) {
     const persons = JSON.parse(data);
 
     // filter by the given criteria
-    const result = persons.filter((obj) => obj[key] == value);
+    const result = persons.filter(obj => obj[key] == value);
 
     // print the output
-    result.forEach((obj, index) => print.call(obj, index));
-
-    // create print function
-    function print(index) {
-        console.log(
-            `${index}. ${this.first_name} ${this.last_name} - ${this.email}`
-        );
-    }
+    result
+        .filter(obj => obj[key] == value)
+        .map((x, i) => `${i}. ${x.first_name} ${x.last_name} - ${x.email}`)
+        .forEach(el => console.log(el));
 }
 solve(
     `[{
