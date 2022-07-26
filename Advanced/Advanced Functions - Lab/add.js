@@ -1,12 +1,6 @@
 function solution(number) {
-    // // create new function "add" that adds a new number to the previous one
-    // function add(numberToAdd) {
-    //     return number + numberToAdd;
-    // }
-
-    // // return the newly created function
-    // return add;
-
+    // return new function that takes newNumber as an parameter and returns
+    // the result of adding the new number to the previous one
     return (newNUmber) => number + newNUmber;
 }
 let add5 = solution(5);
