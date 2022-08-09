@@ -1,4 +1,5 @@
 function createCard(face, suit) {
+    // store valid faces
     const validFaces = [
         '2',
         '3',
@@ -14,6 +15,8 @@ function createCard(face, suit) {
         'K',
         'A',
     ];
+
+    // store valid suits
     const validSuits = {
         S: '\u2660',
         H: '\u2665',
@@ -21,6 +24,7 @@ function createCard(face, suit) {
         C: '\u2663',
     };
 
+    // handle different errors
     if (!validFaces.includes(face)) {
         throw new Error();
     }
