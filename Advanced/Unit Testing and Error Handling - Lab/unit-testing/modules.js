@@ -41,12 +41,22 @@ function createCalculator() {
         },
     };
 }
-createCalculator().add('1');
-createCalculator().get();
-// console.log(createCalculator().get());
-// console.log(createCalculator().get());
+const calculator = createCalculator();
+calculator.add(1);
+console.log(calculator.get());
+// test file: ./addSubtract.test.js
+function isSymmetric(arr) {
+    if (!Array.isArray(arr)) {
+        return false; // Non-arrays are non-symmetric
+    }
+    let reversed = arr.slice(0).reverse(); // Clone and reverse
+    let equal = JSON.stringify(arr) == JSON.stringify(reversed);
+    return equal;
+}
+console.log(isSymmetric('a', 1, 'a'));
 module.exports = {
     sum,
     rgbToHexColor,
     createCalculator,
+    isSymmetric,
 };
