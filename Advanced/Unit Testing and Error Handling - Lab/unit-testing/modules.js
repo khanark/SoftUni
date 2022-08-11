@@ -42,8 +42,9 @@ function createCalculator() {
     };
 }
 const calculator = createCalculator();
-calculator.add(1);
-console.log(calculator.get());
+const value = calculator.get() + 2;
+console.log(value == calculator.get());
+
 // test file: ./addSubtract.test.js
 function isSymmetric(arr) {
     if (!Array.isArray(arr)) {
@@ -53,7 +54,6 @@ function isSymmetric(arr) {
     let equal = JSON.stringify(arr) == JSON.stringify(reversed);
     return equal;
 }
-console.log(isSymmetric('a', 1, 'a'));
 module.exports = {
     sum,
     rgbToHexColor,

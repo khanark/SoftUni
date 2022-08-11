@@ -2,25 +2,36 @@ const { expect } = require('chai');
 const { createCalculator } = require('../modules');
 
 describe('calculator function', () => {
-    it('test module', () => {
-        expect(createCalculator()).to.be.an('object');
+    let result;
+
+    beforeEach(() => {
+        result = createCalculator();
     });
-    it('test properties add', () => {
-        expect(createCalculator()).to.haveOwnProperty('add');
+
+    it('the function returns a module/object with three properties', () => {
+        expect(result).to.be.an('object');
+        expect(result).to.include.all.keys('add', 'subtract', 'get');
     });
-    it('test properties subtract', () => {
-        expect(createCalculator()).to.haveOwnProperty('subtract');
+
+    it('The function get() returns the value of the internal sum', () => {
+        expect(result.get()).to.equal(0);
     });
-    it('test properties get', () => {
-        expect(createCalculator()).to.haveOwnProperty('get');
+
+    it('The functions add() and subtract() take a parameter that can be parsed as a number', () => {
+        result.add('5');
+        result.subtract('1');
+        expect(result.get()).to.equal(4);
     });
-    it('test get function return', () => {
-        expect(createCalculator().get()).to.equal(0);
+
+    it('Keep an internal sum that cant be modified from the outside', () => {
+        let value = result.get() + 3;
+        expect(result.get()).to.not.equal(value);
     });
-    it('add() parameter can be parsed to number', () => {
-        expect(createCalculator().add('a')).to.equal(undefined);
-    });
-    it('subtract() parameter can be parsed to number', () => {
-        expect(createCalculator().subtract('b')).to.equal(undefined);
+    it('expect value to equal after add; add; subtract ', () => {
+        result.add(6);
+        result.add('3');
+        result.subtract('-3');
+        let value = result.get();
+        expect(value).to.equal(12);
     });
 });
