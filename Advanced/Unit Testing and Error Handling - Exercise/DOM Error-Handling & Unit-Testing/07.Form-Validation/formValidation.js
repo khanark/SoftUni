@@ -32,7 +32,7 @@ function validate() {
         if (!/^[a-zA-Z0-9]{3,20}$/.test(user.value)) {
             invalidElements.push(user);
         }
-
+        
         // password validation
         if (
             !/^[\w]{5,15}$/.test(password.value) ||
