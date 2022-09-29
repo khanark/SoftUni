@@ -21,14 +21,20 @@ function solve() {
     sellingPrice,
   ];
 
+  /**
+   * global variable to sum the total profit
+   */
   let totalProfit = 0;
 
+  /**
+   * Event Handlers
+   */
   publishBtn.addEventListener('click', onPublish);
   tBody.addEventListener('click', onTbody);
 
   /**
    *
-   * @param {event object} e event delegation for each button
+   * @param {event handler} e event delegation for each button
    * fires onEdit() if className includes "edit" otherwise
    * fires onSell()
    * @returns
@@ -41,6 +47,11 @@ function solve() {
     e.target.className.includes('edit') ? onEdit(e) : onSell(e);
   }
 
+  /**
+   *
+   * @param {event handler} e handles the click on publish button
+   * validates the input fields and creates li item that is appended to tbody
+   */
   function onPublish(e) {
     e.preventDefault();
 
@@ -67,6 +78,11 @@ function solve() {
     inputElements.forEach((el) => (el.value = ''));
   }
 
+  /**
+   *
+   * @param {event handler} e handles the click on edit button
+   * @returns the values for each input field so the user can edit them
+   */
   function onEdit(e) {
     const tdElements = Array.from(
       e.target.parentNode.parentNode.children
@@ -76,6 +92,10 @@ function solve() {
     e.target.parentNode.parentNode.remove();
   }
 
+  /**
+   *
+   * @param {event handler} e handles the click on sell button
+   */
   function onSell(e) {
     const li = createElement('li', '', 'each-list');
 
@@ -99,6 +119,13 @@ function solve() {
     profit.textContent = totalProfit.toFixed(2);
   }
 
+  /**
+   *
+   * @param {String} type the html element's type
+   * @param {String} content the html's textContent
+   * @param {String} className the html's className
+   * @returns html element
+   */
   function createElement(type, content, className) {
     const element = document.createElement(type);
     element.textContent = content;
@@ -108,6 +135,11 @@ function solve() {
     return element;
   }
 
+  /**
+   *
+   * @param {Parameter} type parent element reference
+   * @param {Array} childElements child elements to append
+   */
   function append(type, childElements) {
     childElements.forEach((el) => type.appendChild(el));
   }
