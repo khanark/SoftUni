@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#sections {
+    display: none;
+}
+
+#guest,
+#user {
+    display: none;
+}
+
+nav {
+    display: flex;
+    padding: 10px 5px;
+    width: 600px;
+    margin: 0 auto;
+    justify-content: center;
+    background-color: rgb(0, 132, 255);
+}
+
+nav a {
+    margin-right: 20px;
+    list-style: none;
+    color: white;
+}
+
+#mainSection {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

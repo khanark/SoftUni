@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SPA Demo</title>
+        <script src="./src/app.js" type="module"></script>
+        <link rel="stylesheet" href="./styles/styles.css" />
+    </head>
+    <body>
+        <nav>
+            <a href="home.html" id="homeBtn">Home</a>
+            <a href="about.html" id="aboutBtn">About Us</a>
+            <a href="catalog.html" id="catalogBtn">Catalog</a>
+            <div id="guest">
+                <a href="login.html" id="loginBtn">Login</a>
+                <a href="register.html" id="registerBtn">Register</a>
+            </div>
+            <div id="user">
+                <a href="javascript:void(0)" id="logoutBtn">Logout</a>
+            </div>
+        </nav>
+        <div id="sections">
+            <div id="homeSection">
+                <h1>Welcome to the page!</h1>
+            </div>
+            <div id="aboutSection">
+                <p>This is my first SPA project</p>
+            </div>
+            <div id="catalogSection">
+                <br />
+                Movies:
+                <ul></ul>
+            </div>
+            <div id="loginSection">
+                <form id="loginForm">
+                    <label for="email"
+                        >Email:
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Write your email address"
+                    /></label>
+                    <br />
+                    <label for="password"
+                        >Password:
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Write your password"
+                    /></label>
+                    <br />
+                    <input type="submit" name="submit" value="Submit" />
+                </form>
+            </div>
+            <div id="registerSection">
+                <form id="registerForm">
+                    <label for="email"
+                        >Email:
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Write your email address"
+                    /></label>
+                    <br />
+                    <label for="password"
+                        >Password:
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Write your password"
+                    /></label>
+                    <br />
+                    <label for="repass"
+                        >Repeat:
+                        <input
+                            type="password"
+                            name="repass"
+                            placeholder="Repeat password"
+                    /></label>
+                    <br />
+                    <input type="submit" name="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+        <main id="mainSection"></main>
+    </body>
+</html>
