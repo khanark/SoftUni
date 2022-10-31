@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Html FORMS</title>
+    </head>
+    <body>
+        <h1>Forms</h1>
+
+        <form method="POST" id="login-form">
+            <div>
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="username"
+                    id="username"
+                />
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" />
+            </div>
+            <div>
+                <button type="submit" value="login" id="submit-button">
+                    Login
+                </button>
+            </div>
+
+            <script>
+                const formElement = document.getElementById("login-form");
+                const submitBtn = document.getElementById("submit-button");
+
+                formElement.addEventListener("submit", (e) => {
+                    e.preventDefault();
+
+                    const { username, password } = Object.fromEntries(
+                        new FormData(e.currentTarget)
+                    );
+
+                    const body = {
+                        email: username,
+                        password,
+                    };
+
+                    console.log(username, password);
+
+                    fetch("http://localhost:3030/users/login", {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify(body),
+                    })
+                        .then((res) => res.json())
+                        .then((result) => {
+                            console.log(result);
+                            localStorage.setItem("token", result.accessToken);
+                        });
+                });
+            </script>
+        </form>
+    </body>
+</html>
