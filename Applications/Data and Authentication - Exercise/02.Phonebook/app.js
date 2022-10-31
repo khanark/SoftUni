@@ -1,53 +1,77 @@
-function attachEvents() {
-  const url = "http://localhost:3030/jsonstore/phonebook";
-  const $ = (id) => document.getElementById(id);
+const btnLoad = document.getElementById("btnLoad");
+const btnCreate = document.getElementById("btnCreate");
+const phonesList = document.getElementById("phonebook");
+const person = document.getElementById("person");
+const phone = document.getElementById("phone");
 
-  async function getPhoneBookEntries() {
-    const res = await fetch(url);
+const endpoints = {
+  base: "http://localhost:3030/jsonstore/phonebook",
+  catalog(id) {
+    return `${this.base}/${id}`;
+  },
+};
+
+btnLoad.addEventListener("click", onLoad);
+btnCreate.addEventListener("click", onCreate);
+phonesList.addEventListener("click", handlePhones);
+
+async function onLoad() {
+  try {
+    const res = await fetch("http://localhost:3030/jsonstore/phonebook");
     const data = await res.json();
-    const phoneBookData = Object.values(data);
-    const listItems = phoneBookData.map(
-      (entry) =>
-        `<li id="${entry._id}">${entry.person}: ${entry.phone}<button>Delete</button></li>`
-    );
-    $("phonebook").innerHTML = listItems.join("\n");
-  }
-
-  async function deleteNumber(ev) {
-    if (ev.target.nodeName !== "BUTTON") {
-      return;
+    if (res.ok == false) {
+      throw new Error(data.message);
     }
-    const id = ev.target.parentNode.id;
-    const [person, phone] = ev.target.parentNode.textContent
-      .replace(" Delete", "")
-      .split(": ");
-    fetch(`${url}/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ person, phone }),
-    });
-    ev.target.parentNode.remove();
+    phonesList.replaceChildren(...Object.values(data).map(listNumber));
+  } catch (error) {
+    alert(error.message);
   }
-
-  async function createEntry() {
-    const person = $("person").value;
-    const phone = $("phone").value;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ person, phone }),
-    });
-    $("person").value = "";
-    $("phone").value = "";
-  }
-
-  $("phonebook").addEventListener("click", deleteNumber);
-  $("btnLoad").addEventListener("click", getPhoneBookEntries);
-  $("btnCreate").addEventListener("click", createEntry);
 }
 
-attachEvents();
+function listNumber(contact) {
+  const li = document.createElement("li");
+  li.setAttribute("data-id", contact._id);
+  li.innerHTML = `${contact.person}: ${contact.phone}<button>Delete</button>`;
+  return li;
+}
+
+async function onCreate() {
+  if (person.value == "" || phone.value == "") {
+    return alert("empty fields");
+  }
+  try {
+    const res = await fetch(endpoints.base, {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ person: person.value, phone: phone.value }),
+    });
+    const data = await res.json();
+    if (res.ok == false) {
+      throw new Error(data.message);
+    }
+    person.value = "";
+    phone.value = "";
+    await onLoad();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function handlePhones(ev) {
+  const id = ev.target.parentNode.dataset.id;
+  console.log(id);
+  console.log(endpoints.catalog(id));
+  if (ev.target.nodeName !== "BUTTON") {
+    return;
+  }
+  try {
+    await fetch(endpoints.catalog(id), {
+      method: "delete",
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+  ev.target.parentNode.remove();
+}

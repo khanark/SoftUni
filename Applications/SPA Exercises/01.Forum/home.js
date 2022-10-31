@@ -1,47 +1,59 @@
-const form = document.querySelector('form');
-const URL = 'http://localhost:3030/jsonstore/collections/myboard/posts';
-const topicContainer = document.querySelector('.topic-container');
+const URL = "http://localhost:3030/jsonstore/collections/myboard/posts";
+const topicContainer = document.querySelector(".topic-container");
+const username = document.getElementById("username");
+const topicName = document.getElementById("topicName");
+const postText = document.getElementById("postText");
+const elements = [username, topicName, postText];
 
-// events
-form.addEventListener('click', handleForm);
+document.querySelector(".public").addEventListener("submit", onPost);
+document.querySelector(".cancel").addEventListener("submit", onCancel);
 
-const actions = {
-  Post: onPost,
-  Cancel: onCancel,
-};
-
-function handleForm(ev) {
-  ev.preventDefault();
-  if (ev.target.nodeName !== 'BUTTON') {
-    return;
+// initial load of the comments
+(async function onLoad() {
+  console.log("I am here");
+  try {
+    const res = await fetch(URL);
+    const data = await res.json();
+    if (res.ok == false) {
+      throw new Error(data.message);
+    }
+    topicContainer.replaceChildren(...Object.values(data).map(createPost));
+  } catch (error) {
+    alert(error.message);
   }
-  const onClick = actions[ev.target.textContent];
-  onClick(ev);
-}
+})();
 
-function onCancel() {
+function onCancel(ev) {
+  ev.preventDefault();
   const elements = Object.values(form);
-  elements.filter(el => el.nodeName == 'INPUT').forEach(el => (el.value = ''));
   elements
-    .filter(el => el.nodeName == 'TEXTAREA')
-    .forEach(el => (el.value = ''));
+    .filter((el) => el.nodeName == "INPUT")
+    .forEach((el) => (el.value = ""));
+  elements
+    .filter((el) => el.nodeName == "TEXTAREA")
+    .forEach((el) => (el.value = ""));
 }
 
 async function onPost(ev) {
+  ev.preventDefault();
   const d = new Date();
   const date = `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
-  const formData = new FormData(ev.currentTarget);
-  const { topicName, username, postText } = Object.fromEntries(formData);
-  if (topicName == '' || username == '' || postText == '') {
-    return alert('empty fields');
+  if (elements.some((el) => el.value == "")) {
+    return;
   }
+  const postData = {
+    topicName: topicName.value,
+    username: username.value,
+    postText: postText.value,
+    date,
+  };
   try {
     const res = await fetch(URL, {
-      method: 'post',
+      method: "post",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ topicName, username, postText, date }),
+      body: JSON.stringify(postData),
     });
     const data = await res.json();
     if (res.ok == false) {
@@ -54,12 +66,10 @@ async function onPost(ev) {
   }
 }
 
-
-
 function createPost(post) {
-  const div = document.createElement('div');
-  div.className = 'topic-name-wrapper';
-  div.setAttribute('data-id', post._id);
+  const div = document.createElement("div");
+  div.className = "topic-name-wrapper";
+  div.setAttribute("data-id", post._id);
   const html = `<div class="topic-name">
   <a href="#" class="normal">
       <h2>${post.topicName}</h2>
@@ -74,26 +84,13 @@ function createPost(post) {
   </div>
   </div>`;
   div.innerHTML = html;
-  div.addEventListener('click', handleTopic);
+  div.addEventListener("click", handleTopic);
   return div;
 }
 
-(async function onLoad() {
-  try {
-    const res = await fetch(URL);
-    const data = await res.json();
-    if (res.ok == false) {
-      throw new Error(data.message);
-    }
-    topicContainer.replaceChildren(...Object.values(data).map(createPost));
-  } catch (error) {
-    alert(error.message);
-  }
-})();
-
-// this function handles the topic 
+// this function handles the topic
 function handleTopic(ev) {
   ev.preventDefault();
-  sessionStorage.setItem('topic-id', ev.currentTarget.dataset.id);
-  window.location = './theme-content.html';
+  sessionStorage.setItem("topic-id", ev.currentTarget.dataset.id);
+  window.location = "./theme-content.html";
 }
