@@ -1,30 +1,25 @@
 function isMagical(arr) {
-    // create empty arrays to store the sums
-    const rowSums = []
-    const colSums = []
+  const initSum = arr[0].reduce((a, b) => a + b, 0);
+  let bool = "true";
 
-    // sum all the rows
-    for (const nestedArr of arr) {
-        rowSums.push(nestedArr.reduce((a, b) => a + b))
+  arr.forEach((row) => {
+    const rowSum = row.reduce((a, b) => a + b, 0);
+    if (rowSum !== initSum) {
+      bool = "false";
     }
+  });
 
-    // sum all the columns
-    for (let i = 0; i < arr.length; i++) {
-        let sum = 0
-        for (let j = 0; j < arr[i].length; j++) {
-            sum += arr[j][i]
-        }
-        colSums.push(sum)
+  for (let col = 0; col < arr[0].length; col++) {
+    let sumCol = arr.reduce((a, b) => a + b[col], 0);
+    if (sumCol != initSum) {
+      bool = "false";
     }
+  }
 
-    // take the first element and compare the other elements from the concatenated array
-    const elementToCompare = rowSums[0]
-    const allValuesArray = rowSums.concat(colSums)
-
-    // print the output
-    console.log(allValuesArray.every(el => el == elementToCompare));
+  console.log(bool);
 }
-isMagical([[4, 5, 6],
-[6, 5, 4],
-[5, 5, 5]]
-)
+isMagical([
+  [11, 32, 45],
+  [21, 0, 1],
+  [21, 1, 1],
+]);
