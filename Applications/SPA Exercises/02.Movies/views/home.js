@@ -1,14 +1,15 @@
 import {
   endpoints,
+  getMovieLikes,
   getUserData,
   showSection,
   switchStyles,
-} from '../scripts/common.js';
+} from "../scripts/common.js";
 
 let userData = null;
 
 export function homePageView() {
-  showSection(document.getElementById('home-page'));
+  showSection(document.getElementById("home-page"));
   getMovies();
   updateNav();
 }
@@ -16,11 +17,11 @@ export function homePageView() {
 function updateNav() {
   userData = getUserData();
   if (userData !== null) {
-    switchStyles({ guest: none, user: 'inline-block' });
-    const greetElement = document.getElementById('welcome-msg');
+    switchStyles({ guest: none, user: "inline-block" });
+    const greetElement = document.getElementById("welcome-msg");
     greetElement.textContent = `Welcome, ${userData.email}`;
   } else {
-    switchStyles({ guest: 'inline-block', user: none });
+    switchStyles({ guest: "inline-block", user: none });
   }
 }
 
@@ -31,7 +32,7 @@ async function getMovies() {
     if (res.ok == false) {
       throw new Error(data.message);
     }
-    const movieList = document.getElementById('movies-list');
+    const movieList = document.getElementById("movies-list");
     movieList.replaceChildren(...data.map(listMovie));
   } catch (error) {
     alert(error.message);
@@ -40,9 +41,9 @@ async function getMovies() {
 
 function listMovie(movie) {
   let isOwner = userData && movie._ownerId == userData.id;
-  const checkOwner = () => (!isOwner ? 'style="display:none"' : '');
-  const div = document.createElement('div');
-  div.className = 'container';
+  const checkOwner = () => (!isOwner ? 'style="display:none"' : "");
+  const div = document.createElement("div");
+  div.className = "container";
   // !: FIX THE LIKES
   const html = `      
 		<div class="row bg-light text-dark">
@@ -64,9 +65,11 @@ function listMovie(movie) {
     movie._id
   }">Edit</a>
 		<a class="btn btn-primary" href="#" ${
-      isOwner || !userData ? 'style="display:none"' : ''
+      isOwner || !userData ? 'style="display:none"' : ""
     } data-movieId="${movie._id}">Like</a>
-		<span class="enrolled-span" ${checkOwner()}>Liked </span>
+		<span class="enrolled-span" ${checkOwner()}>Liked ${(async () => {
+    return await getMovieLikes();
+  })()}</span>
 		</div>
 		</div>`;
   div.innerHTML = html;
