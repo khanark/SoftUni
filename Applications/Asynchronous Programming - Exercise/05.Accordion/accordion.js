@@ -48,7 +48,6 @@ async function solution() {
       section.querySelector("p").textContent = data.content;
       section.lastElementChild.style.display =
         ev.target.textContent == "More" ? "block" : "none";
-      section.lastElementChild.classList.toggle("extra");
       ev.target.textContent = ev.target.textContent == "More" ? "Less" : "More";
     } catch (error) {
       alert(error.message);
