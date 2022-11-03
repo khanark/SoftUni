@@ -1,4 +1,5 @@
-const id = sessionStorage.getItem("topicid");
+const topic = JSON.parse(sessionStorage.getItem("topic"));
+console.log(topic);
 const URL = "http://localhost:3030/jsonstore/collections/myboard/comments";
 const commentSection = document.querySelector(".comment");
 
@@ -9,8 +10,11 @@ document.querySelector("form").addEventListener("submit", handleForm);
 window.addEventListener("DOMContentLoaded", async () => {
   const post = await getPost();
   const comments = await getComments();
-  document.querySelector("h2").textContent = post.title;
+  document.querySelector("h2").textContent = topic.title;
   commentSection.appendChild(createPost(post));
+  if (!comments) {
+    return;
+  }
   Object.values(comments).forEach((com) =>
     commentSection.appendChild(createComment(com))
   );
@@ -18,7 +22,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 // initially load all the comments
 async function getComments() {
-  const res = await fetch(URL + `/${id}`);
+  const res = await fetch(URL + `/${topic.id}`);
   if (res.status !== 200) {
     return;
   }
@@ -29,7 +33,7 @@ async function getComments() {
 async function getPost() {
   try {
     const res = await fetch(
-      `http://localhost:3030/jsonstore/collections/myboard/posts/${id}`
+      `http://localhost:3030/jsonstore/collections/myboard/posts/${topic.id}`
     );
     const data = await res.json();
     if (res.ok == false) {
@@ -53,7 +57,7 @@ function createPost(post) {
 
 function createComment(comment) {
   const div = document.createElement("div");
-  div.classList.add("user-comment");
+  div.setAttribute("id", "user-comment");
   const html = `<div class="topic-name-wrapper">
     <div class="topic-name">
       <p>
@@ -79,7 +83,7 @@ async function handleForm(ev) {
     return alert("empty fields");
   }
   try {
-    const res = await fetch(URL + `/${id}`, {
+    const res = await fetch(URL + `/${topic.id}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

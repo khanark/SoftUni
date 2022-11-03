@@ -40,8 +40,7 @@ async function loadContent() {
 function createPost(post) {
   const div = document.createElement("div");
   div.classList.add("topic-name-wrapper");
-  const html = `
-  <div class="topic-name">
+  const html = `<div class="topic-name">
       <a href="#" class="normal">
         <h2 data-id=${post._id}>${post.title}</h2>
       </a>
@@ -102,6 +101,11 @@ topicContainer.addEventListener("click", (ev) => {
   if (ev.target.nodeName !== "H2") {
     return;
   }
-  sessionStorage.setItem("topicid", ev.target.dataset.id);
+  const postInfo = {
+    title: ev.target.textContent,
+    id: ev.target.dataset.id,
+  };
+  console.log(postInfo);
+  sessionStorage.setItem("topic", JSON.stringify(postInfo));
   window.location = "./theme-content.html";
 });

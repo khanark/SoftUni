@@ -17,11 +17,11 @@ export function homePageView() {
 function updateNav() {
   userData = getUserData();
   if (userData !== null) {
-    switchStyles({ guest: none, user: "inline-block" });
+    switchStyles({ guest: "none", user: "inline-block" });
     const greetElement = document.getElementById("welcome-msg");
     greetElement.textContent = `Welcome, ${userData.email}`;
   } else {
-    switchStyles({ guest: "inline-block", user: none });
+    switchStyles({ guest: "inline-block", user: "none" });
   }
 }
 
@@ -67,9 +67,7 @@ function listMovie(movie) {
 		<a class="btn btn-primary" href="#" ${
       isOwner || !userData ? 'style="display:none"' : ""
     } data-movieId="${movie._id}">Like</a>
-		<span class="enrolled-span" ${checkOwner()}>Liked ${(async () => {
-    return await getMovieLikes();
-  })()}</span>
+		<span class="enrolled-span" ${checkOwner()}>Liked </span>
 		</div>
 		</div>`;
   div.innerHTML = html;

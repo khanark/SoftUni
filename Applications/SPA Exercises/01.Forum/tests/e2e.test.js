@@ -110,7 +110,6 @@ describe("E2E tests", function () {
       const data = mockData.posts[0];
       const { get } = await handle(endpoints.catalog);
       get(data);
-      console.log(data.title);
       await page.goto(host);
 
       await page.waitForSelector(".topic-name");
@@ -160,6 +159,7 @@ describe("E2E tests", function () {
         ".container .comment p .post-content",
         (t) => t.map((i) => i.textContent)
       );
+      console.log(data.description);
       expect(form[0]).to.be.equal(data.description);
     });
 
