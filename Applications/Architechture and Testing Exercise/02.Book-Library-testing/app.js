@@ -1,9 +1,7 @@
 function e(type, attributes, ...children) {
     const el = document.createElement(type);
 
-    Object.keys(attributes).forEach(key =>
-        el.setAttribute(key, attributes[key])
-    );
+    Object.keys(attributes).forEach(key => el.setAttribute(key, attributes[key]));
 
     children.forEach(child => {
         if (typeof child == 'string') {
