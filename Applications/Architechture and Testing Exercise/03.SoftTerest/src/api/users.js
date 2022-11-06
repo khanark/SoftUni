@@ -6,14 +6,17 @@ const endpoints = {
     logout: '/users/logout',
 };
 
-export async function login(data) {
-    const res = await post(endpoints.login, data);
+async function handleUser(endpoint, data) {
+    const res = await post(endpoint, data);
     sessionStorage.setItem('userdata', JSON.stringify({ email: res.email, token: res.accessToken, id: res._id }));
 }
 
+export async function login(data) {
+    await handleUser(endpoints.login, data);
+}
+
 export async function register(data) {
-    const res = await post(endpoints.register, data);
-    sessionStorage.setItem('userdata', JSON.stringify({ email: res.email, token: res.accessToken, id: res._id }));
+    await handleUser(endpoints.register, data);
 }
 
 export async function logout() {
