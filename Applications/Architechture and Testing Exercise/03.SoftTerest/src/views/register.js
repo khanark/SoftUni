@@ -9,7 +9,6 @@ export function showRegister() {
 }
 
 const form = section.querySelector('form');
-console.log(form);
 form.addEventListener('submit', handleForm);
 
 async function handleForm(ev) {

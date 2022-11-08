@@ -1,19 +1,15 @@
 const host = 'http://localhost:3030';
 
-async function request(url, method, data) {
+async function request(url, method = 'get', data) {
     const options = {
-        method: null,
+        method,
         headers: {},
-        body: null,
     };
 
     const user = JSON.parse(sessionStorage.getItem('userdata'));
 
-    if (method !== undefined) {
-        options.method = method;
-        if (user) {
-            options.headers['X-Authorization'] = user.token;
-        }
+    if (user) {
+        options.headers['X-Authorization'] = user.token;
     }
 
     if (data !== undefined) {
