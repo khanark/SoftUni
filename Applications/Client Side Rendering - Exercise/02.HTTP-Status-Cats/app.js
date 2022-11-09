@@ -7,12 +7,12 @@ const section = document.getElementById('allCats');
 window.addEventListener('DOMContentLoaded', loadCats);
 
 function loadCats() {
-    render(
-        html`
-            <ul>
-                <li>${cats.map(catTemplate)}</li>
-            </ul>
-        `,
-        section
-    );
+  render(
+    html`
+      <ul>
+        <li>${cats.map(catTemplate)}</li>
+      </ul>
+    `,
+    section
+  );
 }
