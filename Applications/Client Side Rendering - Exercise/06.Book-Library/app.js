@@ -14,7 +14,6 @@ document.getElementById('loadBooks').addEventListener('click', loadBooks);
 
 async function loadBooks() {
   const library = await getAllBooks();
-
   showBooks(library);
 }
 
