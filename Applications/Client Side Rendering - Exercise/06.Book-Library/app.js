@@ -34,7 +34,6 @@ function renderForm(id) {
 function getFormData(ev) {
   const formData = new FormData(ev.target);
   const { title, author } = Object.fromEntries(formData);
-
   if (title == '' || author == '') {
     return alert('empty fields');
   }
