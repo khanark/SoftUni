@@ -34,24 +34,20 @@ function getFormData(ev) {
   const formData = new FormData(ev.target);
   const { title, author } = Object.fromEntries(formData);
   if (title == '' || author == '') {
-    return alert('empty fields');
-  }
+    return alert('empty fields')
+  };
   return { title, author };
 }
 
 async function handleButtons(data, id, ev) {
-  if (ev.target.id.includes('add')) {
-    await onSubmit(data.author, data.title);
-  } else {
-    await onSave(id, data.author, data.title);
-  }
+  ev.target.id.includes('add') 
+  ? await onSubmit(data.author, data.title) 
+  : await onSave(id, data.author, data.title);
   ev.target.reset();
 }
 
 function handleContainer(ev) {
-  if (ev.target.nodeName !== 'BUTTON') {
-    return;
-  }
+  if (ev.target.nodeName !== 'BUTTON') return;
   const id = ev.target.dataset.id;
   ev.target.textContent == 'Delete' ? onDelete(id) : onEdit(id);
 }
