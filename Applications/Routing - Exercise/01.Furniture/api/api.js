@@ -14,7 +14,7 @@ async function req(method, url, data) {
   const user = JSON.parse(sessionStorage.getItem('userdata'));
 
   if (user) {
-    options.headers['X-authorization'] = user.accessToken;
+    options.headers['X-Authorization'] = user.token;
   }
 
   try {
@@ -29,7 +29,7 @@ async function req(method, url, data) {
     }
 
     if (res.status == 204) {
-      return promise;
+      return res;
     } else {
       return await res.json();
     }

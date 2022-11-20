@@ -43,7 +43,7 @@ async function onSubmit(ctx, ev) {
   if (password !== rePass) {
     return;
   }
-  await register({ email, password });
+  await register(email, password);
   ev.target.reset();
   ctx.page.redirect('/');
 }

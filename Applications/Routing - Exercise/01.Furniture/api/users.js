@@ -1,25 +1,23 @@
 import { post, get } from './api.js';
+import { setUserData } from '../util.js';
 
 const endpoints = {
-  login: '/users/login',
-  register: '/users/register',
-  logout: '/users/logout',
+    login: '/users/login',
+    register: '/users/register',
+    logout: '/users/logout',
 };
 
-async function handleUser(endpoint, data) {
-  const res = await post(endpoint, data);
-  sessionStorage.setItem('userdata', JSON.stringify({ email: res.email, token: res.accessToken, id: res._id }));
+export async function login(email, password) {
+    const res = await post(endpoints.login, { email, password });
+    setUserData({ email: res.email, id: res._id, token: res.accessToken });
 }
 
-export async function login(data) {
-  await handleUser(endpoints.login, data);
-}
-
-export async function register(data) {
-  await handleUser(endpoints.register, data);
+export async function register(email, password) {
+    const res = await post(endpoints.register, { email, password });
+    setUserData({ email: res.email, id: res._id, token: res.accessToken });
 }
 
 export async function logout() {
-  await get(endpoints.logout);
-  sessionStorage.clear();
+    await get(endpoints.logout);
+    sessionStorage.clear();
 }

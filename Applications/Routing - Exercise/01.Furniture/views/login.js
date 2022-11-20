@@ -1,7 +1,7 @@
 import { login } from '../api/users.js';
 import { html } from '../lib.js';
 
-const loginTemmplate = (onSubmit, ctx) => html`
+const loginTemplate = (onSubmit, ctx) => html`
   <div class="row space-top">
     <div class="col-md-12">
       <h1>Login User</h1>
@@ -27,16 +27,15 @@ const loginTemmplate = (onSubmit, ctx) => html`
 `;
 
 export function loginView(ctx) {
-  ctx.updateUserNav();
-  ctx.render(loginTemmplate(onSubmit, ctx));
+    ctx.updateUserNav();
+    ctx.render(loginTemplate(onSubmit, ctx));
 }
 
 async function onSubmit(ctx, ev) {
-  debugger;
-  ev.preventDefault();
-  const formData = new FormData(ev.target);
-  const { email, password } = Object.fromEntries(formData);
-  await login({ email, password });
-  ev.target.reset();
-  ctx.page.redirect('/');
+    ev.preventDefault();
+    const formData = new FormData(ev.target);
+    const { email, password } = Object.fromEntries(formData);
+    await login(email, password);
+    ev.target.reset();
+    ctx.page.redirect('/');
 }
