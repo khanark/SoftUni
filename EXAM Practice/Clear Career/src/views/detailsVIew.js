@@ -50,16 +50,14 @@ export const detailsView = async ctx => {
   };
   // requests
   const post = await postService.getSingle(ctx.params.id);
-  const [applicationCount, isApplied] = await Promise.all([
-    postService.getApplication(post._id),
-    postService.checkIfApplied(post._id, ctx.user?._id),
-  ]);
-  const isOwner = ctx.user?._id == post._ownerId;
-  const canApply = Boolean(ctx.user) && !isOwner && !isApplied;
+  const applicationCount = await postService.getApplication(post._id);
+  const isApplied = await postService.checkIfApplied(post._id, ctx.user._id);
   const onApply = async () => {
     await postService.addApplication({ offerId: post._id });
-    window.history.back()
+    const applicationCount = await postService.getApplication(post._id);
+    ctx.render(detailsTemplate(post, isOwner, canApply, onDelete, onApply, applicationCount));
   };
-  const renderPage = () => ctx.render(detailsTemplate(post, isOwner, canApply, onDelete, onApply, applicationCount));
-  renderPage()
+  let isOwner = ctx.user?._id == post._ownerId;
+  let canApply = Boolean(ctx.user) && !isOwner && !isApplied;
+  ctx.render(detailsTemplate(post, isOwner, canApply, onDelete, onApply, applicationCount));
 };
