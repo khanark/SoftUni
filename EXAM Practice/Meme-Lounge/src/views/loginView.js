@@ -24,14 +24,14 @@ const loginTemplate = submitHandler => html`
 export const loginView = ctx => {
   const onSubmit = async (data, form) => {
     // send request and validate
-    if (Object.values(data).some(val => val == '')) {
-      return alert('Please fill all the fields');
-    }
     try {
+      if (Object.values(data).some(val => val == '')) {
+        throw new Error('Please fill all the fields');
+      }
       await userService.login(data.email, data.password);
       ctx.page.redirect('/memes');
     } catch (error) {
-      alert(error.message);
+      ctx.renderError(error.message)
     }
     form.reset()
   };

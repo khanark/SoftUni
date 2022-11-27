@@ -13,13 +13,14 @@ import { createView } from './views/createView.js';
 import { profileView } from './views/myProfileView.js';
 import { detailsView } from './views/detailsView.js';
 import { editView } from './views/editView.js';
+import {errorTemplate} from "./component/errorComponent.js"
 
 // *** fix the roots for the content and the navigation ***
 const contentRoot = document.querySelector('main');
 const navRoot = document.querySelector('nav');
 const errRoot = document.getElementById('notifications');
 
-page(addRender(contentRoot, navRoot, errRoot));
+page(addRender(contentRoot, navRoot, errorTemplate));
 page(addSession(authService.getUser));
 page(addNavigation(navigationTemplate));
 page('/', homeView);

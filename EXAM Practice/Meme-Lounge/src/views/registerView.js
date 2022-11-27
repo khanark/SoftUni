@@ -1,6 +1,5 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
 import * as userService from '../api/userService.js';
-import { errorTemplate } from '../component/errorComponent.js';
 import { submitHandler } from '../utils/utils.js';
 
 const registerTemplate = submitHandler => html`
@@ -46,9 +45,9 @@ export const registerView = ctx => {
       await userService.register(data.username, data.email, data.password, data.gender);
       ctx.page.redirect('/memes');
     } catch (error) {
-      ctx.renderError(errorTemplate(error))
+      ctx.renderError(error.message);
     }
-    form.reset()
+    form.reset();
   };
   ctx.renderContent(registerTemplate(submitHandler(onSubmit)));
 };

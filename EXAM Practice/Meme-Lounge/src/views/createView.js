@@ -22,14 +22,14 @@ const createTemplate = submitHandler => html`
 
 export const createView = (ctx) => {
   const onSubmit = async (data, form) => {
-    if(Object.values(data).some(val => val == "")) {
-      return alert("please fill all the empty fields")
-    }
     try {
+      if(Object.values(data).some(val => val == "")) {
+        throw new Error("please fill all the empty fields")
+      }
       await create(data)
       ctx.page.redirect("/memes")
     } catch (error) {
-      alert(error.message)
+      ctx.renderError(error.message)
     }
     form.reset()
   }

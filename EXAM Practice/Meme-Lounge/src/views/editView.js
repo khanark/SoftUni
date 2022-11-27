@@ -29,14 +29,14 @@ export const editView = async ctx => {
   const memeId = ctx.params.id;
   const meme = await singleMeme(memeId);
   const onSubmit = async (data, form) => {
-    if (Object.values(data).some(val => val == '')) {
-      return alert('please fill all the empty fields');
-    }
     try {
+      if (Object.values(data).some(val => val == '')) {
+        throw new Error('please fill all the empty fields');
+      }
       await updateMeme(memeId, data);
       ctx.page.redirect(`/details/${memeId}`);
     } catch (error) {
-      alert(error.message);
+      ctx.renderError(error.message);
     }
   };
   ctx.renderContent(editTemplate(meme, submitHandler(onSubmit)));
