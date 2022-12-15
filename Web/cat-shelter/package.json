@@ -1,0 +1,17 @@
+{
+  "name": "cat-shelter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lit-html": "^2.5.0",
+    "lite-server": "^2.6.1",
+    "nodemon": "^2.0.20"
+  }
+}
