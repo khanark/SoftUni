@@ -10,14 +10,6 @@ const register = (method, path, handler) => {
 const getItem = register.bind(null, 'GET');
 const postItem = register.bind(null, 'POST');
 
-// const get = (path, handler) => {
-//     register('GET', path, handler);
-// };
-
-// const post = (path, handler) => {
-//     register('POST', path, handler);
-// };
-
 const match = (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
