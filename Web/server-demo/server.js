@@ -8,7 +8,7 @@ getItem('/', home);
 
 http.createServer((req, res) => {
     if (req.url == '/favicon.ico') {
-        fs.createReadStream('./content/favicon.ico').pipe(res);
+        fs.createReadStream('./static/favicon.ico').pipe(res);
     } else if (req.url.startsWith('/public/')) {
         fs.createReadStream(`./static${req.url.slice(8)}`).pipe(res);
     } else {

@@ -1,13 +1,14 @@
 const fs = require('fs');
 
-const template = fs.readFileSync('../static/layout.html').toString();
+const layout = fs.readFileSync('./static/layout.html').toString();
+layout;
 
 const render = (body, title) => {
-    return template.replace('{{content}}', body).replace('{{title}}', title);
+    return layout.replace('{{body}}', body).replace('{{title}}', title);
 };
 
 const loadFragment = (name, callback) => {
-    fs.readFile(`../static/${name}.html`, (err, data) => callback(data));
+    fs.readFile(`./static/${name}.html`, (err, data) => callback(data));
 };
 
 module.exports = { render, loadFragment };
