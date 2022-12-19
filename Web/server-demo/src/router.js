@@ -21,6 +21,13 @@ const match = (req, res) => {
     }
 
     if (typeof handler == 'function') {
+        res.html = page => {
+            res.writeHead(200, {
+                'Content-Type': 'text/html',
+            });
+            res.write(page);
+            res.end();
+        };
         handler(req, res);
     } else {
         defaultController(req, res);

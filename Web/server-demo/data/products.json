@@ -1,0 +1,14 @@
+{
+    "asd123": {
+        "name": "Widget",
+        "price": 52
+    },
+    "asw232" : {
+        "name": "Phone",
+        "price": 100
+    },
+    "bsd321" : {
+        "name": "Card",
+        "price": 5
+    }
+}

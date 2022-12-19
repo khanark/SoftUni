@@ -3,9 +3,7 @@ const { loadFragment, render } = require('../view');
 module.exports = {
     home(req, res) {
         loadFragment('home', fragment => {
-            const html = render(fragment, 'Home');
-            res.write(html);
-            res.end();
+            res.html(render(fragment, "Home"))
         });
     },
 };

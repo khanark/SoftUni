@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 const layout = fs.readFileSync('./static/layout.html').toString();
-layout;
 
 const render = (body, title) => {
     return layout.replace('{{body}}', body).replace('{{title}}', title);

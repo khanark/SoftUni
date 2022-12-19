@@ -39,3 +39,12 @@
     margin: 20px auto;
     text-align: center;
 }
+
+.list {
+    list-style: none;
+    border-bottom: 1px solid black;
+}
+
+.catalog {
+    padding-top: 20px;
+}
