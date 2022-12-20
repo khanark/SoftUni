@@ -44,9 +44,8 @@ module.exports = {
         });
     },
     async editGet(req, res) {
-        console.log('Im in this function');
         const productId = req.url.searchParams.get('id');
-        console.log(productId);
+
         const product = await getSingleProduct(productId);
         loadFragment('edit', fragment => {
             const newFragment = fragment
@@ -64,7 +63,7 @@ module.exports = {
         });
         req.on('end', async () => {
             const productId = req.url.searchParams.get('id');
-            const data = querystring.decode(buffer)
+            const data = querystring.decode(buffer);
             await editProduct(productId, data);
             res.writeHead(301, {
                 Location: '/catalog',

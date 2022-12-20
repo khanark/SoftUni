@@ -24,15 +24,15 @@ const getSingleProduct = async id => {
     return data[id];
 };
 
-const editProduct = async (id, {name, price}) => {
-    const product = await getSingleProduct(id)
-    product.name = name
-    product.price = price
+const editProduct = async (id, product) => {
+    const data = await readFile();
+    data[id] = product;
+    await fs.writeFile('./data/products.json', JSON.stringify(data, null, 2));
 };
 
 module.exports = {
     getProducts,
     addProduct,
     getSingleProduct,
-    editProduct
+    editProduct,
 };
