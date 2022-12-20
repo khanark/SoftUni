@@ -23,7 +23,7 @@ const match = (req, res) => {
     if (typeof handler == 'function') {
         res.html = page => {
             res.writeHead(200, {
-                'Content-Type': 'text/html',
+                'Content-Type': 'text/html; utf-8',
             });
             res.write(page);
             res.end();

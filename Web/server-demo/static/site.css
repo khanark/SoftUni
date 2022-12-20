@@ -34,7 +34,10 @@
     color:black;
 }
 
-.content { 
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 980px;
     margin: 20px auto;
     text-align: center;
@@ -47,4 +50,43 @@
 
 .catalog {
     padding-top: 20px;
+}
+
+.form-wrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    text-align: center;
+}
+
+.form-wrapper form label {
+    display: block;
+}
+
+.form span {
+    display: block;
+}
+
+.submit-button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: azure;
+    color: black;
+    border-radius: 40px;
+    box-shadow: 1px 1px 10px black;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.submit-button:hover {
+    background-color: gray;
+    color: white;
+    box-shadow: none;
+    transition: all .2s ease-in-out;
 }
