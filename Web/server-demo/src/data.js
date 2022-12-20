@@ -24,8 +24,15 @@ const getSingleProduct = async id => {
     return data[id];
 };
 
+const editProduct = async (id, {name, price}) => {
+    const product = await getSingleProduct(id)
+    product.name = name
+    product.price = price
+};
+
 module.exports = {
     getProducts,
     addProduct,
-    getSingleProduct
+    getSingleProduct,
+    editProduct
 };

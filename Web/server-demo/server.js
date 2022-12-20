@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const { getItem, postItem, match } = require('./src/router');
 const { home } = require('./src/controllers/home');
-const { catalog, createGet, createPost, editGet } = require('./src/controllers/catalog');
+const { catalog, createGet, createPost, editGet, editPost } = require('./src/controllers/catalog');
 const port = 3000;
 
 getItem('/', home);
@@ -10,6 +10,7 @@ getItem('/catalog', catalog);
 getItem('/create', createGet);
 postItem('/create', createPost);
 getItem('/edit', editGet);
+postItem('/edit', editPost);
 
 http.createServer((req, res) => {
     if (req.url == '/favicon.ico') {
