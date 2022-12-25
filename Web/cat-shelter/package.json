@@ -1,17 +1,21 @@
 {
-  "name": "cat-shelter",
+  "name": "resources",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lit-html": "^2.5.0",
-    "lite-server": "^2.6.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.20"
   }
 }
