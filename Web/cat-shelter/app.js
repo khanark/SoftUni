@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { create } = require('express-handlebars');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 const homeView = require('./src/controllers/home');
 const editView = require('./src/controllers/edit');
 const createView = require('./src/controllers/create');
@@ -17,7 +17,7 @@ app.set('view engine', '.hbs');
 app.set('views', './views');
 
 // routing
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/styles', express.static('content'));
 
 app.use('/', homeView);
