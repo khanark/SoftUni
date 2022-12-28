@@ -4,7 +4,7 @@ const { allCats, singleCat } = require('../../data');
 
 router.get('/', async (req, res) => {
   res.locals = {
-    cats: await allCats(),
+    cats: await req.storage.allCats(),
   };
   res.render('index', { layout: false });
 });
