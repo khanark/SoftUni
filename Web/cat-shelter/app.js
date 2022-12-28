@@ -16,13 +16,14 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
-// routing
-app.use(catsService());
+// routing config
+app.use(catsService);
 app.use(express.urlencoded({ extended: true }));
 app.use('/styles', express.static('content'));
 
+// actual routes
 app.use('/', homeView);
 app.route('/edit/:id').get(edit.get).post(edit.post);
-app.use('/create', createView);
+app.route('/create').get(createView.get).post(createView.post);
 
 app.listen(3000, () => console.log('The server is listening on port 3000'));

@@ -14,12 +14,7 @@
     "image": "haricut-example.jpg"
   },
   "a5203e4f-f21e-4fee-b225-295487364f77": {},
-  "9ca2e6ca-f91d-4249-a5a5-70e6a3fba4c2": {
-    "name": "dawdawd",
-    "description": "adawd",
-    "breed": "Fluffy Cat",
-    "image": "cat-img.jpg"
-  },
+  "9ca2e6ca-f91d-4249-a5a5-70e6a3fba4c2": {},
   "ebb78b10-f05d-4c9e-99ba-21428101bd6f": {},
   "31437dc3-b585-45a9-b7c5-64d66924e1d1": {},
   "ad0da93f-b3e7-4bd9-8725-7466e84f8353": {
@@ -30,5 +25,12 @@
   },
   "6cb95796-3a84-4f7d-aa08-932ed635028b": {},
   "7d44a763-dc6c-4766-96d8-abeda3fd077b": {},
-  "6d5bc5b3-952e-4726-b6a2-bbc759ee9cdd": {}
+  "6d5bc5b3-952e-4726-b6a2-bbc759ee9cdd": {},
+  "9fc32238-fd44-408b-82d3-bef8c9a325b9": {
+    "name": "BORIS",
+    "description": "ADWAWD",
+    "breed": "Fluffy Cat",
+    "image": "haricut-example.jpg"
+  },
+  "d9aacf26-af2f-4bf0-a667-12f8cfbb1128": {}
 }

@@ -5,8 +5,9 @@ module.exports = {
       res.render('create', { title: 'Create New Cat' });
     }),
   post:
-    ('/new',
+    ('/',
     async (req, res) => {
+      console.log(req.body);
       if (Object.values(req.body).some(val => val == '')) {
         res.send(400, { err: 'Please fill all the empty fields' });
       }
@@ -22,5 +23,3 @@ module.exports = {
       res.redirect('/');
     }),
 };
-
-module.exports = router;
