@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { allCats, singleCat } = require('../../data');
 
 router.get('/', async (req, res) => {
   res.locals = {
