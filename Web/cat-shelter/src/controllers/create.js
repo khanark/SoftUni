@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       await req.storage.createCat(cat);
       res.redirect('/');
     } else {
-      res.send(500, { err: 'please fill all the empty fields' });
+      res.status(500).send({ err: 'please fill all the empty fields' });
     }
   });
 });
