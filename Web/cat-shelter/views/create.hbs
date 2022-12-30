@@ -1,4 +1,9 @@
-<form action='/create' method='post' class='cat-form' enctype="multipart/form-data">
+<form
+  action='/create'
+  method='post'
+  class='cat-form'
+  enctype='multipart/form-data'
+>
   <h2>Add Cat</h2>
   <label for='name'>Name</label>
   <input name='name' type='text' id='name' />
@@ -8,9 +13,9 @@
   <input name='upload' type='file' id='image' />
   <label for='group'>Breed</label>
   <select name='breed' id='group'>
-    <option value='Fluffy Cat'>Cool Cat</option>
-    <option value='Fluffy Cat'>Fluffy Cat</option>
-    <option value='Fluffy Cat'>Awesome Cat</option>
+    <option value='Persian Cat'>Persian Cat</option>
+    <option value='Street Cat'>Street Cat</option>
+    <option value='Other'>Other</option>
   </select>
   <button type='submit'>Add Cat</button>
 </form>
