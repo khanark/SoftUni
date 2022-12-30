@@ -1,38 +1,14 @@
 {
-  "4": {
-    "name": "Pretty Kitty",
-    "description": "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-    "image": "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg",
-    "breed": "Bad Kitty-Cat"
-  },
   "5cf9f870-a6e7-4ee2-80d9-d544504d5d2c": {
     "name": "Pesho",
     "description": "Pesh is mega smurt cat dodo!",
-    "breed": "Fluffy Cat",
+    "breed": "Street cat",
     "image": "cat-img.jpg"
   },
-  "1f59246a-b24e-4c38-aaa6-9855c63a40a0": {
-    "name": "dawd",
-    "description": "awdawdaw",
-    "breed": "Fluffy Cat",
-    "image": "haricut-example.jpg"
-  },
-  "93aec2b1-4228-42cd-ab4d-f5096e1b51c2": {
-    "name": "ddaad",
-    "description": "awdaw",
-    "breed": "Fluffy Cat",
-    "image": "cat-img.jpg"
-  },
-  "9800bb1e-222e-4141-9de5-67aa569a3885": {
-    "name": "dawd",
-    "description": "awdawd",
-    "breed": "Fluffy Cat",
-    "image": "uploads/download.JPG"
-  },
-  "cc71d2be-6f7d-4e62-bdc0-26d4397d87ac": {
-    "name": "dwadaw",
-    "description": "adaw",
-    "breed": "Fluffy Cat",
-    "image": "cat-img.jpg"
+  "d45128f7-96a4-45db-b897-470e9b10eed5": {
+    "name": "Dimcho",
+    "description": "This is a very bad kitty that needs some spanking!",
+    "breed": "Street Cat",
+    "image": "dimcho-brat.jpg"
   }
 }
