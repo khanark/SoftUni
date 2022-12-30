@@ -11,11 +11,18 @@ const writeFile = async data => {
 
 module.exports = (req, res, next) => {
   req.storage = {
-    async allCats() {
+    async allCats(query) {
       const cats = await readFile();
-      return Object.entries(cats).map(([id, val]) =>
+      const catsArr = Object.entries(cats).map(([id, val]) =>
         Object.assign({}, { id }, val)
       );
+
+      if (query.search) {
+        return catsArr.filter(c =>
+          c.breed.toLocaleLowerCase().includes(query.search.toLocaleLowerCase())
+        );
+      }
+      return catsArr;
     },
     async singleCat(id) {
       const cats = await readFile();

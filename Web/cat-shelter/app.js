@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { home } = require('./src/controllers/home');
+const { deleteController } = require('./src/controllers/delete');
 const handlebars = require('express-handlebars');
 const edit = require('./src/controllers/edit');
 const catsService = require('./data');
@@ -27,6 +28,7 @@ app.use('/images', express.static('uploads'));
 app.get('/', home);
 app.route('/edit/:id').get(edit.get).post(edit.post);
 app.use('/create', create);
+app.get('/delete/:id', deleteController);
 
 // default
 app.all('*', (req, res) => {

@@ -8,9 +8,7 @@ module.exports = {
   },
   post: async (req, res) => {
     // !FIX: req.body doesnt return the expected values
-    console.log(
-      'I am in the post function and this is the request body => ' + req.body
-    );
+    console.log(req.body);
 
     if (Object.values(req.body).some(val => val == '')) {
       res.send(400, { err: 'Please fill all the empty fields' });

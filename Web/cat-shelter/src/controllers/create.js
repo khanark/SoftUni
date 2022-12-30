@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
     if (file.size) {
       await fs.writeFile(newPath, rawData, err => {
         if (err) {
-          console.log(err);
           return;
         }
       });
