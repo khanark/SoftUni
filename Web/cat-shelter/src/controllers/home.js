@@ -1,11 +1,9 @@
-const express = require('express');
-const router = express.Router();
-
-router.get('/', async (req, res) => {
-  res.locals = {
-    cats: await req.storage.allCats(),
-  };
-  res.render('index', { layout: false });
-});
-
-module.exports = router;
+module.exports = {
+  async home(req, res) {
+    console.log(await req.storage.allCats());
+    res.locals = {
+      cats: await req.storage.allCats(),
+    };
+    res.render('index', { layout: false });
+  },
+};

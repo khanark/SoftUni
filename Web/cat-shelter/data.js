@@ -13,8 +13,8 @@ module.exports = (req, res, next) => {
   req.storage = {
     async allCats() {
       const cats = await readFile();
-      return Object.entries(cats).map(([key, val]) =>
-        Object.assign({}, val, (val._id = key))
+      return Object.entries(cats).map(([id, val]) =>
+        Object.assign({}, { id }, val)
       );
     },
     async singleCat(id) {

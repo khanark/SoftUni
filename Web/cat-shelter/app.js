@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const { create } = require('express-handlebars');
-const catsService = require('./data');
-const homeView = require('./src/controllers/home');
+const { home } = require('./src/controllers/home');
+const handlebars = require('express-handlebars');
 const edit = require('./src/controllers/edit');
-const createView = require('./src/controllers/create');
+const catsService = require('./data');
+const create = require('./src/controllers/create');
 
 // handlebars file extension
-const hbs = create({
+const hbs = handlebars.create({
   extname: '.hbs',
 });
 
@@ -19,15 +19,17 @@ app.set('views', './views');
 // routing config
 app.use(catsService);
 // app.use(bodyParser);
-app.use('/styles', express.static('content'));
+app.use(express.urlencoded({ extended: true }));
+app.use('/styles', express.static('public'));
+app.use('/images', express.static('uploads'));
 
 // actual routes
-app.use('/', homeView);
+app.get('/', home);
 app.route('/edit/:id').get(edit.get).post(edit.post);
-app.use('/create', createView);
+app.use('/create', create);
 
 // default
-app.get('*', (req, res) => {
+app.all('*', (req, res) => {
   res.render('404', { layout: false });
 });
 

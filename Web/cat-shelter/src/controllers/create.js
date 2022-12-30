@@ -22,7 +22,6 @@ router.post('/', async (req, res) => {
     );
 
     const rawData = await fs.readFile(oldPath);
-    console.log(file.originalFilename);
     if (file.size) {
       await fs.writeFile(newPath, rawData, err => {
         if (err) {

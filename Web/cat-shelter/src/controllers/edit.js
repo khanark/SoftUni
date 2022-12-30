@@ -1,8 +1,8 @@
 module.exports = {
   get: async (req, res) => {
     const cat = await req.storage.singleCat(req.params.id);
-    if (!cat._id) {
-      cat._id = req.params.id;
+    if (!cat.id) {
+      cat.id = req.params.id;
     }
     res.render('editCat', { title: 'Update Cat Information', cat });
   },
@@ -11,8 +11,7 @@ module.exports = {
     console.log(
       'I am in the post function and this is the request body => ' + req.body
     );
-    
-    console.log(req.body);
+
     if (Object.values(req.body).some(val => val == '')) {
       res.send(400, { err: 'Please fill all the empty fields' });
     }
