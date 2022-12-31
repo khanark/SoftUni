@@ -6,6 +6,7 @@ const handlebars = require('express-handlebars');
 const edit = require('./src/controllers/edit');
 const catsService = require('./data');
 const create = require('./src/controllers/create');
+const breed = require('./src/controllers/breed');
 
 // handlebars file extension
 const hbs = handlebars.create({
@@ -29,6 +30,7 @@ app.get('/', home);
 app.route('/edit/:id').get(edit.get).post(edit.post);
 app.use('/create', create);
 app.get('/delete/:id', deleteController);
+app.route('/cats/add-breed').get(breed.get).post(breed.post);
 
 // default
 app.all('*', (req, res) => {
