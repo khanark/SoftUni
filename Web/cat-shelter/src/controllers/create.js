@@ -1,12 +1,14 @@
 const fs = require('fs/promises');
 const path = require('path');
 const formidable = require('formidable');
-
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('create', { title: 'Create New Cat' });
+router.get('/', async (req, res) => {
+  res.render('create', {
+    title: 'Create New Cat',
+    breeds: await req.storage.getBreeds(),
+  });
 });
 
 router.post('/', async (req, res) => {
