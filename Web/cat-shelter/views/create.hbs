@@ -13,9 +13,9 @@
   <input name='upload' type='file' id='image' />
   <label for='group'>Breed</label>
   <select name='breed' id='group'>
-    <option value='Persian Cat'>Persian Cat</option>
-    <option value='Street Cat'>Street Cat</option>
-    <option value='Other'>Other</option>
+    {{#each breeds}}
+      <option value='{{this}}'>{{this}}</option>
+    {{/each}}
   </select>
   <button type='submit'>Add Cat</button>
 </form>
