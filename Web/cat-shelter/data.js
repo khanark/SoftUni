@@ -24,24 +24,39 @@ module.exports = (req, res, next) => {
       }
       return catsArr;
     },
+
     async singleCat(id) {
       const cats = await readFile();
       return cats[id];
     },
+
     async updateCat(id, data) {
       const cats = await readFile();
       cats[id] = data;
       await writeFile(cats);
     },
+
     async deleteCat(id) {
       const cats = await readFile();
       delete cats[id];
       await writeFile(cats);
     },
+
     async createCat(data) {
       const cats = await readFile();
       cats[uuidv4()] = data;
       await writeFile(cats);
+    },
+
+    async addBreed(breedName) {
+      const cats = await readFile();
+      cats.breeds.push(breedName);
+      await writeFile(cats);
+    },
+
+    async getBreeds() {
+      const cats = await readFile();
+      return cats.breeds;
     },
   };
   next();
