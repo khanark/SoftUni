@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
       name: req.body.name.toLocaleUpperCase(),
       description: req.body.description,
       image: req.body.imageUrl,
-      difficulty: req.body.difficultyLevel,
+      difficulty: Number(req.body.difficultyLevel),
     };
     await req.storage.postCube(data);
     res.redirect('/');
