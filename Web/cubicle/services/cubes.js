@@ -11,24 +11,27 @@ const saveData = async data => {
 
 module.exports = (req, res, next) => {
   req.storage = {
-    getCubes: async () => {
-      const cubes = await getData();
-      return Object.entries(cubes).map(([id, val]) =>
+    getCubes: async query => {
+      let cubes = Object.entries(await getData()).map(([id, val]) =>
         Object.assign({}, { id }, val)
       );
+
+      if (query.search) {
+        cubes = cubes.filter(c => c.name == query.search);
+      }
+
+      if (query.from) {
+        cubes = cubes.filter(c => c.difficulty >= Number(query.from));
+      }
+
+      if (query.to) {
+        cubes = cubes.filter(c => c.difficulty <= Number(query.to));
+      }
+
+      return cubes;
     },
     postCube: async data => {
       const cubes = await getData();
-      const level = {
-        1: 'Very Easy',
-        2: 'Easy',
-        3: 'Medium',
-        4: 'Intermediate',
-        5: 'Expert',
-        6: 'Hardcore',
-      };
-      const { difficulty } = data;
-      data.difficultyLevel = level[difficulty];
       cubes[uniqid()] = data;
       await saveData(cubes);
     },
