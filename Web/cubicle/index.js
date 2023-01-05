@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cubesService);
 
 // controllers
-app.get('/', home);
+app.use('/', home);
 app.get('/about', about);
 app.use('/create', create);
 
