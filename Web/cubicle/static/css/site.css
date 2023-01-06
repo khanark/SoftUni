@@ -126,6 +126,12 @@ div.details {
   padding: 1em;
 }
 
+div.details a {
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
 span {
   font-weight: bolder;
   font-size: 17px;
