@@ -17,7 +17,9 @@ module.exports = (req, res, next) => {
       );
 
       if (query.search) {
-        cubes = cubes.filter(c => c.name == query.search);
+        cubes = cubes.filter(c =>
+          c.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase())
+        );
       }
 
       if (query.from) {
@@ -36,10 +38,22 @@ module.exports = (req, res, next) => {
       await saveData(cubes);
     },
     getSingleCube: async id => {
-      const cubes = await getData();
+      const cubes = Object.entries(await getData()).map(([id, val]) =>
+        Object.assign({}, { id }, val)
+      );
       const singleCube = cubes.find(c => c.id == id);
       return singleCube;
     },
+    deleteCube: async id => {
+      const cubes = await getData();
+      delete cubes[id];
+      await saveData(cubes);
+    },
+    editCube: async (id, data) =>  {
+      const cubes = await getData()
+      cubes[id] = data
+      await saveData(cubes)
+    }
   };
   next();
 };
