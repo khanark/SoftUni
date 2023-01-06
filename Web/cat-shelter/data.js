@@ -12,8 +12,8 @@ const writeFile = async data => {
 module.exports = (req, res, next) => {
   req.storage = {
     async allCats(query) {
-      const cats = await readFile();
-      const catsArr = Object.entries(cats).map(([id, val]) =>
+      const data = await readFile();
+      const catsArr = Object.entries(data.cats).map(([id, val]) =>
         Object.assign({}, { id }, val)
       );
 
@@ -26,37 +26,37 @@ module.exports = (req, res, next) => {
     },
 
     async singleCat(id) {
-      const cats = await readFile();
-      return cats[id];
+      const data = await readFile();
+      return data.cats[id];
     },
 
-    async updateCat(id, data) {
-      const cats = await readFile();
-      cats[id] = data;
-      await writeFile(cats);
+    async updateCat(id, cat) {
+      const data = await readFile();
+      data.cats[id] = cat;
+      await writeFile(data);
     },
 
     async deleteCat(id) {
-      const cats = await readFile();
-      delete cats[id];
-      await writeFile(cats);
+      const data = await readFile();
+      delete data.cats[id];
+      await writeFile(data);
     },
 
-    async createCat(data) {
-      const cats = await readFile();
-      cats[uuidv4()] = data;
-      await writeFile(cats);
+    async createCat(cat) {
+      const data = await readFile();
+      data.cats[uuidv4()] = cat;
+      await writeFile(data);
     },
 
     async addBreed(breedName) {
-      const cats = await readFile();
-      cats.breeds.push(breedName);
-      await writeFile(cats);
+      const data = await readFile();
+      data.breeds.push(breedName);
+      await writeFile(data);
     },
 
     async getBreeds() {
-      const cats = await readFile();
-      return cats.breeds;
+      const data = await readFile();
+      return data.breeds;
     },
   };
   next();
