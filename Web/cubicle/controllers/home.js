@@ -1,9 +1,12 @@
-const express = require("express");
+const express = require('express');
+const { matchDiff } = require('../utils/utils');
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const cubes = await req.storage.getCubes(req.query);
-  res.render('index', { cubes });
-})
+  cubes.forEach(c => (c.difficulty = matchDiff(c.difficulty)));
 
-module.exports = router
+  res.render('index', { cubes });
+});
+
+module.exports = router;
