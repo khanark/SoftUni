@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     const data = {
       name: req.body.name.toLocaleUpperCase(),
       description: req.body.description,
-      image: req.body.imageUrl,
+      imageUrl: req.body.imageUrl,
       difficulty: Number(req.body.difficultyLevel),
     };
     await req.storage.postCube(data);
