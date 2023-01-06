@@ -3,7 +3,9 @@ const app = express();
 const handlebars = require('express-handlebars');
 
 const create = require('./controllers/create');
+const details = require('./controllers/details');
 const about = require('./controllers/about');
+const edit = require('./controllers/edit');
 const bodyParser = require('body-parser');
 
 const cubesService = require('./services/cubes');
@@ -25,6 +27,8 @@ app.use(cubesService);
 app.use('/', home);
 app.get('/about', about);
 app.use('/create', create);
+app.use('/details', details);
+app.post('/edit/:id', edit);
 
 app.all('*', (req, res) => {
   res.render('404');
