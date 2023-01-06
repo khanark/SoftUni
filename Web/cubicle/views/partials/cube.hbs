@@ -1,3 +1,4 @@
+{{#if cubes}}
 {{#each cubes}}
   <div class='cube'>
     <img class='cube' src='{{imageUrl}}' />
@@ -6,3 +7,6 @@
     <a class='btn' href='/details/{{id}}'>Details</a>
   </div>
 {{/each}}
+{{else}}
+<p class="no-logs">No results match your search, try again with different criteria instead.</p>
+{{/if}}
