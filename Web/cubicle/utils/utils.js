@@ -1,8 +1,8 @@
-// create difficilty macher
+// create difficulty matcher
 const difficulties = [
   'Very easy',
   'Easy',
-  'Medium (Standart 3x3)',
+  'Medium (Standard 3x3)',
   'Intermediate',
   'Expert',
   'Hardcore',
@@ -21,7 +21,17 @@ const matchSelected = value => {
   return options;
 };
 
+const verifyData = (data) => {
+  return {
+    name: data.name,
+    description: data.description,
+    imageUrl: data.imageUrl,
+    difficulty: Number(data.difficulty)
+  }
+}
+
 module.exports = {
   matchDiff,
   matchSelected,
+  verifyData
 };
