@@ -5,6 +5,6 @@ module.exports = async (req, res) => {
     imageUrl: req.body.imageUrl,
     difficulty: Number(req.body.difficultyLevel),
   };
-  await req.storage.editCube(req.params.id, data);
+  await req.storage.updateCube(req.params.id, data);
   res.redirect(`/details/${req.params.id}`);
 };
