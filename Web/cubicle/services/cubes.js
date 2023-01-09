@@ -1,59 +1,65 @@
-const fs = require('fs/promises');
-const uniqid = require('uniqid');
+const Cube = require('../models/Cube');
+const { verifyData } = require('../utils/utils');
 
-const getData = async () => {
-  return JSON.parse(await fs.readFile('./data/cubes.json'));
+const getCubes = async query => {
+  let cubes = await Cube.find({});
+
+  if (query?.search) {
+    cubes = await Cube.find({
+      name: { $regex: query.search, $options: 'i' },
+    });
+  }
+
+  if (query?.from) {
+    cubes = await Cube.find({
+      difficulty: {
+        $gte: +query.from,
+      },
+    });
+  }
+
+  if (query?.to) {
+    cubes = await Cube.find({
+      difficulty: {
+        $lte: +query.to,
+      },
+    });
+  }
+
+  return cubes;
 };
 
-const saveData = async data => {
-  await fs.writeFile('./data/cubes.json', JSON.stringify(data, null, 2));
+const getSingleCube = async id => {
+  try {
+    return await Cube.findById(id);
+  } catch (err) {
+    console.log(err)
+  }
 };
 
-module.exports = (req, res, next) => {
+const deleteCube = async id => {
+  await Cube.findByIdAndRemove(id);
+};
+
+const updateCube = async (id, data) => {
+  await Cube.findByIdAndUpdate(id, verifyData(data));
+};
+
+const createCube = async data => {
+  try {
+    await Cube.create(verifyData(data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = async (req, res, next) => {
   req.storage = {
-    getCubes: async query => {
-      let cubes = Object.entries(await getData()).map(([id, val]) =>
-        Object.assign({}, { id }, val)
-      );
-
-      if (query.search) {
-        cubes = cubes.filter(c =>
-          c.name.toLocaleLowerCase().includes(query.search.toLocaleLowerCase())
-        );
-      }
-
-      if (query.from) {
-        cubes = cubes.filter(c => c.difficulty >= Number(query.from));
-      }
-
-      if (query.to) {
-        cubes = cubes.filter(c => c.difficulty <= Number(query.to));
-      }
-
-      return cubes;
-    },
-    postCube: async data => {
-      const cubes = await getData();
-      cubes[uniqid()] = data;
-      await saveData(cubes);
-    },
-    getSingleCube: async id => {
-      const cubes = Object.entries(await getData()).map(([id, val]) =>
-        Object.assign({}, { id }, val)
-      );
-      const singleCube = cubes.find(c => c.id == id);
-      return singleCube;
-    },
-    deleteCube: async id => {
-      const cubes = await getData();
-      delete cubes[id];
-      await saveData(cubes);
-    },
-    editCube: async (id, data) =>  {
-      const cubes = await getData()
-      cubes[id] = data
-      await saveData(cubes)
-    }
+    getCubes,
+    getSingleCube,
+    deleteCube,
+    updateCube,
+    createCube,
   };
   next();
 };
