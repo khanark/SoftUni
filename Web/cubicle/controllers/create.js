@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
       imageUrl: req.body.imageUrl,
       difficulty: Number(req.body.difficultyLevel),
     };
-    await req.storage.postCube(data);
+    await req.storage.createCube(data);
     res.redirect('/');
   }
 });

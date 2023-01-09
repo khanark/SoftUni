@@ -7,7 +7,11 @@ const difficulties = [
   'Expert',
   'Hardcore',
 ];
-const matchDiff = value => difficulties[value - 1];
+const matchDiff = data => {
+  const cube = Object.assign({}, data._doc)
+  cube.difficulty = difficulties[cube.difficulty]
+  return cube
+};
 
 const matchSelected = value => {
   const options = [];
