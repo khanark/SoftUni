@@ -28,12 +28,13 @@ const getCubes = async query => {
 
   return cubes;
 };
+getCubes();
 
 const getSingleCube = async id => {
   try {
     return await Cube.findById(id);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
