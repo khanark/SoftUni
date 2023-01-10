@@ -1,37 +1,51 @@
+// ### DEPENDENCIES ###
 const express = require('express');
-const app = express();
 const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const create = require('./controllers/create');
 const details = require('./controllers/details');
 const about = require('./controllers/about');
 const edit = require('./controllers/edit');
-const bodyParser = require('body-parser');
-
-const cubesService = require('./services/cubes');
 const home = require('./controllers/home');
+const accessory = require('./controllers/addAccessory');
+const attach = require('./controllers/attach.js');
+const cubeService = require('./services/cubes');
 
+const initDb = require('./models');
+
+// ### SETUP ###
 const hbs = handlebars.create({
   extname: 'hbs',
 });
 
-app.engine('.hbs', hbs.engine);
-app.set('view engine', '.hbs');
-app.use(express.static('static'));
-app.use(bodyParser.urlencoded({ extended: true }));
+const initializeApp = async () => {
+  const app = express();
 
-// services
-app.use(cubesService);
+  // services
+  await initDb();
 
-// controllers
-app.use('/', home);
-app.get('/about', about);
-app.use('/create', create);
-app.use('/details', details);
-app.post('/edit/:id', edit);
+  app.engine('.hbs', hbs.engine);
+  app.set('view engine', '.hbs');
+  app.use(express.static('static'));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cubeService);
 
-app.all('*', (req, res) => {
-  res.render('404');
-});
+  // controllers
+  app.use('/', home);
+  app.get('/about', about);
+  app.use('/create', create);
+  app.use('/details', details);
+  app.post('/edit/:id', edit);
+  app.use('/create/accessory', accessory);
+  app.use('/create/accessory', accessory);
 
-app.listen(3000, () => console.log('The server is listening on port 3000'));
+  app.all('*', (req, res) => {
+    res.render('404');
+  });
+
+  app.listen(3000, () => console.log('The server is listening on port 3000'));
+};
+
+// initializing the application
+initializeApp();
