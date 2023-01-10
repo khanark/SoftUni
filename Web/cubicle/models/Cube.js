@@ -1,32 +1,21 @@
-const mongoose = require('mongoose');
-const { Schema, model } = mongoose;
+const { Schema, model } = require('mongoose');
 
-const connection = 'mongodb://127.0.0.1:27017/cubes';
+const Accessory = require('./Accessory');
 
-const cubeSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    difficulty: {
-      type: Number,
-      min: [0, 'The minimum required value is 0'],
-      max: [6, 'The value cannot exceed 6'],
-    },
+const cubeSchema = new Schema({
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  imageUrl: {
+    type: String,
+    required: [true, 'Missing image'],
   },
-  {
-    strictQuery: true,
-  }
-);
-
-start().catch(err => console.log(err));
-
-async function start() {
-  await mongoose.connect(connection, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  });
-}
+  difficulty: {
+    type: Number,
+    min: [0, 'The minimum required value is 0'],
+    max: [6, 'The value cannot exceed 6'],
+  },
+  accessories: [{ type: Schema.Types.ObjectId, ref: 'Accessory' }],
+});
 
 const Cube = model('Cube', cubeSchema);
 
