@@ -9,6 +9,8 @@
         "express": "^4.17.1",
         "express-handlebars": "^3.1.0",
         "mongoose": "^6.8.3",
+        "mongoose-validator": "^2.1.0",
+        "mongoose-validators": "^0.1.0",
         "uniqid": "^5.0.3"
     },
     "devDependencies": {
