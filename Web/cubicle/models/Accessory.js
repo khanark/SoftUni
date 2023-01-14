@@ -1,29 +1,17 @@
-const { Schema, model } = require('mongoose');
-const validator = require('mongoose-validator');
-
-const Cube = require('./Cube');
+const { Schema, model, Types: {ObjectId} } = require('mongoose');
 
 const accessorySchema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: [true, 'Missing name'] },
   imageUrl: {
-    type: [String, 'image should be String'],
+    type: String,
     required: [true, 'Missing image'],
-    validate: {
-      validator: value =>
-        validator.isURL(value, {
-          protocols: ['http', 'https'],
-          require_tld: true,
-          require_protocol: true,
-        }),
-      message: 'Must be a Valid URL',
-    },
-    description: {
-      type: String,
-      required: true,
-      maxLength: [10, 'Exceeded maximum length'],
-    },
-    cubes: [{ type: Schema.Types.ObjectId, ref: 'Cube' }],
   },
+  description: {
+    type: String,
+    required: [true, 'Missing description'],
+    maxLength: [100, 'Exceeded maximum length'],
+  },
+  cubes: [{ type: [ObjectId], ref: 'Cube', default: [] }],
 });
 
 const Accessory = model('Accessory', accessorySchema);
