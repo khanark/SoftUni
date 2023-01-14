@@ -32,7 +32,9 @@ getCubes();
 
 const getSingleCube = async id => {
   try {
-    return await Cube.findById(id);
+    const cube = await Cube.findById(id);
+    cube.populate('accessories', 'name description imageUrl');
+    return cube;
   } catch (err) {
     console.log(err);
   }
@@ -54,6 +56,12 @@ const createCube = async data => {
   }
 };
 
+const attachAccessory = async (carId, accessoryId) => {
+  const cube = await Cube.findById(carId);
+  cube.accessories.push(accessoryId);
+  cube.save();
+};
+
 module.exports = async (req, res, next) => {
   req.storage = {
     getCubes,
@@ -61,6 +69,7 @@ module.exports = async (req, res, next) => {
     deleteCube,
     updateCube,
     createCube,
+    attachAccessory,
   };
   next();
 };
