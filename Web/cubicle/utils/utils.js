@@ -7,10 +7,25 @@ const difficulties = [
   'Expert',
   'Hardcore',
 ];
-const matchDiff = data => {
-  const cube = Object.assign({}, data._doc)
-  cube.difficulty = difficulties[cube.difficulty]
-  return cube
+
+const cubeViewModel = item => {
+  return {
+    id: item._id,
+    accessories: item.accessories,
+    name: item.name,
+    description: item.description,
+    imageUrl: item.imageUrl,
+  };
+};
+
+const accessoryViewModel = item => {
+  return {
+    id: item._id,
+    name: item.name,
+    description: item.description,
+    imageUrl: item.imageUrl,
+    cubes: item.cubes,
+  };
 };
 
 const matchSelected = value => {
@@ -25,17 +40,18 @@ const matchSelected = value => {
   return options;
 };
 
-const verifyData = (data) => {
+const verifyData = data => {
   return {
     name: data.name,
     description: data.description,
     imageUrl: data.imageUrl,
-    difficulty: Number(data.difficulty)
-  }
-}
+    difficulty: Number(data.difficulty),
+  };
+};
 
 module.exports = {
-  matchDiff,
+  cubeViewModel,
   matchSelected,
-  verifyData
+  verifyData,
+  accessoryViewModel,
 };
