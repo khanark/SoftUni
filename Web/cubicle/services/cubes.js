@@ -2,33 +2,22 @@ const Cube = require('../models/Cube');
 const { verifyData } = require('../utils/utils');
 
 const getCubes = async query => {
-  let cubes = await Cube.find({});
+  const options = {};
 
   if (query?.search) {
-    cubes = await Cube.find({
-      name: { $regex: query.search, $options: 'i' },
-    });
+    options.name = new RegExp(query.search, 'i');
   }
 
   if (query?.from) {
-    cubes = await Cube.find({
-      difficulty: {
-        $gte: +query.from,
-      },
-    });
+    options.difficulty = { $gte: Number(query.from) };
   }
 
   if (query?.to) {
-    cubes = await Cube.find({
-      difficulty: {
-        $lte: +query.to,
-      },
-    });
+    options.difficulty = {$lte: Number(query.to)}
   }
 
-  return cubes;
+  return Cube.find(options);
 };
-getCubes();
 
 const getSingleCube = async id => {
   try {
