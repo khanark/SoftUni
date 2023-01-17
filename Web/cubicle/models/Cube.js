@@ -17,6 +17,7 @@ const cubeSchema = new Schema({
     max: [6, 'The value cannot exceed 6'],
   },
   accessories: { type: [ObjectId], ref: 'Accessory', default: [] },
+  ownerId: { type: ObjectId, ref: 'User' },
 });
 
 const Cube = model('Cube', cubeSchema);
