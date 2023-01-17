@@ -13,7 +13,7 @@ const getCubes = async query => {
   }
 
   if (query?.to) {
-    options.difficulty = {$lte: Number(query.to)}
+    options.difficulty = { $lte: Number(query.to) };
   }
 
   return Cube.find(options);
@@ -37,9 +37,16 @@ const updateCube = async (id, data) => {
   await Cube.findByIdAndUpdate(id, verifyData(data));
 };
 
-const createCube = async data => {
+const createCube = async (data, session) => {
   try {
-    await Cube.create(verifyData(data));
+    const cube = new Cube({
+      name: data.name.toLocaleUpperCase(),
+      description: data.description,
+      imageUrl: data.imageUrl,
+      difficulty: Number(data.difficultyLevel),
+      ownerId: session.user.id,
+    });
+    await cube.save();
   } catch (err) {
     console.log(err);
   }
