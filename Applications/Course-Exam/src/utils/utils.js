@@ -4,7 +4,6 @@ export const submitHandler = callback => ev => {
 };
 
 export const handleData = async (data, callback, id) => {
-  debugger
   if (Object.values(data).some(val => val == '')) {
     return alert('Please fill all the empty fields');
   }
