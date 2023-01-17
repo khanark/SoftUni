@@ -40,6 +40,16 @@ const matchSelected = value => {
   return options;
 };
 
+function isLogged() {
+  return (req, res, next) => {
+    if (!req.session.user) {
+      res.redirect('/login');
+    } else {
+      next();
+    }
+  };
+}
+
 const verifyData = data => {
   return {
     name: data.name,
@@ -54,4 +64,5 @@ module.exports = {
   matchSelected,
   verifyData,
   accessoryViewModel,
+  isLogged,
 };
