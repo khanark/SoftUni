@@ -1,0 +1,22 @@
+{{#with cube}}
+  <main>
+    <h1>Delete</h1>
+    <div class='form'>
+      <form action='/delete/{{id}}' method='post'>
+        <label for='name'>Name</label>
+        <input type='text' id='name' name='name' value='{{name}}' disabled />
+        <label for='name'>Description</label>
+        <textarea id='name' name='description' disabled >{{description}}</textarea>
+        <label for='image'>ImageUrl</label>
+        <input type='text' id='image' name='imageUrl' value='{{imageUrl}}' disabled />
+        <label for='difficulty'>Difficulty</label>
+        <select id='difficulty' name='difficultyLevel' value='{{difficulty}}' >
+          {{#each options}}
+          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}} disabled >{{this.content}}</option>
+          {{/each}}
+        </select>
+        <input type='submit' value='Delete' />
+      </form>
+    </div>
+  </main>
+{{/with}}
