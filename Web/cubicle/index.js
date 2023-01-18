@@ -32,8 +32,6 @@ const initializeApp = async () => {
 
   // services
   await initDb();
-  app.use(cubeService);
-  app.use(accessoryService);
   app.use(
     expressSession({
       secret: 'my secret',
@@ -42,6 +40,8 @@ const initializeApp = async () => {
       cookie: { secure: 'auto' },
     })
   );
+  app.use(cubeService);
+  app.use(accessoryService);
 
   app.engine('.hbs', hbs.engine);
   app.set('view engine', '.hbs');
@@ -60,7 +60,7 @@ const initializeApp = async () => {
   app.use('/delete', isLogged(), deleteItem);
   app.use('/edit', isLogged(), edit);
   app.use('/create/accessory', isLogged(), accessory);
-  app.use('/attach/', isLogged(), attach);
+  app.use('/attach', isLogged(), attach);
   app.all('*', (req, res) => {
     res.render('404');
   });
