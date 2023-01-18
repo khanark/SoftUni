@@ -9,7 +9,6 @@ router.post('/:id', async (req, res) => {
   ) {
     res.redirect('/login');
   } else {
-    await req.storage.attachAccessory(id, accessoryId, req.session.user.id);
     res.redirect(`/`);
   }
 });

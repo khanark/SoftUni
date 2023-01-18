@@ -12,9 +12,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id', async (req, res) => {
   if (!(await req.storage.deleteCube(req.params.id, req.session.user.id))) {
-    res.redirect('/login');
+   res.redirect('/login');
   } else {
-    await req.storage.deleteCube(req.params.id, req.session.user.id);
     res.redirect('/');
   }
 });
