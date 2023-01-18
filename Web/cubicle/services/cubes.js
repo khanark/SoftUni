@@ -29,12 +29,30 @@ const getSingleCube = async id => {
   }
 };
 
-const deleteCube = async id => {
+const deleteCube = async (id, ownerId) => {
+  const existing = await Cube.findById(id);
+  if (existing.ownerId != ownerId) {
+    return false;
+  }
   await Cube.findByIdAndRemove(id);
+  return true;
 };
 
-const updateCube = async (id, data) => {
-  await Cube.findByIdAndUpdate(id, verifyData(data));
+const updateCube = async (id, cube, ownerId) => {
+  const existing = await Cube.findById(id);
+  if (existing.ownerId != ownerId) {
+    return false;
+  }
+
+  existing.name = cube.name;
+  existing.imageUrl = cube.imageUrl;
+  existing.description = cube.description;
+  existing.difficulty = cube.difficulty;
+  existing.accessories = cube.accessories;
+
+  existing.save();
+  return true;
+  // await Cube.findByIdAndUpdate(id, verifyData(data));
 };
 
 const createCube = async (data, session) => {
@@ -52,10 +70,14 @@ const createCube = async (data, session) => {
   }
 };
 
-const attachAccessory = async (carId, accessoryId) => {
+const attachAccessory = async (carId, accessoryId, ownerId) => {
   const cube = await Cube.findById(carId);
+  if(cube.ownerId != ownerId) {
+    return false
+  }
   cube.accessories.push(accessoryId);
   cube.save();
+  return true
 };
 
 module.exports = async (req, res, next) => {
