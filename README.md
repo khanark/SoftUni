@@ -8,3 +8,5 @@
 **Test my homework here:**
  - *[JS Basics](https://judge.softuni.org/Contests/#!/List/ByCategory/247/JS-Basics)*
  - *[JS Fundamentals](https://judge.softuni.org/Contests/#!/List/ByCategory/147/JS-Fundamentals)*
+ - *[JS Advanced](https://judge.softuni.org/Contests/#!/List/ByCategory/160/JS-Advanced)*
+ - *[JS Web](https://judge.softuni.org/Contests/#!/List/ByCategory/118/JS-Web)*
