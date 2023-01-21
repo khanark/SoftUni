@@ -10,6 +10,13 @@
   <body>
     <div class='container'>
       {{>navigation}}
+      {{#if errors}} 
+      <div id="notifications">
+        {{#each errors}}
+        <p id="notification-message">{{msg}}</p>
+        {{/each}}
+      </div>
+      {{/if}}
       {{{body}}}
     </div>
     <footer>@Cubicle: Exercise for Express.js and Handlebars</footer>
