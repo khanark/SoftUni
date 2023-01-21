@@ -6,12 +6,19 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { username, password, repass } = req.body;
-  if (password !== repass) {
-    console.log('Password missmatch');
+  const { username, password, repeatPassword } = req.body;
+  console.log(password, repeatPassword);
+  try {
+    if (password !== repeatPassword) {
+      throw new Error('Password missmatch');
+    }
+    await req.auth.register(username.trim(), password.trim());
+    res.redirect('/');
+  } catch (error) {
+    console.log(req.body.username);
+    console.log(error);
+    res.render('register', { data: { username: req.body.username } });
   }
-  await req.auth.register(username, password);
-  res.redirect('/');
 });
 
 module.exports = router;
