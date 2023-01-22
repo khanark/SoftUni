@@ -59,6 +59,14 @@ const verifyData = data => {
   };
 };
 
+const errorMap = error => {
+  const errors = [];
+  if (error.name == 'ValidatorError') {
+    errors.push(error.properties.message);
+  }
+  return errors;
+};
+
 module.exports = {
   cubeViewModel,
   matchSelected,

@@ -7,10 +7,10 @@ const router = express.Router();
 // });
 
 router.get('/:id', async (req, res) => {
-  const cube = await req.storage.getSingleCube(req.params.id);
-  const isOwner =
-    Boolean(req.session.user?.id == cube?.ownerId) && req.session.user;
-  res.render('details', { cube, isOwner });
+    const cube = await req.storage.getSingleCube(req.params.id);
+    const isOwner =
+        Boolean(req.session.user?.id == cube?.ownerId) && req.session.user;
+    res.render('details', { cube, isOwner });
 });
 
 module.exports = router;

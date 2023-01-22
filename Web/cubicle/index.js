@@ -24,48 +24,48 @@ const initDb = require('./models');
 
 // ### SETUP ###
 const hbs = handlebars.create({
-  extname: 'hbs',
+    extname: 'hbs',
 });
 
 const initializeApp = async () => {
-  const app = express();
+    const app = express();
 
-  // services
-  await initDb();
-  app.use(
-    expressSession({
-      secret: 'my secret',
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: 'auto' },
-    })
-  );
-  app.use(cubeService);
-  app.use(accessoryService);
+    // services
+    await initDb();
+    app.use(
+        expressSession({
+            secret: 'my secret',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: 'auto' },
+        })
+    );
+    app.use(cubeService);
+    app.use(accessoryService);
 
-  app.engine('.hbs', hbs.engine);
-  app.set('view engine', '.hbs');
-  app.use(express.static('static'));
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(auth);
+    app.engine('.hbs', hbs.engine);
+    app.set('view engine', '.hbs');
+    app.use(express.static('static'));
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(auth);
 
-  // controllers
-  app.use('/', home);
-  app.get('/about', about);
-  app.use('/create', isLogged(), create);
-  app.use('/details', details);
-  app.use('/register', register);
-  app.use('/login', login);
-  app.use('/logout', logout);
-  app.use('/delete', isLogged(), deleteItem);
-  app.use('/edit', isLogged(), edit);
-  app.use('/create/accessory', isLogged(), accessory);
-  app.use('/attach', isLogged(), attach);
-  app.all('*', (req, res) => {
-    res.render('404');
-  });
+    // controllers
+    app.use('/', home);
+    app.get('/about', about);
+    app.use('/create', isLogged(), create);
+    app.use('/details', details);
+    app.use('/register', register);
+    app.use('/login', login);
+    app.use('/logout', logout);
+    app.use('/delete', isLogged(), deleteItem);
+    app.use('/edit', isLogged(), edit);
+    app.use('/create/accessory', isLogged(), accessory);
+    app.use('/attach', isLogged(), attach);
+    app.all('*', (req, res) => {
+        res.render('404');
+    });
 
-  app.listen(3000, () => console.log('The server is listening on port 3000'));
+    app.listen(3000, () => console.log('The server is listening on port 3000'));
 };
 
 // initializing the application

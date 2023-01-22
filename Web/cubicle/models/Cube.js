@@ -5,11 +5,17 @@ const {
 } = require('mongoose');
 
 const cubeSchema = new Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
+  name: {
+    type: String,
+    minLength: [5, 'Name should be atleast 5 characters long'],
+    match: [/[A-Za-z0-9]+/, 'The name includes prohibited symbols'],
+  },
+  description: {
+    type: String,
+    minLength: [20, 'Description should be atleast 5 characters long'],
+  },
   imageUrl: {
     type: String,
-    required: [true, 'Missing image'],
   },
   difficulty: {
     type: Number,
