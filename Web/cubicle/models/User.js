@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { hash } = require('bcrypt');
 
 const userSchema = new Schema({
     username: {
@@ -13,18 +14,23 @@ const userSchema = new Schema({
     },
     hashedPassword: {
         type: String,
-        required: true,
+        minLength: [8, 'Password should be atleast 8 characters long'],
         validate: {
             validator: function (val) {
                 return /[A-Za-z0-9]+/.test(val);
             },
             message: 'Password should contain only letters and numbers',
         },
-        minLength: [8, 'Password should be atleast 8 characters long'],
     },
 });
 
-// setting an index for the username (to make it unique) doesnt work
+userSchema.pre('save', async function (next) {
+    if (this.isModified('hashedPassword')) {
+        this.hashedPassword = await hash(this.hashedPassword, 10);
+    }
+    next();
+});
+
 userSchema.index(
     { username: 1 },
     {

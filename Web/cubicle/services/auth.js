@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 module.exports = (req, res, next) => {
     res.locals = {
@@ -15,18 +15,21 @@ module.exports = (req, res, next) => {
         try {
             const user = new User({
                 username,
-                hashedPassword: await bcrypt.hash(password, 10),
+                hashedPassword: password,
             });
-            user.save();
+            await user.save();
             req.session.user = user;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         }
     }
 
     async function login(username, password) {
         try {
             const user = await User.findOne({ username: username });
+            if (!user) {
+                throw new Error('No such user in the database.');
+            }
 
             if (!(await bcrypt.compare(password, user.hashedPassword))) {
                 throw new Error('Incorrect password.');

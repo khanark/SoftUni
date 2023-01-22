@@ -1,4 +1,5 @@
 const express = require('express');
+const { errorMap } = require('../utils/utils');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -10,8 +11,9 @@ router.post('/', async (req, res) => {
     try {
         await req.auth.login(username, password);
         res.redirect('/');
-    } catch (error) {
-        console.log(error);
+    } catch (errors) {
+        errors = errorMap(errors);
+        res.render('login', { errors });
     }
 });
 

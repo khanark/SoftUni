@@ -1,5 +1,4 @@
 const Cube = require('../models/Cube');
-const { verifyData } = require('../utils/utils');
 
 const getCubes = async query => {
     const options = {};
@@ -20,13 +19,9 @@ const getCubes = async query => {
 };
 
 const getSingleCube = async id => {
-    try {
         const cube = await Cube.findById(id);
         cube.populate('accessories', 'name description imageUrl');
         return cube;
-    } catch (err) {
-        console.log(err);
-    }
 };
 
 const deleteCube = async (id, ownerId) => {
@@ -50,9 +45,8 @@ const updateCube = async (id, cube, ownerId) => {
     existing.difficulty = cube.difficulty;
     existing.accessories = cube.accessories;
 
-    existing.save();
+    await existing.save();
     return true;
-    // await Cube.findByIdAndUpdate(id, verifyData(data));
 };
 
 const createCube = async (data, session) => {
@@ -66,7 +60,7 @@ const createCube = async (data, session) => {
         });
         await cube.save();
     } catch (err) {
-        console.log(err);
+        throw err;
     }
 };
 
@@ -76,7 +70,7 @@ const attachAccessory = async (carId, accessoryId, ownerId) => {
         return false;
     }
     cube.accessories.push(accessoryId);
-    cube.save();
+    await cube.save();
     return true;
 };
 

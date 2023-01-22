@@ -1,4 +1,5 @@
 const express = require('express');
+const { errorMap } = require('../utils/utils');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -9,9 +10,9 @@ router.post('/', async (req, res) => {
     try {
         await req.storage.createCube(req.body, req.session);
         res.redirect('/');
-    } catch (error) {
-        console.log('Im  in the error log =>');
-        res.redirect('/');
+    } catch (errors) {
+        errors = errorMap(errors);
+        res.render('create', { errors });
     }
 });
 
