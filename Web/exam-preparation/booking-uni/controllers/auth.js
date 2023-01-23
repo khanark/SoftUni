@@ -1,4 +1,5 @@
 const { register, login, verifyToken } = require('../services/userService');
+const { parseError } = require('../util/utils');
 const router = require('express').Router();
 
 router.get('/register', (req, res) => {
@@ -16,7 +17,8 @@ router.post('/register', async (req, res) => {
         }
         const token = await register(email, username, password);
         res.cookie('token', token);
-    } catch (errors) {
+    } catch (error) {
+        const errors = parseError(error);
         res.render('register', { body: { username }, errors });
     }
 });

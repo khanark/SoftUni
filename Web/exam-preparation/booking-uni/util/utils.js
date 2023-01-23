@@ -1,4 +1,6 @@
-module.exports = {};
+module.exports = {
+    parseError,
+};
 
 function parseError(error) {
     if (error.name == 'ValidationError') {
