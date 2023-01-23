@@ -30,13 +30,13 @@ async function register(email, username, password) {
 
     await user.save();
     const token = createSession(user);
-    res.cookie("token", token, secretKey)
+    return token
 }
 
 async function login(username, password) {}
 
 function verifyToken(token) {
-    
+
 }
 
 function createSession(user) {
