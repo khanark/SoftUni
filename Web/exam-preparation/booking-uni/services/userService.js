@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { hash } = require('bcrypt');
+const { hash, compare } = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const SECRET_KEY = 'dawd12312d12dwa';
@@ -33,9 +33,25 @@ async function register(email, username, password) {
     return token;
 }
 
-async function login(username, password) {}
+async function login(username, password) {
+    const existing = await User.findOne({ username }).collation({
+        locale: 'en',
+        strength: 2,
+    });
+    if(!existing) {
+        throw new Error("User doen't exist in the database")
+    }
+    if(!await compare(password, existing.hashedPassword)) {
+        throw new Error("Incorrect password")
+    }
+    const token = createSession(existing);
+    return token
+}
 
-function verifyToken(token) {}
+function verifyToken(token) {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    req.user = decoded;
+}
 
 function createSession(user) {
     const payload = {
