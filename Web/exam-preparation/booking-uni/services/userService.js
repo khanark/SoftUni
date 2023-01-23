@@ -2,42 +2,40 @@ const User = require('../models/User');
 const { hash } = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const secretKey = 'dawd12312d12dwa';
+const SECRET_KEY = 'dawd12312d12dwa';
 
 module.exports = {
     register,
     login,
+    verifyToken,
 };
 
 async function register(email, username, password) {
-    if (email == '' || username == '' || password == '') {
-        throw new Error('missing fields');
-    }
-
-    const existing = await User.findOne({ username });
-
-    if (existing != undefined) {
+    const existing = await User.findOne({ username }).collation({
+        locale: 'en',
+        strength: 2,
+    });
+    if (existing) {
         throw new Error('Username already exists');
     }
-
     const hashedPassword = await hash(password, 10);
-
     const user = new User({
         email,
         username,
         hashedPassword,
     });
-
-    await user.save();
+    try {
+        await user.save();
+    } catch (error) {
+        throw error;
+    }
     const token = createSession(user);
-    return token
+    return token;
 }
 
 async function login(username, password) {}
 
-function verifyToken(token) {
-
-}
+function verifyToken(token) {}
 
 function createSession(user) {
     const payload = {
@@ -45,7 +43,6 @@ function createSession(user) {
         username: user.username,
         email: user.email,
     };
-
-    const token = jwt.sign(payload, secretKey);
+    const token = jwt.sign(payload, SECRET_KEY);
     return token;
 }
