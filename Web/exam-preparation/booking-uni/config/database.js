@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+//TODO Check and set the correct database
 const db = 'bookinguni';
 const DATABASE_URL = `mongodb://127.0.0.1:27017/${db}`;
 

@@ -9,18 +9,27 @@
     <body>
 
         <div id='container'>
-
             <nav>
-                <div class='left-container'>
-                    <ul>
-                        <li><a href='/home'>Home</a></li>
-                        <li><a href='/create'>Add +</a></li>
-                    </ul>
-                </div>
-                <div class='right-container'>
-                    <a href='/profile' class='log-out'>{{name}}</a>
-                    <a href='/logout' class='log-out'>Logout</a>
-                </div>
+                {{#if user}}
+                    <div class='left-container'>
+                        <ul>
+                            <li><a href='/home'>Home</a></li>
+                            <li><a href='/create'>Add +</a></li>
+                        </ul>
+                    </div>
+                    <div class='right-container'>
+                        <a href='/profile' class='log-out'>{{user.username}}</a>
+                        <a href='/logout' class='log-out'>Logout</a>
+                    </div>
+                {{else}}
+                    <div class='left-container'>
+                        <ul>
+                            <li><a href=''>Home</a></li>
+                            <li><a href=''>Login</a></li>
+                            <li><a href=''>Register</a></li>
+                        </ul>
+                    </div>
+                {{/if}}
             </nav>
             {{{body}}}
             <footer>@SoftUni - JS Back-end - BookingUni 2020</footer>
