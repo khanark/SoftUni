@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+//TODO Check the assignment for the correct User Schema
 const userSchema = new Schema({
     email: {
         type: String,
