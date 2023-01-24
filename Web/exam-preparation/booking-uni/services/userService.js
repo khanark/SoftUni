@@ -10,6 +10,8 @@ module.exports = {
     verifyToken,
 };
 
+//TODO Check for the unique fields and if there are multiple set the index for all of them
+
 async function register(email, username, password) {
     const existing = await User.findOne({ username }).collation({
         locale: 'en',
@@ -38,19 +40,19 @@ async function login(username, password) {
         locale: 'en',
         strength: 2,
     });
-    if(!existing) {
-        throw new Error("User doen't exist in the database")
+    if (!existing) {
+        throw new Error("User doen't exist in the database");
     }
-    if(!await compare(password, existing.hashedPassword)) {
-        throw new Error("Incorrect password")
+    if (!(await compare(password, existing.hashedPassword))) {
+        throw new Error('Incorrect password');
     }
     const token = createSession(existing);
-    return token
+    return token;
 }
 
 function verifyToken(token) {
     const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded;
+    return decoded;
 }
 
 function createSession(user) {
