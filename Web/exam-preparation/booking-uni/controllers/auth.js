@@ -7,7 +7,7 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
     const { email, username, password, repass } = req.body;
     try {
         if (email == '' || username == '' || password == '') {
@@ -16,6 +16,7 @@ router.post('/register', async (req, res) => {
         if (password !== repass) {
             throw new Error("Passwords don't match");
         }
+        //TODO Check if register creates user session and where it redirects
         const token = await register(email, username, password);
         res.cookie('token', token);
         res.redirect('/');
@@ -36,6 +37,7 @@ router.post('/login', async (req, res) => {
         if (username == '' || password == '') {
             throw new Error('Missing fields');
         }
+        //TODO Check where login redirects
         const token = await login(username, password);
         res.cookie('token', token);
         res.redirect('/');
@@ -44,3 +46,10 @@ router.post('/login', async (req, res) => {
         res.render('login', { body: { username }, errors });
     }
 });
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
+});
+
+module.exports = router;
