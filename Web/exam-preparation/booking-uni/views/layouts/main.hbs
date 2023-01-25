@@ -9,17 +9,32 @@
     <body>
 
         <div id='container'>
+            {{! <div> }}
+            {{! <div class='notification loadingBox'>
+                    Loading …
+                </div>
+                <div class='notification infoBox'>
+                    <span>Info</span>
+                </div> }}
+            {{#if errors}}
+                <div class='notification errorBox'>
+                    {{#each errors}}
+                        <span>{{this}}</span>
+                    {{/each}}
+                </div>
+            {{/if}}
+            {{! </div> }}
             <nav>
                 {{#if user}}
                     <div class='left-container'>
                         <ul>
                             <li><a href='/home'>Home</a></li>
-                            <li><a href='/create'>Add +</a></li>
+                            <li><a href='/crud/create'>Add +</a></li>
                         </ul>
                     </div>
                     <div class='right-container'>
                         <a href='/profile' class='log-out'>{{user.username}}</a>
-                        <a href='/logout' class='log-out'>Logout</a>
+                        <a href='/auth/logout' class='log-out'>Logout</a>
                     </div>
                 {{else}}
                     <div class='left-container'>
