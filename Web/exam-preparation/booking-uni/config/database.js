@@ -3,17 +3,24 @@ const mongoose = require('mongoose');
 const db = 'bookinguni';
 const DATABASE_URL = `mongodb://127.0.0.1:27017/${db}`;
 
-module.exports = app => {
-    mongoose.connect(DATABASE_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+module.exports = async app => {
+    try {
+        mongoose.connect(DATABASE_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
 
-    mongoose.connection.on('connected', () => {
-        console.log('Default database connected');
-    });
+        console.log('Database is connected');
+    } catch (error) {
+        console.log(`There has been an error with the database ${error} `);
+        process.exit(1);
+    }
 
-    mongoose.connection.on('error', err => {
-        console.log(`Database error, ${err}`);
-    });
+    // mongoose.connection.on('connected', () => {
+    //     console.log('Default database connected');
+    // });
+
+    // mongoose.connection.on('error', err => {
+    //     console.log(`Database error, ${err}`);
+    // });
 };
