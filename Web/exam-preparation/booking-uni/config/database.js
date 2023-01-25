@@ -15,12 +15,4 @@ module.exports = async app => {
         console.log(`There has been an error with the database ${error} `);
         process.exit(1);
     }
-
-    // mongoose.connection.on('connected', () => {
-    //     console.log('Default database connected');
-    // });
-
-    // mongoose.connection.on('error', err => {
-    //     console.log(`Database error, ${err}`);
-    // });
 };
