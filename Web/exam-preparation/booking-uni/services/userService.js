@@ -13,12 +13,19 @@ module.exports = {
 //TODO Check for the unique fields and if there are multiple set the index for all of them
 
 async function register(email, username, password) {
-    const existing = await User.findOne({ username }).collation({
+    const existing1 = await User.findOne({ username }).collation({
         locale: 'en',
         strength: 2,
     });
-    if (existing) {
+    const existing2 = await User.findOne({ email }).collation({
+        locale: 'en',
+        strength: 2,
+    });
+    if (existing1) {
         throw new Error('Username already exists');
+    }
+    if (existing2) {
+        throw new Error('Email already exists');
     }
     const hashedPassword = await hash(password, 10);
     const user = new User({
