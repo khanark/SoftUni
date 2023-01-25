@@ -1,4 +1,4 @@
-const { register, login, verifyToken } = require('../services/userService');
+const { register, login } = require('../services/userService');
 const { parseError } = require('../util/utils');
 const router = require('express').Router();
 
@@ -8,16 +8,17 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res, next) => {
-    const { email, username, password, repass } = req.body;
+    const { email, username, password, rePassword } = req.body;
     try {
         if (email == '' || username == '' || password == '') {
             throw new Error('Missing fields');
         }
-        if (password !== repass) {
+        if (password !== rePassword) {
             throw new Error("Passwords don't match");
         }
         //TODO Check if register creates user session and where it redirects
         const token = await register(email, username, password);
+        console.log(token)
         res.cookie('token', token);
         res.redirect('/');
     } catch (error) {
