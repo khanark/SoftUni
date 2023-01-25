@@ -1,4 +1,8 @@
-const { Schema, model } = require('mongoose');
+const {
+    Schema,
+    model,
+    Types: { ObjectId },
+} = require('mongoose');
 
 //TODO Check the assignment for the correct User Schema
 const userSchema = new Schema({
@@ -13,6 +17,7 @@ const userSchema = new Schema({
         unique: true,
     },
     hashedPassword: { type: String, required: [true, 'please enter password'] },
+    bookedHotels: [{ type: [ObjectId], ref: 'Hotel' }],
 });
 
 userSchema.index(
