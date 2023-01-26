@@ -8,6 +8,7 @@ module.exports = {
     register,
     login,
     verifyToken,
+    bookHotel,
 };
 
 //TODO Check for the unique fields and if there are multiple set the index for all of them
@@ -22,10 +23,10 @@ async function register(email, username, password) {
         strength: 2,
     });
     if (existing1) {
-        throw new Error('Username already exists');
+        throw new Error('User with that username already exists');
     }
     if (existing2) {
-        throw new Error('Email already exists');
+        throw new Error('User with that email already exists');
     }
     const hashedPassword = await hash(password, 10);
     const user = new User({
@@ -46,12 +47,12 @@ async function login(username, password) {
     const existing = await User.findOne({ username }).collation({
         locale: 'en',
         strength: 2,
-    });
+    }).populate("_id name city");
     if (!existing) {
-        throw new Error("User doen't exist in the database");
+        throw new Error('Wrong username or password');
     }
     if (!(await compare(password, existing.hashedPassword))) {
-        throw new Error('Incorrect password');
+        throw new Error('Wrong username or password');
     }
     const token = createSession(existing);
     return token;
@@ -67,7 +68,20 @@ function createSession(user) {
         id: user._id,
         username: user.username,
         email: user.email,
+        bookedHotels: user.bookedHotels,
     };
     const token = jwt.sign(payload, SECRET_KEY);
     return token;
+}
+
+async function bookHotel(hotelId, userId) {
+    try {
+        console.log(userId);
+        const user = await User.findById(userId);
+        console.log(user.username);
+        user.bookedHotels.push(hotelId);
+        await user.save();
+    } catch (error) {
+        throw error;
+    }
 }
