@@ -4,6 +4,7 @@ const db = 'bookinguni';
 const DATABASE_URL = `mongodb://127.0.0.1:27017/${db}`;
 
 module.exports = async app => {
+    mongoose.set('strictQuery', false);
     try {
         mongoose.connect(DATABASE_URL, {
             useNewUrlParser: true,
