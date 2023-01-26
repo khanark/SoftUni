@@ -8,16 +8,16 @@ const {
 const userSchema = new Schema({
     email: {
         type: String,
-        required: [true, 'please enter email'],
+        required: [true, 'missing email'],
         unique: true,
     },
     username: {
         type: String,
-        required: [true, 'please enter username'],
+        required: [true, 'missing username'],
         unique: true,
     },
-    hashedPassword: { type: String, required: [true, 'please enter password'] },
-    bookedHotels: [{ type: [ObjectId], ref: 'Hotel' }],
+    hashedPassword: { type: String, required: [true, 'missing password'] },
+    bookedHotels: [{ type: ObjectId, ref: 'Hotel' }],
 });
 
 userSchema.index(
