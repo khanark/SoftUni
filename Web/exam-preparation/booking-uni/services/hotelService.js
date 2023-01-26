@@ -5,14 +5,15 @@ module.exports = {
     getSingle,
     deleteSingle,
     createHotel,
+    updateHotel,
 };
 
 async function getAll() {
-    return await Hotel.find({});
+    return await Hotel.find({}).lean();
 }
 
 async function getSingle(id) {
-    return await Hotel.findById(id);
+    return await Hotel.findById(id).lean();
 }
 
 async function deleteSingle(id) {
@@ -20,8 +21,6 @@ async function deleteSingle(id) {
 }
 
 async function createHotel(data, id) {
-    console.log('I am inside createHotel function');
-    console.log(data);
     try {
         const hotel = new Hotel({
             name: data.hotel,
@@ -31,6 +30,16 @@ async function createHotel(data, id) {
             owner: id,
         });
         await hotel.save();
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateHotel(data, id) {
+    try {
+        console.log(id);
+        console.log(data)
+        await Hotel.findByIdAndUpdate(id, data);
     } catch (error) {
         throw error;
     }
