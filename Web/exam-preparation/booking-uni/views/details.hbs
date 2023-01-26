@@ -1,26 +1,30 @@
-{{#with hotel}}
-    <section id='viewhotelDetails'>
-        <h2>Details</h2>
-        <div class='hotel-ticket'>
-            <div class='hotel-left'>
-                <img src='{{imageUrl}}' alt='' />
-            </div>
-            <div class='hotel-right'>
-                <div>
-                    <h3>{{name}}</h3>
-                </div>
-                <div>
-                    {{city}}
-                </div>
-                <p><span>Free rooms: {{freeRooms}}</span> </p>
-                <p><span class='green'>You already have booked a room</span>
-                </p>
-
-                <a href='/crud/book' class='book'>Book</a>
-                <a href='/crud/edit' class='edit'>Edit</a>
-                <a href='/crud/delete' class='remove'>Delete</a>
-            </div>
-
+<section id='viewhotelDetails'>
+    <h2>Details</h2>
+    <div class='hotel-ticket'>
+        <div class='hotel-left'>
+            <img src='{{hotel.imageUrl}}' alt='' />
         </div>
-    </section>
-{{/with}}
+        <div class='hotel-right'>
+            <div>
+                <h3>{{hotel.name}}</h3>
+            </div>
+            <div>
+                {{hotel.city}}
+            </div>
+            <p><span>Free rooms: {{hotel.freeRooms}}</span> </p>
+            </p>
+
+            {{#if isOwner}}
+                <a href='/crud/edit/{{hotel._id}}' class='edit'>Edit</a>
+                <a href='/crud/delete' class='remove'>Delete</a>
+            {{else}}
+                {{#if isBooked}}
+            <p><span class='green'>You already have booked a room</span>
+            {{else}}
+                    <a href='/crud/book/{{hotel._id}}' class='book'>Book</a>
+                {{/if}}
+            {{/if}}
+        </div>
+
+    </div>
+</section>
