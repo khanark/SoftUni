@@ -1,5 +1,7 @@
-<a href='/details/{{_id}}' class='added-hotel'>
-    <img src='{{imageUrl}}' alt='' class='picture-added-hotel' />
-    <h3>{{name}}</h3>
-    <span>Free rooms: {{rooms}}</span>
-</a>
+{{#each hotels}}
+    <a href='/details/{{_id}}' class='added-hotel'>
+        <img src='{{imageUrl}}' alt='' class='picture-added-hotel' />
+        <h3>{{name}}</h3>
+        <span>Free rooms: {{freeRooms}}</span>
+    </a>
+{{/each}}
