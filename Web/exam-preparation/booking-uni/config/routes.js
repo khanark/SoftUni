@@ -19,5 +19,5 @@ module.exports = app => {
     app.use('/auth', authControler);
     app.use('/', homeControler);
     app.use('/home', homeControler);
-    app.use('/crud', crudControler);
+    app.use('/crud', isGuest(), crudControler);
 };
