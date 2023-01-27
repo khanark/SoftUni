@@ -47,7 +47,7 @@ async function login(username, password) {
     const existing = await User.findOne({ username }).collation({
         locale: 'en',
         strength: 2,
-    }).populate("_id name city");
+    }).populate("bookedHotels");
     if (!existing) {
         throw new Error('Wrong username or password');
     }
@@ -76,9 +76,7 @@ function createSession(user) {
 
 async function bookHotel(hotelId, userId) {
     try {
-        console.log(userId);
         const user = await User.findById(userId);
-        console.log(user.username);
         user.bookedHotels.push(hotelId);
         await user.save();
     } catch (error) {
