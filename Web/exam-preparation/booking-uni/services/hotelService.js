@@ -1,4 +1,5 @@
 const Hotel = require('../models/Hotel');
+const { findById } = require('../models/User');
 
 module.exports = {
     getAll,
@@ -36,10 +37,14 @@ async function createHotel(data, id) {
 }
 
 async function updateHotel(data, id) {
+    const updateHotel = {
+        name: data.hotel,
+        city: data.city,
+        freeRooms: data['free-rooms'],
+        imageUrl: data.imageUrl,
+    };
     try {
-        console.log(id);
-        console.log(data)
-        await Hotel.findByIdAndUpdate(id, data);
+        await Hotel.findByIdAndUpdate(id, updateHotel);
     } catch (error) {
         throw error;
     }
