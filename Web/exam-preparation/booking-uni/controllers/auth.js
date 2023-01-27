@@ -1,8 +1,12 @@
 const { register, login } = require('../services/userService');
 const { parseError } = require('../util/utils');
+const validator = require('validator');
 const router = require('express').Router();
 
-//register
+router.get('/profile', (req, res) => {
+    res.render('profile', { body: req.user });
+});
+
 router.get('/register', (req, res) => {
     res.render('register');
 });
@@ -16,14 +20,19 @@ router.post('/register', async (req, res, next) => {
         if (password !== rePassword) {
             throw new Error("Passwords don't match");
         }
+        if (!validator.isEmail(email)) {
+            throw new Error('Invalid email adress');
+        }
+        if (password.length < 5) {
+            throw new Error('Password must be at least 5 characters long');
+        }
         //TODO Check if register creates user session and where it redirects
         const token = await register(email, username, password);
-        console.log(token)
         res.cookie('token', token);
         res.redirect('/');
     } catch (error) {
         const errors = parseError(error);
-        res.render('register', { body: { username }, errors });
+        res.render('register', { body: req.body, errors });
     }
 });
 
