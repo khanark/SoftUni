@@ -17,7 +17,8 @@ ul {
     padding-inline-start: 0;
 }
 
-input[type=submit]:hover, ul>li:hover {
+input[type='submit']:hover,
+ul > li:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -27,7 +28,8 @@ input[type=submit]:hover, ul>li:hover {
     transform: scale(1.1);
 }
 
-li, .log-out {
+li,
+.log-out {
     list-style-type: none;
     display: inline-block;
     border: 2px solid lightsteelblue;
@@ -88,7 +90,10 @@ input {
     padding: 5px;
 }
 
-.create, .save-changes, .login, .register {
+.create,
+.save-changes,
+.login,
+.register {
     background: cornflowerblue;
     color: white;
     border: 2px solid lightsteelblue;
@@ -108,7 +113,7 @@ footer {
 }
 
 .background-img {
-    background: url("../../static/img/hotel.jpg") no-repeat;
+    background: url('/img/hotel.jpg') no-repeat;
     background-size: cover;
     margin: auto;
     min-height: 500px;
@@ -213,7 +218,7 @@ footer {
     transform: scale(1.1);
 }
 
-.green{
+.green {
     color: green;
 }
 
@@ -295,7 +300,7 @@ footer {
 }
 
 .edit-hotel-detail {
-    background: url("../../static/img/pencil.png") center;
+    background: url('/img/pencil.png') center;
     width: 50px;
     height: 50px;
     border: 2px solid blue;
@@ -339,7 +344,8 @@ footer {
     display: inline-flex;
 }
 
-.seat-form input, button {
+.seat-form input,
+button {
     margin: 20px;
 }
 
@@ -407,7 +413,7 @@ h3 {
 }
 
 .loadingBox {
-    background: #7CB3E9;
+    background: #7cb3e9;
 }
 
 .infoBox {
@@ -415,19 +421,19 @@ h3 {
 }
 
 .errorBox {
-    background: #F50;
+    background: #f50;
 }
 
 .profile {
     width: 100%;
     max-width: 500px;
     margin: 2em auto 1rem;
-    padding: .5em;
-    border: .3em solid cornflowerblue;
-    border-radius: .5rem;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0.5em;
+    border: 0.3em solid cornflowerblue;
+    border-radius: 0.5rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #444;
-    background-color: hsla(0, 0%, 94.1%, .8);
+    background-color: hsla(0, 0%, 94.1%, 0.8);
     box-shadow: 0 0 1em 0 #000;
     text-align: center;
 }
@@ -450,13 +456,13 @@ h3 {
 .flex p:first-child {
     width: 35%;
     text-align: right;
-    margin: .5em;
+    margin: 0.5em;
 }
 
 .flex p:last-child {
     width: 55%;
     text-align: left;
-    margin: .5em;
+    margin: 0.5em;
     font-weight: bold;
 }
 
@@ -468,10 +474,11 @@ h3 {
     outline: none;
 }
 
-.flex > input, .flex > div {
+.flex > input,
+.flex > div {
     width: 55%;
     text-align: left;
-    margin: .5em;
+    margin: 0.5em;
 }
 
 .flex > div > input {

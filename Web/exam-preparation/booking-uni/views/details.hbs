@@ -16,7 +16,7 @@
 
             {{#if isOwner}}
                 <a href='/crud/edit/{{hotel._id}}' class='edit'>Edit</a>
-                <a href='/crud/delete' class='remove'>Delete</a>
+                <a href='/crud/delete/{{hotel._id}}' class='remove'>Delete</a>
             {{else}}
                 {{#if isBooked}}
             <p><span class='green'>You already have booked a room</span>

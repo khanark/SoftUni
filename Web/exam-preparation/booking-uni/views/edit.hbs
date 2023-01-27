@@ -1,5 +1,5 @@
-{{#with hotel}}
-    <section id='viewAddhotel'>
+<section id='viewAddhotel'>
+    {{#with hotel}}
         <h2>Edit existing hotel</h2>
         <form id='formAddhotel' action='/crud/edit/{{_id}}' method='post'>
             <label for='hotel'>Hotel name:</label>
@@ -18,5 +18,5 @@
 
             <input type='submit' class='create' value='Add' />
         </form>
-    </section>
-{{/with}}
+    {{/with}}
+</section>

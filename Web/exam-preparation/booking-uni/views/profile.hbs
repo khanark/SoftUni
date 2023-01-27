@@ -1,23 +1,20 @@
 <section id='viewhotelDetails'>
-    <div class='profile'><img
-            src='../static/img/profile.png'
-            alt='default user'
-        />
+    <div class='profile'><img src='/img/profile.png' alt='default user' />
         <h3>User Info:</h3>
         <div class='flex'>
             <p>Username: </p>
-            <p>Johny</p>
+            <p>{{body.username}}</p>
         </div>
         <div class='flex'>
             <p>Email: </p>
-            <p>john.doe@gmail.com</p>
+            <p>{{body.email}}</p>
         </div>
         <div class='flex'>
             <p>Reservations: </p>
             <p>
-                <span>Hilton Toronto, </span>
-                <span>Auckland Inn, </span>
-                <span>Hotel Berlin, </span>
+                {{#each body.bookedHotels}}
+                    <span>{{name}},</span>
+                {{/each}}
             </p>
         </div>
     </div>

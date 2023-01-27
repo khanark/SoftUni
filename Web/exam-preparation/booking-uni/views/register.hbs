@@ -1,14 +1,21 @@
 <section id='viewRegister'>
     <h2>Create your account:</h2>
-    <form id='formRegister' action="/auth/register" method="post">
+    <form id='formRegister' action='/auth/register' method='post'>
         <label for='email'>Email:</label>
-        <input type='text' id='email' name='email' placeholder='Email' />
+        <input
+            type='text'
+            id='email'
+            name='email'
+            placeholder='Email'
+            value='{{body.email}}'
+        />
         <label for='username'>Username:</label>
         <input
             type='text'
             id='username'
             name='username'
             placeholder='Enter your Username'
+            value='{{body.username}}'
         />
         <label for='password'>Password:</label>
         <input
