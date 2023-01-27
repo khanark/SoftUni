@@ -16,7 +16,17 @@ const userSchema = new Schema({
         required: [true, 'missing username'],
         unique: true,
     },
-    hashedPassword: { type: String, required: [true, 'missing password'] },
+    hashedPassword: {
+        type: String,
+        required: [true, 'missing password'],
+        minLength: [5, 'Password should be at least 5 characters long'],
+        validate: {
+            validator: function (val) {
+                return /[A-Za-z0-9]+/.test(val);
+            },
+            messages: 'Password should contain only alphanumeric',
+        },
+    },
     bookedHotels: [{ type: ObjectId, ref: 'Hotel' }],
 });
 
