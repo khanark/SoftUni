@@ -8,15 +8,20 @@ router.get('/', async (req, res) => {
     res.render('home', { hotels });
 });
 
-router.get('/details/:id', isGuest(), isOwner(getSingle), async (req, res) => {
+router.get('/details/:id', isGuest(), async (req, res) => {
     const hotel = await getSingle(req.params.id);
-    const isBooked = req.user?.bookedHotels
-        .map(h => h._id)
-        .includes(hotel._id.toString());
+
+    hotel.isBooked = hotel.bookings
+        .map(el => el._id.toString())
+        .includes(req.user.id);
+
+    hotel.isOwner = hotel.owner == req.user?.id;
+
     if (!hotel) {
         res.send('404 Not Found');
     }
-    res.render('details', { hotel, isBooked });
+    
+    res.render('details', { hotel });
 });
 
 module.exports = router;
