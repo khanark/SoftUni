@@ -7,8 +7,8 @@ const SECRET_KEY = 'dawd12312d12dwa';
 module.exports = {
     register,
     login,
+    getUserByIdAndBook,
     verifyToken,
-    bookHotel,
 };
 
 //TODO Check for the unique fields and if there are multiple set the index for all of them
@@ -44,10 +44,12 @@ async function register(email, username, password) {
 }
 
 async function login(username, password) {
-    const existing = await User.findOne({ username }).collation({
-        locale: 'en',
-        strength: 2,
-    }).populate("bookedHotels");
+    const existing = await User.findOne({ username })
+        .collation({
+            locale: 'en',
+            strength: 2,
+        })
+        .populate('bookedHotels');
     if (!existing) {
         throw new Error('Wrong username or password');
     }
@@ -56,6 +58,16 @@ async function login(username, password) {
     }
     const token = createSession(existing);
     return token;
+}
+
+async function getUserByIdAndBook(userId, hotelId) {
+    try {
+        const user = await User.findById(userId);
+        user.bookedHotels.push(hotelId);
+        user.save();
+    } catch (error) {
+        throw error;
+    }
 }
 
 function verifyToken(token) {
@@ -72,14 +84,4 @@ function createSession(user) {
     };
     const token = jwt.sign(payload, SECRET_KEY);
     return token;
-}
-
-async function bookHotel(hotelId, userId) {
-    try {
-        const user = await User.findById(userId);
-        user.bookedHotels.push(hotelId);
-        await user.save();
-    } catch (error) {
-        throw error;
-    }
 }
