@@ -11,9 +11,10 @@ const hotelSchema = new Schema({
     freeRooms: {
         type: Number,
         required: [true, 'rooms is required'],
-        min: 1,
-        max: 100,
+        min: [1, "Minimum number of rooms is 1"],
+        max: [100, "Maximum number of rooms is 100"],
     },
+    bookings: [{ type: ObjectId, ref: 'User' }],
     owner: { type: ObjectId, ref: 'User' },
 });
 
