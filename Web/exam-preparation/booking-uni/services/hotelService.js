@@ -7,6 +7,7 @@ module.exports = {
     deleteSingle,
     createHotel,
     updateHotel,
+    bookHotel,
 };
 
 async function getAll() {
@@ -14,7 +15,7 @@ async function getAll() {
 }
 
 async function getSingle(id) {
-    return await Hotel.findById(id).lean();
+    return await Hotel.findById(id).populate('bookings').lean();
 }
 
 async function deleteSingle(id) {
@@ -37,14 +38,23 @@ async function createHotel(data, id) {
 }
 
 async function updateHotel(data, id) {
-    const updateHotel = {
-        name: data.hotel,
-        city: data.city,
-        freeRooms: data['free-rooms'],
-        imageUrl: data.imageUrl,
-    };
     try {
-        await Hotel.findByIdAndUpdate(id, updateHotel);
+        const existing = await Hotel.findById(id)
+        existing.name = data.hotel
+        existing.city = data.city
+        existing.freeRooms = data['free-rooms']
+        existing.imageUrl = data.imgUrl
+        await existing.save()
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function bookHotel(hotelId, userId) {
+    try {
+        const hotel = await Hotel.findById(hotelId);
+        hotel.bookings.push(userId);
+        await hotel.save();
     } catch (error) {
         throw error;
     }
