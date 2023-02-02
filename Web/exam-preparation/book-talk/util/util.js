@@ -1,11 +1,8 @@
-module.exports = {
-    parseError,
-};
-
-function parseError(error) {
-    if (error.name == 'ValidationError') {
-        return Object.values(error.error).map(val => val.message);
-    } else {
-        return error.message.split('\n');
-    }
+function setCookieAndRedirect(location, response, token) {
+    response.cookie('token', token, { httpOnly: true });
+    response.redirect(location);
 }
+
+module.exports = {
+    setCookieAndRedirect,
+};
