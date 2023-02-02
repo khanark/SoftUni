@@ -1,17 +1,19 @@
 const { verifyToken } = require('../services/userService');
 
 module.exports = (req, res, next) => {
-    const token = req.cookies.token;
+  const token = req.cookies.token;
+  if (token) {
     try {
-        if (token) {
-            req.user = verifyToken(token);
-            res.locals = {
-                user: req.user || undefined,
-            };
-        }
+      const userData = verifyToken(token);
+      req.user = userData;
+      res.locals = {
+        user: req.user || undefined,
+      };
     } catch (error) {
-        res.clearCookie('token');
-        return res.redirect('/auth/login');
+      res.clearCookie();
+      res.redirect('/auth/login');
+      return;
     }
-    next();
+  }
+  next();
 };
