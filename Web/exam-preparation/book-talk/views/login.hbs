@@ -1,12 +1,12 @@
 <section class='login-form-container'>
 
-    <form action=''>
-        <h3>Login</h3>
-        <label>Email</label>
-        <input type='email' name='' class='box' id='' />
-        <label>Password</label>
-        <input type='password' name='' class='box' id='' />
-        <input type='submit' value='Login' class='btn' />
-        <p>Don't have an account ? <a href='#'>Create one</a></p>
-    </form>
+  <form action='/auth/login' method='post'>
+    <h3>Login</h3>
+    <label>Email</label>
+    <input type='email' name='email' class='box' id='email' />
+    <label>Password</label>
+    <input type='password' name='password' class='box' id='password' />
+    <input type='submit' value='Login' class='btn' />
+    <p>Don't have an account ? <a href='/auth/register'>Create one</a></p>
+  </form>
 </section>

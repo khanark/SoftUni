@@ -1,16 +1,16 @@
 <section class='register-form-container'>
 
-    <form action=''>
-        <h3>Register</h3>
-        <label>Email</label>
-        <input type='email' name='' class='box' id='' />
-        <label>Username</label>
-        <input type='text' name='' class='box' id='' />
-        <label>Password</label>
-        <input type='password' name='' class='box' id='' />
-        <label>Confirm Password</label>
-        <input type='password' name='' class='box' id='' />
-        <input type='submit' value='Register' class='btn' />
-        <p>Have an account ? <a href='#'>Click here</a></p>
-    </form>
+  <form action='/auth/register' method='post'>
+    <h3>Register</h3>
+    <label>Email</label>
+    <input type='email' name='email' class='box' id='email' />
+    <label>Username</label>
+    <input type='text' name='username' class='box' id='username' />
+    <label>Password</label>
+    <input type='password' name='password' class='box' id='password' />
+    <label>Confirm Password</label>
+    <input type='password' name='repass' class='box' id='repass' />
+    <input type='submit' value='Register' class='btn' />
+    <p>Have an account ? <a href='/auth/login'>Click here</a></p>
+  </form>
 </section>

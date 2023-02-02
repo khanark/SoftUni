@@ -1,30 +1,50 @@
 <section class='edit-form-container'>
-
-    <form action=''>
-        <h3>Edit Book Review</h3>
-        <label>Title</label>
-        <input
-            type='text'
-            name=''
-            class='box'
-            value="Harry Potter and the Philosopher's Stone"
-            id=''
-        />
-        <label>Author</label>
-        <input type='text' name='' class='box' value='JK Rowling' id='' />
-        <label>Genre</label>
-        <input type='text' name='' class='box' value='Fantasy' id='' />
-        <label>Stars</label>
-        <input type='number' name='' class='box' value='5' id='' />
-        <label>Image</label>
-        <input type='text' name='' class='box' value='http:...' id='' />
-        <label>Review</label>
-        <textarea class='box' name=''>Harry Potter and the Philosopher's Stone
-            is one of my favourite books in the Harry Potter series. Reading
-            this book has made me crazy about Harry Potter and I wish to be one
-            among the magical community. I can't imagine how thrilled I would be
-            if I get a letter from Dumbledore saying that I am admitted to
-            Hogwarts!!!!!!!</textarea>
-        <input type='submit' value='Edit' class='btn' />
+  {{#with data}}
+    <form method='post'>
+      <h3>Edit Book Review</h3>
+      <label>Title</label>
+      <input
+        type='text'
+        name='title'
+        class='box'
+        value='{{title}}'
+        id='title'
+      />
+      <label>Author</label>
+      <input
+        type='text'
+        name='author'
+        class='box'
+        value='{{author}}'
+        id='author'
+      />
+      <label>Genre</label>
+      <input
+        type='text'
+        name='genre'
+        class='box'
+        value='{{genre}}'
+        id='genre'
+      />
+      <label>Stars</label>
+      <input
+        type='number'
+        name='stars'
+        class='box'
+        value='{{stars}}'
+        id='stars'
+      />
+      <label>Image</label>
+      <input
+        type='text'
+        name='image'
+        class='box'
+        value='{{image}}'
+        id='image'
+      />
+      <label>Review</label>
+      <textarea class='box' name='review'>{{review}}</textarea>
+      <input type='submit' value='Edit' class='btn' />
     </form>
+  {{/with}}
 </section>
