@@ -5,23 +5,23 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Register Page - Crypto Web</title>
-    <link rel='stylesheet' href='./static/css/styles.css' />
+    <link rel='stylesheet' href='/css/styles.css' />
   </head>
 
   <body>
     <header class='header'>
       <nav>
-        <img src='./static/images/logo.png' class='logo' />
+        <img src='/images/logo.png' class='logo' />
         <ul>
-            <li><a href='/'>Home</a></li>
-            <li><a href='/home/catalog'>All Crypto</a></li>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/home/catalog'>All Crypto</a></li>
           {{#if user}}
-            <li><a href='/auth/login'>Login</a></li>
-            <li><a href='/auth/register'>Register</a></li>
-          {{else}}
             <li><a href='/home/create'>Create Offer</a></li>
             <li><a href='/home/search'>Search</a></li>
             <li><a href='/auth/logout'>Logout</a></li>
+          {{else}}
+            <li><a href='/auth/login'>Login</a></li>
+            <li><a href='/auth/register'>Register</a></li>
           {{/if}}
         </ul>
       </nav>
