@@ -20,20 +20,29 @@ async function register({ username, email, password }) {
     email,
     password,
   });
-  user.save();
-  const token = await createSession(user);
-  return token;
+  try {
+    user.save();
+    const token = await createSession(user);
+    return token;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function login({ email, password }) {
   const user = await User.findOne({ email }).lean();
-  if (!user) {
-    throw new Error('Wrong username or password');
-  }
-  const isValidPassword = await user.comparePassword(password);
-  if (isValidPassword) {
+  try {
+    if (!user) {
+      throw new Error('Wrong username or password');
+    }
+    const isValidPassword = await user.comparePassword(password);
+    if (!isValidPassword) {
+      throw new Erorr('Wrong username or password');
+    }
     const token = await createSession(user);
     return token;
+  } catch (error) {
+    throw error;
   }
 }
 
