@@ -1,12 +1,13 @@
 const User = require('../models/User');
+const util = require('util');
 const jsonwebtoken = require('jsonwebtoken');
 
 const SECRET_KEY = 'duwgadb123';
 
-const jtw = JSON.promisify({
-  sign: jsonwebtoken.sign,
-  verify: jsonwebtoken.verify,
-});
+const jtw = {
+  sign: util.promisify(jsonwebtoken.sign),
+  verify: util.promisify(jsonwebtoken.verify),
+};
 
 module.exports = {
   register,
