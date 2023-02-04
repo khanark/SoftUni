@@ -1,12 +1,12 @@
 <div class='coin'>
   <div class='coin-img'>
-    <img src='./static/images/bitcoin.png' />
+    <img src='{{image}}' />
   </div>
   <div class='coin-info'>
-    <h1>Bitcoin</h1>
-    <p><span>Price: </span>$31,166.71</p>
-    <p><span>Payment: </span>paypal</p>
+    <h1>{{name}}</h1>
+    <p><span>Price: </span>${{price}}</p>
+    <p><span>Payment: </span>{{payment}}</p>
   </div>
 
-  <a href='#' class='btn-details'>Details</a>
+  <a href='/crypto/{{_id}}/details' class='btn-details'>Details</a>
 </div>

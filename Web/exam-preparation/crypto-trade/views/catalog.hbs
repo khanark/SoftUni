@@ -2,10 +2,12 @@
   <h1><span>Crypto</span> Trade</h1>
   <div class='offer-list'>
     {{#each coins}}
-      {{>coin}}
+    {{>coin}}
+    {{else}}
+    <div class="no-offer">
+      <p>There are no crypto offers found!
+      <p>
+    </div>
     {{/each}}
   </div>
-  <!-- <div class="no-offer">
-                <p>There are no crypto offers found!</p>
-            </div> -->
 </section>

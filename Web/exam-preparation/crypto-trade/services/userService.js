@@ -21,7 +21,12 @@ async function register({ username, email, password }) {
     email,
     password,
   });
+  const existingUsername = await User.findOne({ username });
+  const existingEmail = await User.findOne({ email });
   try {
+    if (existingEmail || existingUsername) {
+      throw new Error('User already exists');
+    }
     user.save();
     const token = await createSession(user);
     return token;
@@ -31,14 +36,15 @@ async function register({ username, email, password }) {
 }
 
 async function login({ email, password }) {
-  const user = await User.findOne({ email }).lean();
+  const existing = await User.findOne({ email }).lean();
   try {
-    if (!user) {
+    if (!existing) {
       throw new Error('Wrong username or password');
     }
+    const user = new User(existing);
     const isValidPassword = await user.comparePassword(password);
     if (!isValidPassword) {
-      throw new Erorr('Wrong username or password');
+      throw new Error('Wrong username or password');
     }
     const token = await createSession(user);
     return token;

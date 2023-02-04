@@ -12,7 +12,7 @@ router.post('/login', async (req, res, next) => {
       throw new Error('Missing fields');
     }
     const token = await login(req.body);
-    res.cookie('token', token);
+    res.cookie('token', token, { httpOnly: true });
     res.redirect('/');
   } catch (error) {
     next(error);
@@ -32,7 +32,7 @@ router.post('/register', async (req, res, next) => {
       throw new Error('Passwords are not matching');
     }
     const token = await register(req.body);
-    res.cookie('token', token);
+    res.cookie('token', token, { httpOnly: true });
     res.redirect('/');
   } catch (error) {
     next(error);
