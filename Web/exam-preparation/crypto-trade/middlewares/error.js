@@ -1,6 +1,6 @@
 function errorParser(err) {
   if (err.name == 'ValidationError') {
-    return Object.values(err.error).map(val => val.message)[0];
+    return Object.values(err.errors).map(val => val.message)[0];
   } else {
     return err.message.split('\n')[0];
   }

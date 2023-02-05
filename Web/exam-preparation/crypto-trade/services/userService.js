@@ -27,7 +27,7 @@ async function register({ username, email, password }) {
     if (existingEmail || existingUsername) {
       throw new Error('User already exists');
     }
-    user.save();
+    await user.save();
     const token = await createSession(user);
     return token;
   } catch (error) {
