@@ -53,8 +53,9 @@ async function login({ email, password }) {
   }
 }
 
-async function createSession({ username, email }) {
+async function createSession({ username, email, _id }) {
   const payload = {
+    id: _id,
     username,
     email,
   };

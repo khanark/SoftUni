@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { login, register } = require('../services/userService');
 
 router.get('/login', (req, res) => {
-  console.log('I am inside this function');
   res.render('login');
 });
 

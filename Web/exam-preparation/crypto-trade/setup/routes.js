@@ -3,7 +3,7 @@ const {
   homeController,
   cryptoController,
 } = require('../controllers');
-const { session, trimmer, error } = require('../middlewares');
+const { session, trimmer, error, getData } = require('../middlewares');
 
 module.exports = app => {
   app.use(session());
@@ -11,7 +11,7 @@ module.exports = app => {
 
   app.use('/', homeController);
   app.use('/auth', authController);
-  app.use('/crypto/:id', cryptoController);
+  app.use('/crypto/:id', getData(), cryptoController);
 
   app.use(error());
 };

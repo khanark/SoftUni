@@ -19,6 +19,7 @@ async function getAllCrypto(query) {
 }
 
 async function addCrypto({ name, image, price, description, payment }, userId) {
+  console.log(userId);
   try {
     const coin = new Crypto({
       name,
@@ -28,7 +29,8 @@ async function addCrypto({ name, image, price, description, payment }, userId) {
       description,
       owner: userId,
     });
-    coin.save();
+    console.log(coin);
+    await coin.save();
   } catch (error) {
     throw error;
   }
