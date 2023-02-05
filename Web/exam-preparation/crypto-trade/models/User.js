@@ -6,15 +6,18 @@ const userSchema = new Schema({
     type: String,
     unique: true,
     required: [true, 'Missing username'],
+    minLength: [5, 'Username should be atleast 5 characters long'],
   },
   email: {
     type: String,
     unique: true,
     required: [true, 'Missing email'],
+    minLength: [10, 'Email should be atleast 10 characters long'],
   },
   password: {
     type: String,
     required: [true, 'Missing password'],
+    minLength: [4, 'Password should be atleast 4 characters long'],
   },
 });
 

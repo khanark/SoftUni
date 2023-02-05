@@ -8,7 +8,6 @@ function errorParser(err) {
 
 module.exports = () => {
   return (err, req, res, next) => {
-    console.log(err);
     const error = errorParser(err);
     res.render(req.url.slice(req.url.lastIndexOf('/') + 1), {
       data: req.body,
