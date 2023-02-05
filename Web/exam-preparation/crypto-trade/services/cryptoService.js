@@ -5,6 +5,7 @@ module.exports = {
   addCrypto,
   getSingleCoin,
   updateCoin,
+  deleteCoin,
 };
 
 async function getAllCrypto(query) {
@@ -55,3 +56,12 @@ async function updateCoin(id, { name, image, price, description, payment }) {
     throw error;
   }
 }
+
+async function deleteCoin(id) {
+  try {
+    await Crypto.findByIdAndRemove(id);
+  } catch (error) {
+    throw error;
+  }
+}
+

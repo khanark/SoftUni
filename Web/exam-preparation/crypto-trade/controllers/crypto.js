@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const { getSingleCoin, updateCoin } = require('../services/cryptoService');
+const {
+  getSingleCoin,
+  updateCoin,
+  deleteCoin,
+} = require('../services/cryptoService');
 
 router.get('/details', (req, res) => {
   res.render('details');
@@ -18,6 +22,16 @@ router.post('/edit', async (req, res, next) => {
     const { _id } = res.locals.coin;
     await updateCoin(_id, req.body);
     res.redirect(`/crypto/${_id}/details`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/delete', async (req, res, next) => {
+  const { _id } = res.locals.coin;
+  try {
+    await deleteCoin(_id);
+    res.redirect(`/home/catalog`);
   } catch (error) {
     next(error);
   }
