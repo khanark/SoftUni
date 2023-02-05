@@ -22,7 +22,7 @@
         {{#if coin.isBought}}
           <p class='buy-message'>You already bought these crypto coins.</p>
         {{else}}
-          <a href='#' class='btn-buy'>Buy</a>
+          <a href='/crypto/{{coin._id}}/buy' class='btn-buy'>Buy</a>
           <!-- Logged in user who has already buy this crypto-->
         {{/if}}
       {{/if}}

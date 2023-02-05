@@ -6,6 +6,7 @@ module.exports = {
   getSingleCoin,
   updateCoin,
   deleteCoin,
+  buyCoin,
 };
 
 async function getAllCrypto(query) {
@@ -65,3 +66,12 @@ async function deleteCoin(id) {
   }
 }
 
+async function buyCoin(coinId, userId) {
+  try {
+    const existing = await Crypto.findById(coinId);
+    existing.buyers.push(userId);
+    await existing.save();
+  } catch (error) {
+    throw error;
+  }
+}

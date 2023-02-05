@@ -3,6 +3,7 @@ const {
   getSingleCoin,
   updateCoin,
   deleteCoin,
+  buyCoin,
 } = require('../services/cryptoService');
 
 router.get('/details', (req, res) => {
@@ -32,6 +33,17 @@ router.get('/delete', async (req, res, next) => {
   try {
     await deleteCoin(_id);
     res.redirect(`/home/catalog`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/buy', async (req, res, next) => {
+  try {
+    const { _id: coinId } = res.locals.coin;
+    const userId = req.user?.id;
+    await buyCoin(coinId, userId);
+    res.redirect(`/crypto/${coinId}/details`);
   } catch (error) {
     next(error);
   }
