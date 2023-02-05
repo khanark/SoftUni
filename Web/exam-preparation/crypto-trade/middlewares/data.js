@@ -5,9 +5,7 @@ module.exports = () => {
     const coin = await getSingleCoin(req.params.id);
     if (coin && req.user) {
       coin.isOwner = coin.owner == req.user?.id;
-      console.log(req.user);
       coin.isLogged = req.user;
-      console.log(coin.isLogged);
       coin.isBought = Object.values(coin.buyers)
         .map(val => val.toString())
         .includes(req.user?.id);
