@@ -4,6 +4,7 @@ module.exports = {
   getAllCrypto,
   addCrypto,
   getSingleCoin,
+  updateCoin,
 };
 
 async function getAllCrypto(query) {
@@ -39,4 +40,18 @@ async function addCrypto({ name, image, price, description, payment }, userId) {
 async function getSingleCoin(id) {
   const coin = await Crypto.findById(id).lean();
   return coin;
+}
+
+async function updateCoin(id, { name, image, price, description, payment }) {
+  try {
+    const existing = await Crypto.findById(id);
+    existing.name = name;
+    existing.image = image;
+    existing.price = price;
+    existing.description = description;
+    existing.payment = payment;
+    await existing.save();
+  } catch (error) {
+    throw error;
+  }
 }
