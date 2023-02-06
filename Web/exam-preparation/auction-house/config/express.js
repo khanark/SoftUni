@@ -12,5 +12,5 @@ module.exports = app => {
   });
 
   app.engine('hbs', hbs.engine);
-  app.use('view engine', 'hbs');
+  app.set('view engine', 'hbs');
 };
