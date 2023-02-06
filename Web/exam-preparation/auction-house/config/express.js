@@ -7,6 +7,8 @@ module.exports = app => {
   app.use(express.static('static'));
   app.use(cookieParser());
 
+  // TODO: Add parser and session middlewares
+
   const hbs = handlebars.create({
     extname: 'hbs',
   });
