@@ -12,7 +12,9 @@ module.exports = {
 async function getAllCrypto(query) {
   const options = {};
   if (query?.search) {
-    options.name = query.search;
+    options.name = options.name
+      .toLocaleLowerCase()
+      .includes(query.search.toLocaleLowerCase());
   }
   if (query?.payment) {
     options.payment = query.payment;

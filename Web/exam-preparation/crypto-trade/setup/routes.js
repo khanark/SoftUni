@@ -15,15 +15,15 @@ module.exports = app => {
   app.use(session());
   app.use(trimmer());
 
-  app.use('/', isLogged("/", "search", "catalog"), homeController);
   app.use('/auth', authController);
   app.use(
     '/crypto/:id',
     getData(),
+    isOwner('details', 'buy'),
     isLogged('details'),
-    isOwner('details'),
     cryptoController
   );
+  app.use('/', isLogged('', 'search', 'catalog'), homeController);
   app.all('*', (req, res) => {
     res.render('404');
   });
