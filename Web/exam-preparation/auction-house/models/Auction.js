@@ -18,7 +18,7 @@ const auctionSchema = new Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Vehicles', 'Real Estate', 'Electronics', 'Furniture', 'Other'],
+    enum: ['estate', 'vehicles', 'furniture', 'electronics', 'other'],
   },
   price: {
     type: Number,

@@ -9,7 +9,6 @@ function parseError(err) {
 module.exports = () => {
   return (err, req, res, next) => {
     const errors = parseError(err);
-    console.log(errors);
     const path = req.url.slice(req.url.lastIndexOf('/') + 1);
     res.render(path, { body: req.body, errors });
   };

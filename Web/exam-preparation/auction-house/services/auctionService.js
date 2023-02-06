@@ -33,7 +33,7 @@ async function createAuction(
       image,
       description,
       price,
-      author: userId,
+      author: id,
     });
     await auction.save();
   } catch (error) {
