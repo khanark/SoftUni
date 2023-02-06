@@ -1,12 +1,17 @@
 // controllers go here
-const { homeController, authController } = require('../controllers');
-const { session, error } = require('../middlewares');
+const {
+  homeController,
+  authController,
+  auctionController,
+} = require('../controllers');
+const { session, error, data } = require('../middlewares');
 
 module.exports = app => {
   app.use(session());
 
   app.use('/', homeController);
   app.use('/auth', authController);
+  app.use('/auction/:id', data(), auctionController);
   app.all('*', (req, res) => {
     res.render('404');
   });

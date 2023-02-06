@@ -1,51 +1,52 @@
 {{#with auction}}
 
-<section id='catalog-section'>
+  <section id='catalog-section'>
 
-  <h1 class='item'>
-    {{title}}
-  </h1>
-  <div class='item padded'>
+    <h1 class='item'>
+      {{title}}
+    </h1>
+    <div class='item padded'>
 
-    <div class='layout right large'>
+      <div class='layout right large'>
 
-      <div class='col'>
-        <img src='{{image}}' class='img-large' />
-      </div>
+        <div class='col'>
+          <img src='{{image}}' class='img-large' />
+        </div>
 
-      <div class='content pad-med'>
+        <div class='content pad-med'>
 
-        <p>In category: <strong>Vehicles</strong></p>
-        <p>{{description}}</p>
+          <p>In category: <strong>Vehicles</strong></p>
+          <p>{{description}}</p>
 
-        <div class='align-center'>
-          <div>
-            Current price: $<strong>{{price}}</strong>
-          </div>
+          <div class='align-center'>
+            <div>
+              Current price: $<strong>{{price}}</strong>
+            </div>
 
-          <!-- If current user can place a bid -->
-          {{!-- TODO: Fix this logic later --}}
-          <form class='vertical' method='post' action='#'>
-            <label><span>Bid amount</span><input
-                type='number'
-                name=''
-              /></label>
-            <input class='action' type='submit' value='Place bid' />
-          </form>
+            <!-- If current user can place a bid -->
+            {{! TODO: Fix this logic later }}
+            <form class='vertical' method='post' action='#'>
+              <label><span>Bid amount</span><input
+                  type='number'
+                  name=''
+                /></label>
+              <input class='action' type='submit' value='Place bid' />
+            </form>
 
-          <!-- If current user is the bidder -->
-          <div>
-            You are currently the
-            <strong>highest bidder</strong>
-            for this auction
+            <!-- If current user is the bidder -->
+            <div>
+              You are currently the
+              <strong>highest bidder</strong>
+              for this auction
+            </div>
+
           </div>
 
         </div>
-
       </div>
+
+      <footer>Listed by Peter Jackson</footer>
     </div>
 
-    <footer>Listed by Peter Jackson</footer>
-  </div>
-
-</section>
+  </section>
+{{/with}}

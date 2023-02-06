@@ -16,6 +16,7 @@ async function getAll() {
 
 async function getSingle(id) {
   const data = await Auction.findById(id).lean();
+  return data;
 }
 
 async function deleteSingle(id) {

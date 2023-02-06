@@ -36,7 +36,6 @@ async function register({ email, password, firstName, lastName }) {
 }
 
 async function login({ email, password }) {
-  console.log(email, password);
   try {
     const user = await User.findOne({ email });
     if (!user) {

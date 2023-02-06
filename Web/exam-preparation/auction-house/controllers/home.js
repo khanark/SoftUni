@@ -21,7 +21,6 @@ router.post('/create', async (req, res, next) => {
     if (Object.values(req.body).some(val => val == '')) {
       throw new Error('Missing fields');
     }
-    console.log(req.body);
     await createAuction(req.user.id, req.body);
     res.redirect('/browse');
   } catch (error) {
