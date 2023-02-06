@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const dbName = '';
-const DATABASE_LINK = `mongodb://127.0.0.1:27017${dbName}`;
+const dbName = 'auction';
+const DATABASE_LINK = `mongodb://127.0.0.1:27017/${dbName}`;
 
 module.exports = async app => {
   mongoose.set('strictQuery', false);

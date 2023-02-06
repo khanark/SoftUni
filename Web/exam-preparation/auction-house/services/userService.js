@@ -1,6 +1,11 @@
-const User = require('../services/userService');
+const User = require('../models/User');
 const { hash, compare } = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
+const util = require('util');
+const jwt = {
+  sign: util.promisify(jsonwebtoken.sign),
+  verify: util.promisify(jsonwebtoken.verify),
+};
 
 const SECRET_KEY = 'dhauwdh123';
 
@@ -23,13 +28,15 @@ async function register({ email, password, firstName, lastName }) {
       lastName,
     });
     await user.save();
-    return createSession(user);
+    const token = await createSession(user);
+    return token;
   } catch (error) {
     throw error;
   }
 }
 
 async function login({ email, password }) {
+  console.log(email, password);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -39,27 +46,25 @@ async function login({ email, password }) {
     if (!isValidPassword) {
       throw new Error('Wrong username or password');
     }
-    return createSession(user);
+    const token = await createSession(user);
+    return token;
   } catch (error) {
     throw error;
   }
 }
 
-function createSession({ email, _id, firstName, lastName }) {
+async function createSession({ email, _id, firstName, lastName }) {
   const payload = {
     email,
     id: _id,
     firstName,
     lastName,
   };
-  return jtw.sing(
-    payload,
-    SECRET_KEY,
-    { expiresIn: '1h' },
-    (err, token) => token
-  );
+  const token = await jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+  return token;
 }
 
-function verifyToken(token) {
-  return jwt.verify(token, SECRET_KEY, (err, token) => token);
+async function verifyToken(token) {
+  const user = await jwt.verify(token, SECRET_KEY);
+  return user;
 }

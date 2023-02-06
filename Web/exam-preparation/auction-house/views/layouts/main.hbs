@@ -13,7 +13,7 @@
 
       <header>
         <a href='/' class='title-logo'>
-          <img src='/static/assets/logo.png' />
+          <img src='/assets/logo.png' />
           <span>Auction House</span>
         </a>
         <nav class='main-nav nav-mid'>
@@ -52,7 +52,7 @@
         {{! In case of error, display the following div }}
         {{#each errors}}
           <div class='error-box'>
-            <p>{{msg}}</p>
+            <p>{{this}}</p>
           </div>
         {{/each}}
         {{! each template goes here }}
