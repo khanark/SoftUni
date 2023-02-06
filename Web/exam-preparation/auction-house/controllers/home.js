@@ -1,13 +1,15 @@
-const { createAuction } = require('../services/auctionService');
+const { createAuction, getAll } = require('../services/auctionService');
 
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-  res.render('home');
+router.get('/', async (req, res) => {
+  const auctions = await getAll();
+  res.render('home', { auctions });
 });
 
-router.get('/browse', (req, res) => {
-  res.render('browse');
+router.get('/browse', async (req, res) => {
+  const auctions = await getAll();
+  res.render('browse', { auctions });
 });
 
 router.get('/create', (req, res) => {
