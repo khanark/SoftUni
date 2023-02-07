@@ -3,6 +3,7 @@ const Auction = require('../models/Auction');
 module.exports = {
   getAll,
   deleteSingle,
+  closeSingle,
   getSingle,
   updateAuction,
   createAuction,
@@ -21,10 +22,18 @@ async function getSingle(id) {
   return data;
 }
 
-async function deleteSingle(id) {
+async function closeSingle(id) {
   const auction = await Auction.findById(id);
   auction.closed = true;
   await auction.save();
+}
+
+async function deleteSingle(id) {
+  try {
+    await Auction.findByIdAndRemove(id);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function createAuction(

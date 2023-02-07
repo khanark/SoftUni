@@ -1,7 +1,9 @@
+const { Error } = require('mongoose');
 const {
   placeBid,
   updateAuction,
   deleteSingle,
+  closeSingle,
 } = require('../services/auctionService');
 
 const router = require('express').Router();
@@ -41,6 +43,15 @@ router.get('/delete', async (req, res, next) => {
   try {
     await deleteSingle(res.locals.auction._id);
     res.redirect('/browse');
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/close', async (req, res, next) => {
+  try {
+    await closeSingle(res.locals.auction._id);
+    res.redirect('/browse/closed');
   } catch (error) {
     next(error);
   }

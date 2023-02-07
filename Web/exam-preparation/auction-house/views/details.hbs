@@ -31,11 +31,11 @@
           {{#if isAuthor}}
           <div class="closed-auction">
             {{#if lastBidder}}
-            {{#with lastBidder}}
+            {{!-- {{#with lastBidder}} --}}
             Bid by:
-            <strong>{{firstName}} {{lastName}}</strong>
+            <strong>{{lastBidder.firstName}} {{lastBidder.lastName}}</strong>
             <a href="/auction/{{_id}}/close">Close Auction</a>
-            {{/with}}
+            {{!-- {{/with}} --}}
             {{else}}
             No bids
             {{/if}}
