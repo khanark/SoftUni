@@ -24,10 +24,10 @@
         <p>{{description}}</p>
 
         <div class='align-center'>
-          {{#if user}}
           <div>
             Current price: $<strong>{{price}}</strong>
           </div>
+          {{#if user}}
           {{#if isAuthor}}
           <div>
             {{#if lastBidder}}
@@ -48,15 +48,11 @@
           </div>
           {{else}}
           <form class='vertical' method='post' action='/auction/{{_id}}/bid'>
-            <label><span>Bid amount</span><input type='number' name='bidPrice' /></label>
+            <label><span>Bid amount</span><input type='number' name='bidPrice' value="{{bidPrice}}" /></label>
             <input class='action' type='submit' value='Place bid' />
           </form>
           {{/if}}
           {{/if}}
-          {{else}}
-          <div>
-            Current price: $<strong>{{price}}</strong>
-          </div>
           {{/if}}
 
         </div>

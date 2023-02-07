@@ -18,6 +18,7 @@ async function getAll(deleted = false) {
 
 async function getSingle(id) {
   const data = await Auction.findById(id).populate('author bidder').lean();
+  console.log(data);
   return data;
 }
 

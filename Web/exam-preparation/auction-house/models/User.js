@@ -4,7 +4,12 @@ const userSchema = new Schema({
   email: {
     type: String,
     require: true,
-    // TODO: Add regex validation for a valid email adress
+    validate: {
+      validator: function (val) {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val);
+      },
+      message: 'Invalid email address',
+    },
   },
   password: {
     type: String,
@@ -22,6 +27,18 @@ const userSchema = new Schema({
     minLength: [1, 'Last name should be atleast 1 characters long'],
   },
 });
+
+// make the email unique so nobody can create new user with the same value
+userSchema.index(
+  { email: 1 },
+  {
+    unique: true,
+    collation: {
+      locale: 'en',
+      strength: 2,
+    },
+  }
+);
 
 userSchema.methods.fullName = function () {
   return `${this.firstName} ${this.lastName}`;
