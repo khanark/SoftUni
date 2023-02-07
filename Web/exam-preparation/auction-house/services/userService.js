@@ -2,6 +2,7 @@ const User = require('../models/User');
 const { hash, compare } = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const util = require('util');
+
 const jwt = {
   sign: util.promisify(jsonwebtoken.sign),
   verify: util.promisify(jsonwebtoken.verify),
@@ -64,6 +65,6 @@ async function createSession({ email, _id, firstName, lastName }) {
 }
 
 async function verifyToken(token) {
-  const user = await jwt.verify(token, SECRET_KEY);
-  return user;
+  const existing = await jwt.verify(token, SECRET_KEY);
+  return existing;
 }

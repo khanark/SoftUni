@@ -15,7 +15,7 @@ async function getAll() {
 }
 
 async function getSingle(id) {
-  const data = await Auction.findById(id).lean();
+  const data = await Auction.findById(id).populate('author bidder').lean();
   return data;
 }
 
@@ -47,7 +47,7 @@ async function updateAuction(
   { title, category, image, price, description }
 ) {
   try {
-    const existing = this.getSingle(id);
+    const existing = await this.getSingle(id);
     existing.title = title;
     existing.category = category;
     existing.image = image;
@@ -59,11 +59,15 @@ async function updateAuction(
   }
 }
 
-async function placeBid(userId, auctionId) {
+async function placeBid(userId, auctionId, { bidPrice }) {
   try {
-    const auction = this.getSingle(auctionId);
+    const auction = await Auction.findById(auctionId);
+    if (bidPrice <= auction.price) {
+      throw new Error('The bid amount has to be more than the current price');
+    }
+    auction.price = Number(bidPrice);
     auction.bidder.push(userId);
-    auction.save();
+    await auction.save();
   } catch (error) {
     throw error;
   }

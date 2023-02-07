@@ -9,7 +9,11 @@ function parseError(err) {
 module.exports = () => {
   return (err, req, res, next) => {
     const errors = parseError(err);
-    const path = req.url.slice(req.url.lastIndexOf('/') + 1);
+    let path = req.url.slice(req.url.lastIndexOf('/') + 1);
+    if (path == 'bid') {
+      path = 'details';
+    }
+    console.log(req.body);
     res.render(path, { body: req.body, errors });
   };
 };

@@ -23,4 +23,8 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.methods.fullName = function () {
+  return `${this.firstName} ${this.lastName}`;
+};
+
 module.exports = model('User', userSchema);
