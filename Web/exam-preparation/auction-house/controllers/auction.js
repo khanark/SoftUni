@@ -1,4 +1,8 @@
-const { placeBid, updateAuction } = require('../services/auctionService');
+const {
+  placeBid,
+  updateAuction,
+  deleteSingle,
+} = require('../services/auctionService');
 
 const router = require('express').Router();
 
@@ -28,6 +32,15 @@ router.post('/edit', async (req, res, next) => {
     }
     await updateAuction(auctionId, req.body);
     res.redirect(`/auction/${auctionId}/details`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/delete', async (req, res, next) => {
+  try {
+    await deleteSingle(res.locals.auction._id);
+    res.redirect('/browse');
   } catch (error) {
     next(error);
   }

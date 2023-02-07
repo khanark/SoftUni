@@ -11,10 +11,6 @@
           <span>Category</span>
           <select name='category'>
             {{#each categories}}
-            {{!-- <option value='estate'>Real Estate</option>
-            <option value='vehicles'>Vehicles</option>
-            <option value='furniture'>Furniture</option>
-            <option value='electronics'>Electronics</option> --}}
             <option value='{{value}}' {{#if selected}}selected{{/if}}>{{label}}</option>
             {{/each}}
           </select>
