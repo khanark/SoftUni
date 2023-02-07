@@ -9,8 +9,10 @@ module.exports = {
   placeBid,
 };
 
-async function getAll() {
-  const data = await Auction.find().lean();
+async function getAll(deleted = false) {
+  let options = {};
+  deleted ? (options.deleted = true) : (options.deleted = false);
+  const data = await Auction.find(options).lean();
   return data;
 }
 
@@ -20,7 +22,9 @@ async function getSingle(id) {
 }
 
 async function deleteSingle(id) {
-  await Auction.findByIdAndRemove(id);
+  const auction = await Auction.findById(id);
+  auction.deleted = true;
+  await auction.save();
 }
 
 async function createAuction(
@@ -35,6 +39,7 @@ async function createAuction(
       description,
       price,
       author: id,
+      deleted: false,
     });
     await auction.save();
   } catch (error) {

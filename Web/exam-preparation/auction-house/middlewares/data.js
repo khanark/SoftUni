@@ -1,14 +1,14 @@
 const { getSingle } = require('../services/auctionService');
-const { mapCategories, mapSingleCategory } = require('../util/util');
+const { mapCategories } = require('../util/util');
 
 module.exports = () => {
   return async (req, res, next) => {
     const auction = await getSingle(req.params.id);
+    const { singleCategory, categories } = mapCategories(auction);
+    auction.categories = categories;
+    auction.category = singleCategory;
     if (req.user) {
-      auction.isLogged = Boolean(req.user);
       auction.isAuthor = auction.author._id == req.user?.id;
-      auction.categories = mapCategories(auction.category);
-      auction.category = mapSingleCategory(auction.category);
       auction.hasBid = Object.values(auction.bidder)
         .map(val => val._id.toString())
         .includes(req.user.id.toString());

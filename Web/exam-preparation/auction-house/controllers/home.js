@@ -12,6 +12,11 @@ router.get('/browse', async (req, res) => {
   res.render('browse', { auctions });
 });
 
+router.get('/browse/closed', async (req, res) => {
+  const closedAuctions = await getAll(true);
+  res.render('closed-auctions', { closedAuctions });
+});
+
 router.get('/create', (req, res) => {
   res.render('create');
 });

@@ -30,6 +30,9 @@ const auctionSchema = new Schema({
   },
   author: { type: ObjectId, required: true, ref: 'User' },
   bidder: [{ type: ObjectId, ref: 'User' }],
+  deleted: {
+    type: Boolean,
+  },
 });
 
 module.exports = model('Auction', auctionSchema);
