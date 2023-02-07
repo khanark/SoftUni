@@ -1,3 +1,4 @@
+{{#with auction}}
 <section id='create-section'>
   <h1 class='item'>Edit Auction</h1>
   <div class='item padded align-center'>
@@ -9,16 +10,18 @@
         <label>
           <span>Category</span>
           <select name='category'>
-            <option value='estate'>Real Estate</option>
+            {{#each categories}}
+            {{!-- <option value='estate'>Real Estate</option>
             <option value='vehicles'>Vehicles</option>
             <option value='furniture'>Furniture</option>
-            <option value='electronics'>Electronics</option>
-            <option value='other'>Other</option>
+            <option value='electronics'>Electronics</option> --}}
+            <option value='{{value}}' {{#if selected}}selected{{/if}}>{{label}}</option>
+            {{/each}}
           </select>
         </label>
         <label>
           <span>Image URL</span>
-          <input type='text' name='image' value='/assets/boat.jpg' />
+          <input type='text' name='image' value='{{image}}' />
         </label>
         <label>
           <span>Starting price</span>
@@ -38,3 +41,4 @@
     </form>
   </div>
 </section>
+{{/with}}

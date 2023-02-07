@@ -47,7 +47,7 @@ async function updateAuction(
   { title, category, image, price, description }
 ) {
   try {
-    const existing = await this.getSingle(id);
+    const existing = await Auction.findById(id);
     existing.title = title;
     existing.category = category;
     existing.image = image;
