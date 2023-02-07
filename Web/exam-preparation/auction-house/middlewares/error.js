@@ -1,5 +1,4 @@
 function parseError(err) {
-  console.log(err.name);
   if (err.name == 'ValidationError') {
     return Object.values(err.errors).map(val => val.message);
   } else if (err.name == 'MongoServerError') {
@@ -12,7 +11,6 @@ function parseError(err) {
 module.exports = () => {
   return (err, req, res, next) => {
     const errors = parseError(err);
-    console.log(errors);
     let path = req.url.slice(req.url.lastIndexOf('/') + 1);
     if (path == 'bid') {
       path = 'details';
