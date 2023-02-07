@@ -30,7 +30,7 @@ const auctionSchema = new Schema({
   },
   author: { type: ObjectId, required: true, ref: 'User' },
   bidder: [{ type: ObjectId, ref: 'User' }],
-  deleted: {
+  closed: {
     type: Boolean,
   },
 });

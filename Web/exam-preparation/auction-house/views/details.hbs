@@ -32,9 +32,9 @@
           <div class="closed-auction">
             {{#if lastBidder}}
             {{#with lastBidder}}
-            Bid by
+            Bid by:
             <strong>{{firstName}} {{lastName}}</strong>
-            <a href="auction/{{_id}}/close">Close Auction</a>
+            <a href="/auction/{{_id}}/close">Close Auction</a>
             {{/with}}
             {{else}}
             No bids

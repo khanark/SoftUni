@@ -80,7 +80,7 @@ html {
   margin-top: 2rem;
   background-color: #7d367d;
   padding: 5px 30px;
-  font-size: 15px;
+  font-size: inherit;
   color: white;
   text-decoration: none;
 }
