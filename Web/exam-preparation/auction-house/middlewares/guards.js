@@ -1,12 +1,29 @@
 module.exports = {
-  isLogged,
+  isGuest,
+  isAuthor,
+  isUser,
 };
 
-function isLogged(...params) {
+function isGuest(...params) {
   return (req, res, next) => {
     const path = req.url.slice(req.url.lastIndexOf('/') + 1);
-    if (!req.user || !params.includes(path)) {
+
+    if (params.includes(path) || req.user) {
+      next();
+    } else {
+      res.clearCookie('token');
       res.redirect('/auth/login');
+      return;
+    }
+  };
+}
+
+function isUser(...params) {
+  return (req, res, next) => {
+    const path = req.url.slice(req.url.lastIndexOf('/') + 1);
+    const isLogged = Boolean(req.user);
+    if (isLogged && !params.includes(path)) {
+      res.redirect('/');
     } else {
       next();
     }
@@ -15,13 +32,15 @@ function isLogged(...params) {
 
 // TODO: fix the isOwner logic for the routes
 
-// function isOwner(...params) {
-//   return (req, res, next) => {
-//     const path = req.url.slice(req.url.lastIndexOf('/') + 1);
-//     if (!req.user || !params.includes(path)) {
-//       res.redirect('/auth/login');
-//     } else {
-//       next();
-//     }
-//   }
-// }
+function isAuthor(...params) {
+  return (req, res, next) => {
+    const path = req.url.slice(req.url.lastIndexOf('/') + 1);
+    const { isAuthor } = res.locals.auction;
+
+    if (isAuthor || params.includes(path)) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  };
+}

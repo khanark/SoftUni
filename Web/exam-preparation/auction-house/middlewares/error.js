@@ -12,9 +12,11 @@ module.exports = () => {
   return (err, req, res, next) => {
     const errors = parseError(err);
     let path = req.url.slice(req.url.lastIndexOf('/') + 1);
+
     if (path == 'bid') {
       path = 'details';
     }
+
     res.render(path, { body: req.body, errors });
   };
 };
