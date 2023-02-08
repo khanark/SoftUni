@@ -1,4 +1,3 @@
-// controllers go here
 const {
   homeController,
   authController,
@@ -8,13 +7,16 @@ const {
   session,
   error,
   data,
+  trimmer,
   guards: { isGuest, isAuthor, isUser },
 } = require('../middlewares');
 
 module.exports = app => {
   app.use(session());
+  app.use(trimmer());
 
-  //IMPORTANT NOTE: DO NOT TOUCH THE ORDER!
+  //IMPORTANT NOTE: do NOT touch the order of the routes
+  // complexity of the routes in mind
 
   app.use(
     '/auction/:id',
@@ -30,6 +32,6 @@ module.exports = app => {
     res.render('404');
   });
 
-  // has to be last in order to get all the errors
+  //IMPORTANT NOTE: global error has to be last
   app.use(error());
 };
