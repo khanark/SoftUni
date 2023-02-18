@@ -20,7 +20,6 @@ router.post('/create', async (req, res) => {
     res.redirect('/catalog');
   } catch (error) {
     const err = parseError(error);
-    console.log(err);
     res.render('create', { err: err, body: req.body });
   }
 });

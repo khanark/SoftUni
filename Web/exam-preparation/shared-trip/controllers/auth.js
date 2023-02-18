@@ -16,10 +16,16 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  console.log(req.body);
   try {
     if (hasEmptyFields(req.body)) {
       throw new Error('Missing fields');
+    }
+    const { password, repass } = req.body;
+    if (password !== repass) {
+      throw new Error('Password missmatch');
+    }
+    if (password.length < 4) {
+      throw new Error('Password should be minimum 4 characters long');
     }
     const token = await register(req.body);
     res.cookie('token', token, { httpOnly: true });
