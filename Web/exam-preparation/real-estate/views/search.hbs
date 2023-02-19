@@ -1,0 +1,17 @@
+<form class="search" method="post">
+  <input type="search" name="type" value="{{body.type}}" placeholder="Search here...">
+  <button type="submit">Search</button>
+</form>
+<section id="find-section">
+
+  <!-- If there are any matching matches from the search, show each of them -->
+  {{#each houses}}
+  {{>catalog}}
+  {{else}}
+  <div class="no-data-listing">
+    <p class="no-offer">No match was found for the submitted type...</p>
+  </div>
+  {{/each}}
+
+  <!-- If there are no search matches, show: -->
+</section>
