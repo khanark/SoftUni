@@ -7,6 +7,7 @@ module.exports = {
   getSingle,
   updateTrip,
   joinTrip,
+  deleteTrip,
 };
 
 async function getAllTrips() {
@@ -57,4 +58,8 @@ async function createTrip(
   const user = await User.findById(userId);
   user.tripsHistory.push(trip);
   await user.save();
+}
+
+async function deleteTrip(id) {
+  await Trip.findByIdAndRemove(id);
 }
