@@ -13,6 +13,7 @@ module.exports = {
   register,
   login,
   verifyToken,
+  getUserInfo,
 };
 
 // TODO Check if register creates new session after the user registers
@@ -69,4 +70,10 @@ async function createSession({ email, username, _id }) {
 async function verifyToken(token) {
   const decoded = await jwt.verify(token, SECRET_KEY);
   return decoded;
+}
+
+async function getUserInfo(id) {
+  return User.findById(id)
+    .populate('tripsHistory', ['start', 'end', 'date', 'time'])
+    .lean();
 }

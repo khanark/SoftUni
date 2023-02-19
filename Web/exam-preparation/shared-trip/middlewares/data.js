@@ -11,6 +11,9 @@ module.exports = () => {
     data.hasJoined = Object.values(data.buddies)
       .map(val => val._id.toString())
       .some(val => val == userId);
+    data.tripBuddies = Object.values(data.buddies)
+      .map(val => val.email)
+      .join(', ');
     res.locals.trip = data;
     next();
   };

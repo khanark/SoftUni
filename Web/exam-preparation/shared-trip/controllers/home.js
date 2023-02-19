@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { isGuest } = require('../middlewares/guards');
 const { hasEmptyFields, parseError } = require('../util/util');
 const { getAllTrips, createTrip } = require('../services/tripService');
+const { getUserInfo } = require('../services/userService');
 
 router.get('/', (req, res) => {
   res.render('home');
@@ -27,6 +28,11 @@ router.post('/create', async (req, res) => {
 router.get('/catalog', async (req, res) => {
   const trips = await getAllTrips();
   res.render('catalog', { trips });
+});
+
+router.get('/profile', async (req, res) => {
+  const userInfo = await getUserInfo(res.locals.user.id);
+  userInfo.count = res.render('profile', { userInfo });
 });
 
 module.exports = router;
