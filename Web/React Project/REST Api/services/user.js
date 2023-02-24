@@ -18,6 +18,7 @@ module.exports = {
     uploadUserPhoto,
     findUser,
     banUser,
+    unbanUser,
     promoteUser,
     getUserInfo,
 };
@@ -68,20 +69,29 @@ async function login({ username, password }) {
     }
 }
 
-async function findUser({ username }) {
-    const user = User.findOne({ username }).lean();
-    return userViewModel(user);
-}
-
 async function getUserInfo(id) {
-    const user = await User.findById(id).lean();
+    const user = await User.findById(id);
     return userViewModel(user);
 }
 
-async function banUser(username, reason) {
+// returns array with all the users matching the search criteria
+async function findUser({ username }) {
+    const user = User.find({ username: new RegExp(username, 'i') });
+    return userViewModel(user);
+}
+
+async function banUser({ username }, { reason }) {
     const user = await User.findOne({ username });
     user.isBanned.status = true;
     user.isBanned.reason = reason;
+    await user.save();
+    return userViewModel(user);
+}
+
+async function unbanUser({ username }) {
+    const user = await User.findOne({ username });
+    user.isBanned.status = false;
+    delete user.isBanned.reason;
     await user.save();
     return userViewModel(user);
 }
