@@ -53,6 +53,18 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+// Edit user information [x]
+router.put('/:id', async (req, res, next) => {
+    // TODO: Implement the user edit
+    try {
+        await verifyToken(req.headers);
+        const user = await updateUser(req.params.id, req.body);
+        res.status(200).send(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // Upload user photo [x]
 router.patch('/:id/photo', upload.single('file'), async (req, res, next) => {
     try {
@@ -75,12 +87,6 @@ router.get('/user/', async (req, res) => {
     } catch (error) {
         next(error);
     }
-});
-
-router.put('/:id', async (req, res) => {
-    // TODO: Implement the user edit
-    try {
-    } catch (error) {}
 });
 
 module.exports = router;

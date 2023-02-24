@@ -93,7 +93,11 @@ async function promoteUser(username, role) {
 }
 
 async function updateUser(id, data) {
-    await User.findByIdAndUpdate(id, data, { runValidators: true });
+    await User.findByIdAndUpdate(id, data, {
+        runValidators: true,
+    });
+    const user = await User.findById(id);
+    return userViewModel(user);
 }
 
 async function uploadUserPhoto(id, { photo }) {
