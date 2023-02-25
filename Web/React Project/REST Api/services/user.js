@@ -26,13 +26,16 @@ module.exports = {
 
 async function register({ email, username, password }) {
     try {
+        if (!email || !username || !password) {
+            throw new Error('Missing fields', { cause: 400 });
+        }
         const existingEmail = await User.findOne({ email });
         const existingUsername = await User.findOne({ username });
         if (existingEmail) {
-            throw new Error('User already exists', { cause: 400 });
+            throw new Error('User already exists', { cause: 409 });
         }
         if (existingUsername) {
-            throw new Error('User already exists', { cause: 400 });
+            throw new Error('User already exists', { cause: 409 });
         }
         if (password.length < 4) {
             throw new Error('Password should be minimum 4 characters long', {
@@ -55,13 +58,16 @@ async function register({ email, username, password }) {
 
 async function login({ username, password }) {
     try {
+        if (!username || !password) {
+            throw new Error('Missing fields', { cause: 400 });
+        }
         const existing = await User.findOne({ username });
         if (!existing) {
-            throw new Error('Wrong username or password', { cause: 403 });
+            throw new Error('Wrong username or password', { cause: 401 });
         }
         const isValidPass = await compare(password, existing.password);
         if (!isValidPass) {
-            throw new Error('Wrong username or password', { cause: 403 });
+            throw new Error('Wrong username or password', { cause: 401 });
         }
         const token = await createToken(existing);
         return userViewModel(existing, token);
