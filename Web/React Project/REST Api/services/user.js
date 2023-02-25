@@ -70,7 +70,6 @@ async function login({ username, password }) {
     }
 }
 
-// TODO: Fix this functions [not working well, returns wrong error message when id isn't in the right format]
 async function getUserInfo(id) {
     if (!isValidObjectId(id)) {
         throw new Error("User doesn't exist in the database", { cause: 404 });

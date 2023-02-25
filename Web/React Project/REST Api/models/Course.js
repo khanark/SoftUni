@@ -25,6 +25,7 @@ const courseSchema = new Schema({
     isActive: {
         type: Boolean,
         required: true,
+        default: true,
     },
     price: {
         type: Number,

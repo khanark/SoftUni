@@ -1,6 +1,7 @@
 module.exports = {
     userViewModel,
     validateUser,
+    validateCourse,
 };
 
 function userViewModel(user, token) {
@@ -21,4 +22,11 @@ function validateUser(user) {
         throw new Error("User doesn't exist in the database", { cause: 404 });
     }
     return userViewModel(user);
+}
+
+function validateCourse(course) {
+    if (!course) {
+        throw new Error("Course doesn't exist in the database", { cause: 404 });
+    }
+    return course;
 }
