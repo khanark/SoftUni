@@ -9,7 +9,6 @@ const {
     banUser,
 } = require('../services/user');
 const upload = require('../middlewares/upload');
-// const { userViewModel } = require('../util/util');
 
 const router = require('express').Router();
 
@@ -45,23 +44,23 @@ router.get('/logout', async (req, res, next) => {
 });
 
 // *** READ REQUESTS ***
+// Admin and administrator can search for user [x]
+router.get('/search', async (req, res, next) => {
+    try {
+        await verifyToken(req.headers);
+        const matchingUsers = await findUser(req.query);
+        res.status(200).json(matchingUsers);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // Single user with ID [x]
 router.get('/:id', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
         const user = await getUserInfo(req.params.id);
         res.status(200).json(user);
-    } catch (error) {
-        next(error);
-    }
-});
-
-// Admin and administrator can search for user []
-router.get('/search', async (req, res) => {
-    try {
-        await verifyToken(req.headers);
-        const matchingUsers = await findUser(req.query);
-        res.status(200).json(matchingUsers);
     } catch (error) {
         next(error);
     }

@@ -80,15 +80,16 @@ async function getUserInfo(id) {
     if (!isValidObjectId(id)) {
         throw new Error("User doesn't exist in the database", { cause: 404 });
     }
-    const user = await User.findById(id);
+    const user = await User.findById(id).lean();
     return validateUser(user);
 }
 
 // returns array with all the users matching the search criteria
 async function findUser({ username }) {
-    const user = User.find({ username: new RegExp(username, 'i') });
-    return validateUser(user);
-    // return userViewModel(user);
+    const user = await User.find({
+        username: new RegExp(username, 'i'),
+    }).lean();
+    return user;
 }
 
 async function banUser({ username }, { reason }) {
