@@ -24,8 +24,7 @@ const courseSchema = new Schema({
     },
     isActive: {
         type: Boolean,
-        required: true,
-        default: true,
+        default: false,
     },
     price: {
         type: Number,
@@ -41,9 +40,10 @@ const courseSchema = new Schema({
     image: {
         type: String,
         required: true,
-        match: [, 'Course description should be minimum 10 characters long'],
+        match: [/^https?:\/\//, 'Invalid image format'],
     },
     creator: { type: ObjectId, ref: 'User' },
+    mentor: { type: ObjectId, ref: 'User' },
     appliedUsers: [{ type: ObjectId, ref: 'User' }],
 });
 

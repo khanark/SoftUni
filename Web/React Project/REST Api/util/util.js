@@ -18,14 +18,14 @@ function userViewModel(user, token) {
 }
 
 function validateUser(user) {
-    if (!user) {
+    if (!Boolean(user)) {
         throw new Error("User doesn't exist in the database", { cause: 404 });
     }
     return userViewModel(user);
 }
 
 function validateCourse(course) {
-    if (!course) {
+    if (!Boolean(course)) {
         throw new Error("Course doesn't exist in the database", { cause: 404 });
     }
     return course;

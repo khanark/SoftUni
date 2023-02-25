@@ -23,7 +23,7 @@ async function getSingleCourse(id) {
 }
 
 async function createCourse(
-    { title, description, image, experience, startDate },
+    { title, description, image, experience, startDate, price },
     creator
 ) {
     const course = new Course({
@@ -32,13 +32,15 @@ async function createCourse(
         image,
         experience,
         startDate,
+        price,
         creator: creator,
     });
     await course.save();
     return validateCourse(course);
 }
 
-async function updateCourse(id) {
+async function updateCourse(id, data) {
+    await Course.findByIdAndUpdate(id, data, { runValidators: true });
     const course = await Course.findById(id)
         .populate('appliedUsers', ['username'])
         .lean();
@@ -51,7 +53,7 @@ async function deleteCourse(id) {
 
 async function startCourse(id) {
     const course = await Course.findById(id);
-    course.isActive = false;
+    course.isActive = true;
     course.save();
     return validateCourse(course);
 }
