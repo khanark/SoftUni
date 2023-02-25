@@ -89,7 +89,7 @@ async function findUser({ username }) {
     const user = await User.find({
         username: new RegExp(username, 'i'),
     }).lean();
-    return user;
+    return validateUser(user);
 }
 
 async function banUser({ username }, { reason }) {
