@@ -2,7 +2,8 @@ const User = require('../models/User');
 const { hash, compare } = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const util = require('util');
-const { userViewModel } = require('../util/util');
+const { isValidObjectId } = require('mongoose');
+const { userViewModel, validateUser } = require('../util/util');
 const jwt = {
     sign: util.promisify(jsonwebtoken.sign),
     verify: util.promisify(jsonwebtoken.verify),
@@ -69,15 +70,20 @@ async function login({ username, password }) {
     }
 }
 
+// TODO: Fix this functions [not working well, returns wrong error message when id isn't in the right format]
 async function getUserInfo(id) {
+    if (!isValidObjectId(id)) {
+        throw new Error("User doesn't exist in the database", { cause: 404 });
+    }
     const user = await User.findById(id);
-    return userViewModel(user);
+    return validateUser(user);
 }
 
 // returns array with all the users matching the search criteria
 async function findUser({ username }) {
     const user = User.find({ username: new RegExp(username, 'i') });
-    return userViewModel(user);
+    return validateUser(user);
+    // return userViewModel(user);
 }
 
 async function banUser({ username }, { reason }) {
@@ -92,6 +98,7 @@ async function unbanUser({ username }) {
     const user = await User.findOne({ username });
     user.isBanned.status = false;
     delete user.isBanned.reason;
+    ``;
     await user.save();
     return userViewModel(user);
 }

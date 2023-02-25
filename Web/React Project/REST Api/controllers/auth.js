@@ -50,20 +50,18 @@ router.get('/:id', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
         const user = await getUserInfo(req.params.id);
-        res.status(200).send(user);
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }
 });
 
 // Admin and administrator can search for user []
-router.get('/user', async (req, res) => {
+router.get('/search', async (req, res) => {
     try {
-        // !FIX This controller is not working
-        res.send('this is working');
         await verifyToken(req.headers);
-        const matchingUser = await findUser(req.query);
-        res.status(200).send(matchingUser);
+        const matchingUsers = await findUser(req.query);
+        res.status(200).json(matchingUsers);
     } catch (error) {
         next(error);
     }
@@ -75,17 +73,18 @@ router.put('/:id', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
         const user = await updateUser(req.params.id, req.body);
-        res.status(200).send(user);
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }
 });
 
-// Bann user with username []
-router.delete('/user', async (req, res, next) => {
+// Ban user with username []
+router.delete('/', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
-        await banUser(req.query, req.body);
+        const user = await banUser(req.query, req.body);
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }

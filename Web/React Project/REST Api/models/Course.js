@@ -1,4 +1,8 @@
-const { model, Schema, Types: ObjectId } = require('mongoose');
+const {
+    model,
+    Schema,
+    Types: { ObjectId },
+} = require('mongoose');
 
 const courseSchema = new Schema({
     title: {
@@ -21,6 +25,17 @@ const courseSchema = new Schema({
     isActive: {
         type: Boolean,
         required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: [20, 'Price should be minimum 20'],
+        max: [500, 'Price should be maximum 500'],
+    },
+    experience: {
+        type: String,
+        required: true,
+        enum: ['Novice', 'Intermediate', 'Advanced', 'Expert'],
     },
     image: {
         type: String,

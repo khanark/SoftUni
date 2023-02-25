@@ -1,11 +1,20 @@
-const { model, Schema, Types: ObjectId } = require('mongoose');
+const {
+    model,
+    Schema,
+    isValidObjectId,
+    Types: { ObjectId },
+} = require('mongoose');
 
 // email, username, password, role
 
 const userSchema = new Schema({
+    _id: {
+        type: ObjectId, // define _id property as an ObjectId type
+        required: true,
+    },
     email: {
         type: String,
-        requered: true,
+        required: true,
         match: [
             /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}/,
             'Invalid email format',
@@ -27,7 +36,7 @@ const userSchema = new Schema({
         default: 'user',
     },
     photo: { type: String },
-    // appliedCourses: [{ type: ObjectId, ref: 'Course' }],
+    appliedCourses: [{ type: ObjectId, ref: 'Course' }],
 });
 
 module.exports = model('User', userSchema);
