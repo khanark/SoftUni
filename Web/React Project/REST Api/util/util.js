@@ -5,6 +5,16 @@ module.exports = {
 };
 
 function userViewModel(user, token) {
+    if (Array.isArray(user)) {
+        return user.map(singleUser => {
+            const { _id, username, email, isBanned, role, photo, token } =
+                singleUser;
+            return Object.assign(
+                {},
+                { _id, username, email, isBanned, role, photo, token }
+            );
+        });
+    }
     const { _id, username, email, isBanned, role, photo } = user;
     return {
         _id,
