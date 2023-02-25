@@ -28,7 +28,11 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     isBanned: {
         status: { type: Boolean, default: false },
-        reason: { type: String },
+        reason: {
+            type: String,
+            required: true,
+            minlength: [10, 'Ban reason should be minimum 10 characters long'],
+        },
     },
     role: {
         type: String,
