@@ -101,6 +101,9 @@ async function banUser({ username }, { reason }) {
 }
 
 async function unbanUser({ username }) {
+    if (user.role != 'admin' || user.role != 'administrator') {
+        throw new Error('No permissions', { cause: 403 });
+    }
     const user = validateUser(await User.findOne({ username }));
     user.isBanned.status = false;
     delete user.isBanned.reason;
@@ -109,6 +112,9 @@ async function unbanUser({ username }) {
 }
 
 async function promoteUser({ username }, { role }) {
+    if (user.role != 'admin') {
+        throw new Error('No permissions', { cause: 403 });
+    }
     const user = validateUser(await User.findOne({ username }));
     user.role = role;
     await user.save();
