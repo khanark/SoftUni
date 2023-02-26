@@ -31,7 +31,7 @@ function validateUser(user) {
     if (!Boolean(user)) {
         throw new Error("User doesn't exist in the database", { cause: 404 });
     }
-    return userViewModel(user);
+    return user;
 }
 
 function validateCourse(course) {

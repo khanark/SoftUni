@@ -93,7 +93,7 @@ async function findUser({ username }) {
 }
 
 async function banUser({ username }, { reason }) {
-    const user = await User.findOne({ username });
+    const user = validateUser(await User.findOne({ username }));
     user.isBanned.status = true;
     user.isBanned.reason = reason;
     await user.save();
@@ -101,18 +101,18 @@ async function banUser({ username }, { reason }) {
 }
 
 async function unbanUser({ username }) {
-    const user = await User.findOne({ username });
+    const user = validateUser(await User.findOne({ username }));
     user.isBanned.status = false;
     delete user.isBanned.reason;
-    ``;
     await user.save();
     return userViewModel(user);
 }
 
-async function promoteUser(username, role) {
-    const user = await User.findOne({ username });
+async function promoteUser({ username }, { role }) {
+    const user = validateUser(await User.findOne({ username }));
     user.role = role;
     await user.save();
+    return userViewModel(user);
 }
 
 async function updateUser(id, data) {
@@ -120,14 +120,14 @@ async function updateUser(id, data) {
         runValidators: true,
     });
     const user = await User.findById(id);
-    return userViewModel(user);
+    return validateUser(user);
 }
 
 async function uploadUserPhoto(id, { photo }) {
     const user = await User.findById(id);
     user.photo = photo;
     await user.save();
-    return userViewModel(user);
+    return validateUser(user);
 }
 
 async function createToken({ email, username, _id, role, isBanned }) {
@@ -138,7 +138,7 @@ async function createToken({ email, username, _id, role, isBanned }) {
         role,
         isBanned,
     };
-    return jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' });
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' });
 }
 
 async function verifyToken(headers) {

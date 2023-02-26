@@ -30,13 +30,13 @@ const userSchema = new Schema({
         status: { type: Boolean, default: false },
         reason: {
             type: String,
-            required: true,
             minlength: [10, 'Ban reason should be minimum 10 characters long'],
         },
     },
     role: {
         type: String,
-        enum: ['admin', 'moderator', 'user', 'mentor', 'Invalid role'],
+        required: true,
+        enum: ['admin', 'moderator', 'user', 'mentor'],
         default: 'user',
     },
     photo: { type: String },

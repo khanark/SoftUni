@@ -7,6 +7,8 @@ const {
     getUserInfo,
     findUser,
     banUser,
+    unbanUser,
+    promoteUser,
 } = require('../services/user');
 const upload = require('../middlewares/upload');
 
@@ -44,6 +46,17 @@ router.get('/logout', async (req, res, next) => {
 });
 
 // *** READ REQUESTS ***
+// promote user [x]
+router.get('/role', async (req, res, next) => {
+    try {
+        await verifyToken(req.headers);
+        const user = await promoteUser(req.query, req.body);
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // Admin and administrator can search for user [x]
 router.get('/search', async (req, res, next) => {
     try {
@@ -78,11 +91,22 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-// Ban user with username []
+// Ban user with username [x]
 router.delete('/', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
         const user = await banUser(req.query, req.body);
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Unban user with username [x]
+router.patch('/', async (req, res, next) => {
+    try {
+        await verifyToken(req.headers);
+        const user = await unbanUser(req.query);
         res.status(200).json(user);
     } catch (error) {
         next(error);
