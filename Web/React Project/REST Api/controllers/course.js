@@ -8,6 +8,7 @@ const {
 } = require('../services/course');
 const { isValidObjectId } = require('mongoose');
 const { verifyToken } = require('../services/user');
+const { validateUserRole } = require('../util/util');
 
 const router = require('express').Router();
 
@@ -72,7 +73,8 @@ router.delete('/:id', async (req, res, next) => {
                 cause: 404,
             });
         }
-        await verifyToken(req.headers);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'admin');
         await deleteCourse(id);
         res.status(200).json({
             message: `Course with id: ${id} successfully deleted`,
@@ -90,7 +92,8 @@ router.patch('/:id', async (req, res, next) => {
                 cause: 404,
             });
         }
-        await verifyToken(req.headers);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'mentor');
         const course = await startCourse(id);
         res.status(200).json(course);
     } catch (error) {
