@@ -11,6 +11,7 @@ const {
     promoteUser,
 } = require('../services/user');
 const upload = require('../middlewares/upload');
+const { validateUserRole } = require('../util/util');
 
 const router = require('express').Router();
 
@@ -46,12 +47,13 @@ router.get('/logout', async (req, res, next) => {
 });
 
 // *** READ REQUESTS ***
-// promote user [x]
+// promote user [x] (only admins can promote users)
 router.get('/role', async (req, res, next) => {
     try {
-        await verifyToken(req.headers);
-        const user = await promoteUser(req.query, req.body);
-        res.status(200).json(user);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'admin');
+        const promotedUser = await promoteUser(req.query, req.body);
+        res.status(200).json(promotedUser);
     } catch (error) {
         next(error);
     }
@@ -60,7 +62,8 @@ router.get('/role', async (req, res, next) => {
 // Admin and administrator can search for user [x]
 router.get('/search', async (req, res, next) => {
     try {
-        await verifyToken(req.headers);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'admin', 'administrator');
         const matchingUsers = await findUser(req.query);
         res.status(200).json(matchingUsers);
     } catch (error) {
@@ -68,7 +71,7 @@ router.get('/search', async (req, res, next) => {
     }
 });
 
-// Single user with ID [x]
+// Single user with ID [x] (everybody)
 router.get('/:id', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
@@ -80,7 +83,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // *** UPDATE & DELETE REQUESTS ***
-// Edit user information [x]
+// Edit user information [x] (everybody)
 router.put('/:id', async (req, res, next) => {
     try {
         await verifyToken(req.headers);
@@ -91,29 +94,31 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-// Ban user with username [x]
+// Ban user with username [x] (admin & administrator)
 router.delete('/', async (req, res, next) => {
     try {
-        await verifyToken(req.headers);
-        const user = await banUser(req.query, req.body);
-        res.status(200).json(user);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'admin', 'administrator');
+        const bannedUser = await banUser(req.query, req.body);
+        res.status(200).json(bannedUser);
     } catch (error) {
         next(error);
     }
 });
 
-// Unban user with username [x]
+// Unban user with username [x] (admin & administrator)
 router.patch('/', async (req, res, next) => {
     try {
-        await verifyToken(req.headers);
-        const user = await unbanUser(req.query);
-        res.status(200).json(user);
+        const user = await verifyToken(req.headers);
+        validateUserRole(user.role, 'admin', 'administrator');
+        const unbannedUser = await unbanUser(req.query);
+        res.status(200).json(unbannedUser);
     } catch (error) {
         next(error);
     }
 });
 
-// Upload user photo [x]
+// Upload user photo [x] (everybody)
 router.patch('/:id/photo', upload.single('file'), async (req, res, next) => {
     try {
         await verifyToken(req.headers);
