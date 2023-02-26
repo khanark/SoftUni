@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const { hash, compare } = require('bcrypt');
+const fs = require('fs/promises');
 const jsonwebtoken = require('jsonwebtoken');
 const util = require('util');
 const { isValidObjectId } = require('mongoose');
@@ -123,11 +124,11 @@ async function updateUser(id, data) {
     return validateUser(user);
 }
 
-async function uploadUserPhoto(id, { photo }) {
-    const user = await User.findById(id);
-    user.photo = photo;
+async function uploadUserPhoto(id, photo) {
+    const user = validateUser(await User.findById(id));
+    user.photo = `/public/user_photos/${photo}`;
     await user.save();
-    return validateUser(user);
+    return userViewModel(user);
 }
 
 async function createToken({ email, username, _id, role, isBanned }) {

@@ -121,9 +121,15 @@ router.patch('/', async (req, res, next) => {
 // Upload user photo [x] (everybody)
 router.patch('/:id/photo', upload.single('file'), async (req, res, next) => {
     try {
-        await verifyToken(req.headers);
-        const user = await uploadUserPhoto(req.params.id, req.body);
-        res.status(200).json(user);
+        const user = await verifyToken(req.headers);
+        if (user._id != req.params.id) {
+            throw new Error('No permissions', { cause: 401 });
+        }
+        const editedUser = await uploadUserPhoto(
+            req.params.id,
+            req.file.originalname
+        );
+        res.status(200).json(editedUser);
     } catch (error) {
         next(error);
     }
