@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url("./reset.css");
+
+:root {
+  --clr-primary: #819dae;
+  --clr-secondary: #337fc1;
+  --clr-white: #fff;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.section {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section .header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.section .header .heading {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.section .header .heading .services {
+  color: var(--clr-secondary);
+}
+
+.section .header .info {
+  font-size: 14px;
+}
+
+.section .features,
+.section .features .feature .feature-info {
+  display: flex;
+  gap: 20px;
+}
+
+.section .features {
+  justify-content: center;
+}
+
+.section .features .feature {
+  width: 30%;
+  background-color: var(--clr-primary);
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.section .features .feature .feature-img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.section .features .feature .feature-info {
+  flex-direction: column;
+  padding: 1rem 1rem;
+}
+
+.section .features .feature .feature-info .feature-heading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section .features .feature .feature-info .feature-paragraph {
+  font-size: 14px;
+}
+
+.section .features .feature .feature-info .btn {
+  display: block;
+  border: 1px solid white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background-color: var(--clr-secondary);
+  color: var(--clr-white);
+  width: 120px;
+}
