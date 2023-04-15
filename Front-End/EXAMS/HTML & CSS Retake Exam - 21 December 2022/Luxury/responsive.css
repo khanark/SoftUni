@@ -1,0 +1,11 @@
+@media screen and (max-width: 600px) {
+  .options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .options article {
+    width: 100%;
+    text-align: center;
+  }
+}
